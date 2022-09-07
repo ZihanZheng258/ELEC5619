@@ -26,4 +26,61 @@
 ### Less configuration support
 - In the React scaffold configuration environment, it support CSS and Sass/ Scss in default, thus need to configure Less by ourselves
 1. npm run eject
-2. 
+2. install the dependency
+```js
+npm install --save-dev less less-loader
+```
+3. change the configuration file
+```js
+// configuration 1
+const lessRegex = /\.less$/;
+const lessModuleRegex = /\.module\.less$/;
+
+// configuration 2
+{
+    test: lessRegex,
+        exclude: lessModuleRegex,
+    use: getStyleLoaders(
+    {
+        importLoaders: 3,
+        sourceMap: isEnvProduction
+            ? shouldUseSourceMap
+            : isEnvDevelopment,
+        modules: {
+            mode: 'icss',
+        },
+    },
+    'less-loader'
+),
+
+    sideEffects: true,
+},
+{
+    test: lessModuleRegex,
+        use: getStyleLoaders(
+    {
+        importLoaders: 3,
+        sourceMap: isEnvProduction
+            ? shouldUseSourceMap
+            : isEnvDevelopment,
+        modules: {
+            mode: 'local',
+            getLocalIdent: getCSSModuleLocalIdent,
+        },
+    },
+    'less-loader'
+),
+},
+```
+
+### condigure network request
+1. install dependency
+```js
+npm install --save axios
+```
+2. configure related files
+- request.js
+
+### condigure initialization styles
+1. initialization css files
+2. import font css
