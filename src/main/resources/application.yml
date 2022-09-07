@@ -5,9 +5,9 @@ spring:
 
 
   datasource:
-    url: jdbc:mysql://localhost:3306/studentForum?serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/elec_studentforum?serverTimezone=UTC
     username: root
-    password: 0000****
+    password: hjkk445998
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
