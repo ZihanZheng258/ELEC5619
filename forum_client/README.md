@@ -84,3 +84,8 @@ npm install --save axios
 ### condigure initialization styles
 1. initialization css files
 2. import font css
+
+
+### Home page development 
+1. Create Page Home
+2. Create the router
