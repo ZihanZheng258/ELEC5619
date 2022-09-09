@@ -5,21 +5,14 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
 
 
-public interface CategoryDao {
+public interface CategoryDao extends JpaRepository<Category,Integer>, JpaSpecificationExecutor<Category> {
 
+    public Long deleteByContent(String Content);
 
-    public Category getCategoryByID(@Param("id") int id);
-
-
-    public void addCategory(Category category);
-
-    public void deleteCategoryById(int id);
-
-    public void UpdateCategory(Category category);
-
-    public List<Category> getAllCategory();
 }

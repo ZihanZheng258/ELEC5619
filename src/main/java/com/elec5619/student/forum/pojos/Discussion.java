@@ -1,8 +1,10 @@
 package com.elec5619.student.forum.pojos;
 
 import lombok.Data;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,19 +28,22 @@ public class Discussion {
     @Column(name = "view_number")
     private int view_number;
 
-    @Column(name = "category_id")
-    private int categoryID;
-
-    @Column(name = "owner_id")
-    private int OwnerID;
-
     @Column(name = "like_number")
     private int likeNumber;
 
     @Column(name = "create_date")
+    @CreatedDate
     private Date create_date;
 
-    @Transient
-    private List<Comment> commentList;
+    @OneToMany(mappedBy = "discussion",fetch = FetchType.LAZY)
+    private List<Comment> Comments = new ArrayList<>();
+
+    @ManyToOne(targetEntity = Category.class,fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    @ManyToOne(targetEntity = User.class,fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
+    private User user;
 
 }
