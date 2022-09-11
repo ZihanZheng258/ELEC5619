@@ -15,7 +15,7 @@
 4. detail page
 5. comment/ likes
 6. personal profile
-7.
+7. 
 
 ### Environment construct
 1. Project environment: create-react-app (Use react scaffold to construct react project structure)
@@ -81,11 +81,14 @@ npm install --save axios
 2. configure related files
 - request.js
 
-### condigure initialization styles
-1. initialization css files
-2. import font css
+### configure initialization styles
+1. initialization css files -- https://icomoon.io/
+2. import font css 
 
 
 ### Home page development 
 1. Create Page Home
 2. Create the router
+   - Install dependency: npm intsall --save react-router-dom
+   - Configure AppRouter file
+
