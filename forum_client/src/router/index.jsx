@@ -5,12 +5,13 @@ import User from '../pages/User'
 import Note from '../pages/Note'
 import Discussion from '../pages/Discussion'
 import BottomNav from "../components/BottomNav";
-
+import SidebarMenu from "../components/SidebarMenu";
 
 
 const AppRouter = () =>{
     return(
         <BrowserRouter>
+            <SidebarMenu/>
             <BottomNav/>
             <Routes>
                 {/*In V6, you can't use the component prop anymore. It was replaced in favor of element:*/}

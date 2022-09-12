@@ -13,6 +13,7 @@ const BottomNav = () =>{
                     <figure>
                         <NavLink to="/">
                             <img src={require("./assets/USYD_logo.png")} alt="logo" width="200"/>
+
                         </NavLink>
 
                     </figure>
