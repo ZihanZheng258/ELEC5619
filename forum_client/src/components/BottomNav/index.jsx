@@ -11,7 +11,10 @@ const BottomNav = () =>{
 
                 <div className="contents">
                     <figure>
-                        <img src={require("./assets/USYD_logo.png")} alt="logo" width="200"/>
+                        <NavLink to="/">
+                            <img src={require("./assets/USYD_logo.png")} alt="logo" width="200"/>
+                        </NavLink>
+
                     </figure>
                     <p className="contents_contents">
                         Notepile USYD Student Forum: <br/>
@@ -23,41 +26,39 @@ const BottomNav = () =>{
             </div>
                 <div className="notepile_links">
                     <div>
-                        <p>Quick Links</p>
-                        <ul>
-                            <li><NavLink exact to="/">Home</NavLink></li>
-                            <li><NavLink to ="/notes">Notes</NavLink></li>
-                            <li><NavLink to="/user/:{userID}">Account</NavLink></li>
-                            <li><NavLink to="/discussion">Discussion</NavLink></li>
-                        </ul>
+                        <dl>
+                            <dt>Quick Links</dt>
+                            <dd><NavLink to="/">Home</NavLink></dd>
+                            <dd><NavLink to ="/notes">Notes</NavLink></dd>
+                            <dd><NavLink to="/user/:{userID}">Account</NavLink></dd>
+                            <dd><NavLink to="/discussion">Discussion</NavLink></dd>
+                        </dl>
                     </div>
                 </div>
                 <div className="uni_links">
-                    <p>Uni Links</p>
-                    <ul>
-                        <li>
+                    <dl>
+                        <dt>Uni Links</dt>
+                        <dd>
                             <ExternalLink href="https://canvas.sydney.edu.au/">
-                            <span>Canvas</span>
+                                <span>Canvas</span>
                             </ExternalLink>
-                        </li>
-                        <li>
+                        </dd>
+                        <dd>
                             <ExternalLink href="https://timetable.sydney.edu.au/even/student">
                                 <span>Allocate+</span>
                             </ExternalLink>
-                        </li>
-                        <li>
+                        </dd>
+                        <dd>
                             <ExternalLink href="https://myuni.sydney.edu.au/">
                                 <span>myUni Portal</span>
                             </ExternalLink>
-                        </li>
-                        <li>
+                        </dd>
+                        <dd>
                             <ExternalLink href="https://cusp.sydney.edu.au/">
                                 <span>Course & Unit of Study Portal</span>
                             </ExternalLink>
-                        </li>
-
-
-                    </ul>
+                        </dd>
+                    </dl>
                 </div>
 
             </div>
