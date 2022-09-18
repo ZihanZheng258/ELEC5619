@@ -15,13 +15,13 @@ public interface DiscussionDao extends JpaRepository<Discussion,Integer>, JpaSpe
 
     public List<Discussion> findByUser(int userID);
 
-    public List<Discussion> findByCreateDateAfterOrderByCommentNumberDescLimitedTo(Date date,int number);
+    public List<Discussion> findTop4ByCreateDateAfterOrderByCommentNumberDesc(Date date);
 
-    public List<Discussion> findOrderByCreateDate();
+    public List<Discussion> findAllByOrderByCreateDateDesc();
 
-    public List<Discussion> findOrderByLikeNumber();
+    public List<Discussion> findAllByOrderByLikeNumberDesc();
 
-    public List<Discussion> findOrderByCommentNumber();
+    public List<Discussion> findAllByOrderByCommentNumberDesc();
 
 
 

@@ -51,13 +51,11 @@ public class CommentService {
 
     public boolean addLike(Comment comment){
         User user = comment.getSender();
+        comment.setLikeNumber(comment.getLikeNumber()+1);
+        user.setCredit(user.getCredit()+5);
         try{
-            synchronized (comment){
-                comment.setLikeNumber(comment.getLikeNumber()+1);
-            }
-            synchronized (user){
-                user.setCredit(user.getCredit()+5);
-            }
+            comment.setLikeNumber(comment.getLikeNumber()+1);
+            user.setCredit(user.getCredit()+5);
             commentDao.save(comment);
             userDao.save(user);
 

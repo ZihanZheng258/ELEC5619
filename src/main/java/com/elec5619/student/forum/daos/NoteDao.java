@@ -10,5 +10,5 @@ import java.util.List;
 
 public interface NoteDao extends JpaRepository<Note,Integer>, JpaSpecificationExecutor<Note> {
 
-    public List<Discussion> findOrderByCreateDate();
+    public List<Discussion> findAllByOrderByCreateDate();
 }
