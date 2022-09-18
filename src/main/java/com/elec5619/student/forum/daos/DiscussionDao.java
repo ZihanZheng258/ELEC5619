@@ -11,7 +11,17 @@ import java.util.List;
 
 public interface DiscussionDao extends JpaRepository<Discussion,Integer>, JpaSpecificationExecutor<Discussion> {
 
+    public List<Discussion> findByCategory(int categoryID);
 
+    public List<Discussion> findByUser(int userID);
+
+    public List<Discussion> findTop4ByCreateDateAfterOrderByCommentNumberDesc(Date date);
+
+    public List<Discussion> findAllByOrderByCreateDateDesc();
+
+    public List<Discussion> findAllByOrderByLikeNumberDesc();
+
+    public List<Discussion> findAllByOrderByCommentNumberDesc();
 
 
 
