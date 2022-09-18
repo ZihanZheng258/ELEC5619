@@ -1,10 +1,14 @@
 import React from "react";
-
+import {useState, useEffect} from "react";
 
 import './index.less'
 import '../../fonts/bptypewrite.damaged-italic.otf'
 
 const SidebarMenu = ()=>{
+    const [isLifeActive, setLifeIsActive] = useState(false);
+    const [isEntertainmentActive, setEntertainmentIsActive] = useState(false);
+    const [isNotesActive, setNotesIsActive] = useState(false);
+    const [isUniActive, setUniIsActive] = useState(false);
     return(
         <div className="sideBar">
             <div className="title_logo">
@@ -19,46 +23,57 @@ const SidebarMenu = ()=>{
                     </li>
 
                     {/*Life*/}
-                    <li>
+                    <li onClick={(e)=> setLifeIsActive(!isLifeActive) }>
                         Life
-                        <ul>
+                    </li>
+                    {isLifeActive && (
+                    <ul className="lifeContent">
                             <li>Recent</li>
                             <li>Food</li>
                             <li>Other</li>
-                        </ul>
-                    </li>
+                    </ul>
+                    )}
 
                     {/*Entertainment*/}
-                    <li>
+                    <li onClick={(e)=>setEntertainmentIsActive(!isEntertainmentActive)}>
                         Entertainment
-                        <ul>
-                            <li>Games</li>
-                            <li>Sports</li>
-                            <li>Music</li>
-                            <li>Televisions</li>
-                            <li>Others</li>
-                        </ul>
                     </li>
+                    {isEntertainmentActive && (
+                    <ul className="entertainmentContent">
+                        <li>Games</li>
+                        <li>Sports</li>
+                        <li>Music</li>
+                        <li>Televisions</li>
+                        <li>Others</li>
+                    </ul>
+                    )}
+
 
                     {/*Notes*/}
-                    <li>
+                    <li onClick={(e)=>setNotesIsActive(!isNotesActive)}>
                         Notes
-                        <ul>
-                            <li>All</li>
-                            <li>Art and social sciences</li>
-                            <li>Engineering</li>
-                            <li>Medicine and health</li>
-                            <li>Science</li>
-                            <li>Architecture, design and planning</li>
-                            <li>Business</li>
-                            <li>Law</li>
-                            <li>Music</li>
-                        </ul>
                     </li>
 
+                    {isNotesActive && (
+                            <ul>
+                                <li>All</li>
+                                <li>Art and social sciences</li>
+                                <li>Engineering</li>
+                                <li>Medicine and health</li>
+                                <li>Science</li>
+                                <li>Architecture, design and planning</li>
+                                <li>Business</li>
+                                <li>Law</li>
+                                <li>Music</li>
+                            </ul>
+                        )}
+
+
                     {/*Our Uni*/}
-                    <li>
+                    <li onClick={(e)=>setUniIsActive(!isUniActive)}>
                         Our Uni
+                    </li>
+                    {isUniActive && (
                         <ul>
                             <li>All</li>
                             <li>Art and social sciences</li>
@@ -70,7 +85,7 @@ const SidebarMenu = ()=>{
                             <li>Law</li>
                             <li>Music</li>
                         </ul>
-                    </li>
+                    )}
                 </ul>
             </div>
         </div>

@@ -1,0 +1,62 @@
+.navheader{
+  right: 0;
+  left:372px;
+  top:0;
+  border-bottom: 1px solid #dedede ;
+  position: fixed;
+  display: flex;
+  height: 118px;
+  width: auto;
+  justify-content: center;
+  align-items: center;
+  .search{
+    flex:1;
+    display: flex;
+    //background-color: yellow;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    border: 1px solid #dedede;
+    margin-left: 50px;
+    margin-right: 50px;
+    border-radius: 20px;
+    .searchIcon{
+      margin-left:20px;
+      padding-right: 20px;
+    }
+
+    .bar{
+      flex:1;
+      border:none !important;
+      margin-right: 25px;
+      height: 40px;
+
+    }
+    .bar:focus-visible{
+      outline: none;
+    }
+  }
+  .profile{
+    flex:0.2;
+    display: flex;
+    justify-content: center;
+    .profileImage{
+      margin: 10px;
+    }
+    .signInText{
+      margin:auto 10px;
+      text-align: center;
+    }
+  }
+  .profile:hover{
+    cursor:pointer;
+  }
+}
+img{
+  user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}

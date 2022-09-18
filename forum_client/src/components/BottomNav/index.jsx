@@ -1,7 +1,7 @@
 import React from "react"
 import {NavLink} from "react-router-dom";
 import {ExternalLink} from "react-external-link";
-import "./style.less"
+import "./index.less"
 
 const BottomNav = () =>{
     return(

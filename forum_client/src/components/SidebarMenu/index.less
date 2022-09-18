@@ -8,10 +8,12 @@
 .sideBar{
   height: 100%;
   position: fixed;
-  width: auto;
+  width: 350px;
   display: flex;
   flex-direction: column;
+  padding-right: 12px;
   border-right: 1px solid #dedede;
+  //word-wrap: break-word;
   .title_logo{
     padding: 30px 20px;
     border-bottom: 1px solid black;
@@ -20,9 +22,16 @@
       font-size: 48px;
     }
   }
+  .navList{
+    overflow-y:auto;
+    overflow-x:hidden;
 
+  }
   li {
     list-style: none;
+    font-size: 1.4em;
+    font-family: "Ubuntu Mono", serif;
+    margin: 10px 0 20px 0;
   }
 
   ul{
@@ -30,28 +39,38 @@
   }
   .navList > ul > li {
     padding: 20px 0;
-    border: 1px solid black;
-    border-radius: 50px;
+    border: 0px solid black;
+    border-radius: 20px;
     text-align: start;
     text-indent: 40px;
   }
-  .navList > ul > li > ul > li{
-    padding: 10px 0 10px 25px ;
-    border: 1px solid black;
-    border-radius: 50px;
+  .active,.navList > ul > li:hover{
+    background-color: rgba(47,130,255,255);
+    color: white;
+    cursor: pointer;
+    transition-duration: 0.3s;
+    transform: scale(1.06);
+  }
+
+  .navList > ul > ul > li{
+    padding: 20px 15px;
+    border: 0px solid black;
+    border-radius: 20px;
     text-align: start;
-    margin-left: 10px;
-    //text-indent: 140px;
+    margin-left: 2em;
+  }
+  //.lifeContent{
+  //  display: flex;
+  //  flex-direction: column;
+  //}
 
+  .active, .navList > ul > ul > li:hover{
+    background-color: rgba(47, 130, 255, 0.89);
+    color: white;
+    cursor: pointer;
+    transition-duration: 0.3s;
+    transform: scale(1.06);
   }
 
-  .navList{
 
-
-
-
-
-
-
-  }
 }

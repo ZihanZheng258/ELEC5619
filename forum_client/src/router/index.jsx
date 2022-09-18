@@ -4,6 +4,7 @@ import Home from '../pages/Home'
 import User from '../pages/User'
 import Note from '../pages/Note'
 import Discussion from '../pages/Discussion'
+import HeadingNav from "../components/HeadingNav";
 import BottomNav from "../components/BottomNav";
 import SidebarMenu from "../components/SidebarMenu";
 
@@ -11,6 +12,7 @@ import SidebarMenu from "../components/SidebarMenu";
 const AppRouter = () =>{
     return(
         <BrowserRouter>
+            <HeadingNav/>
             <SidebarMenu/>
             <BottomNav/>
             <Routes>
