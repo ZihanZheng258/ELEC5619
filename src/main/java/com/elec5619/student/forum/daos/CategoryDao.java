@@ -1,6 +1,7 @@
 package com.elec5619.student.forum.daos;
 
 import com.elec5619.student.forum.pojos.Category;
+import com.elec5619.student.forum.pojos.Category_Note;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Results;
@@ -14,5 +15,7 @@ import java.util.List;
 public interface CategoryDao extends JpaRepository<Category,Integer>, JpaSpecificationExecutor<Category> {
 
     public Long deleteByContent(String Content);
+
+    public Category_Note findByContent(String content);
 
 }

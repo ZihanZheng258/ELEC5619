@@ -23,17 +23,17 @@ public class Discussion {
     private String Content;
 
     @Column(name = "comments_number")
-    private int comment_number;
+    private int commentNumber;
 
     @Column(name = "view_number")
-    private int view_number;
+    private int viewNumber;
 
     @Column(name = "like_number")
     private int likeNumber;
 
     @Column(name = "create_date")
     @CreatedDate
-    private Date create_date;
+    private Date createDate;
 
     @OneToMany(mappedBy = "discussion",fetch = FetchType.LAZY)
     private List<Comment> Comments = new ArrayList<>();

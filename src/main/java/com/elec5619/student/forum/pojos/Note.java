@@ -22,7 +22,7 @@ public class Note {
     public Integer price;
 
     @Column(name = "num_of_buy")
-    public Integer num_of_buy;
+    public Integer numOfBuy;
 
     @Column(name = "description")
     public String description;

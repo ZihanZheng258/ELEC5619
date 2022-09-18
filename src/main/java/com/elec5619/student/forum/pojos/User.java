@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.Getter;
 import org.aspectj.weaver.ast.Not;
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.*;
@@ -29,6 +30,7 @@ public class User {
     private String salt;
 
     @Column(name = "create_date")
+    @CreatedDate
     private Date createDate;
 
     @Column(name = "avatar")
@@ -36,7 +38,7 @@ public class User {
 
 
     @Column(name = "phone_number")
-    private String Phone_number;
+    private String PhoneNumber;
 
     @Column(name = "type")
     private Integer type;

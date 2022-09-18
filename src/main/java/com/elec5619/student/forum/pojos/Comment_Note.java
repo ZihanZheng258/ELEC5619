@@ -17,17 +17,17 @@ public class Comment_Note {
 
     @Column(name = "create_date")
     @CreatedDate
-    private Date create_date;
+    private Date createDate;
 
     @Column(name = "content")
     private String content;
 
     @Column(name = "like_number")
-    private int like_number;
+    private int likeNumber;
 
 
     @Column(name = "is_comment_of_comment")
-    private int is_comment_of_comment;
+    private int isCommentOfComment;
 
     @ManyToOne(targetEntity = User.class,fetch = FetchType.LAZY)
     @JoinColumn(name = "sender_id")

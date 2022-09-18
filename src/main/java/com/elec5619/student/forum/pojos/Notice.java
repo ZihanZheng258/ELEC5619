@@ -19,10 +19,10 @@ public class Notice {
 
     @Column(name = "create_date")
     @CreatedDate
-    private Date create_date;
+    private Date createDate;
 
     @Column(name = "have_read")
-    private int have_read;
+    private int haveRead;
 
     @ManyToOne(targetEntity = User.class,fetch = FetchType.LAZY)
     @JoinColumn(name = "sender_id")

@@ -23,6 +23,8 @@ public class ForumUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         com.elec5619.student.forum.pojos.User users = userDao.findByNickName(username);
+        System.out.println(users.getNickName());
+        System.out.println(users.getPassword());
 
         if(users == null) {
             throw  new UsernameNotFoundException("can not find user!");
@@ -30,6 +32,6 @@ public class ForumUserDetailService implements UserDetailsService {
         List<GrantedAuthority> auths =
                 AuthorityUtils.commaSeparatedStringToAuthorityList("admin,ROLE_sale");
         return new User(users.getNickName(),
-                new BCryptPasswordEncoder().encode(users.getPassword()),auths);
+                users.getPassword(),auths);
     }
 }
