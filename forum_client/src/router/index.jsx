@@ -19,7 +19,7 @@ const AppRouter = () =>{
                 {/*In V6, you can't use the component prop anymore. It was replaced in favor of element:*/}
                 <Route exact path="/" element={<Home/>}></Route>
                 <Route path="/user" element={< User/>}></Route>
-                <Route path="/note" element={< Note/>}></Route>
+                <Route path="/notes" element={< Note/>}></Route>
                 <Route path="/discussion" element={<Discussion/>}></Route>
             </Routes>
         </BrowserRouter>

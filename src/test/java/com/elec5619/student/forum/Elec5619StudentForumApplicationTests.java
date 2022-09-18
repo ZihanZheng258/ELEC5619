@@ -97,7 +97,7 @@ class Elec5619StudentForumApplicationTests {
 		User user = new User();
 		user.setPassword("hjkk445998");
 		user.setEmail("test");
-		user.setPhone_number("3423523543");
+		user.setPhoneNumber("3423523543");
 		user.setNickName("zzh");
 		userService.insert(user);
 	}
