@@ -101,4 +101,9 @@ class Elec5619StudentForumApplicationTests {
 		user.setNickName("zzh");
 		userService.insert(user);
 	}
+
+	@Test
+	void addLikeToDiscussion(){
+		discussionDao.addLike(1,12);
+	}
 }
