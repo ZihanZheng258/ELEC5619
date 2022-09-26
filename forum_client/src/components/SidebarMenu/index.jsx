@@ -11,9 +11,6 @@ const SidebarMenu = ()=>{
     const [isUniActive, setUniIsActive] = useState(false);
     return(
         <div className="sideBar">
-            <div className="title_logo">
-                <span>Notepile</span>
-            </div>
 
             <div className="navList">
                 <ul>
@@ -23,7 +20,7 @@ const SidebarMenu = ()=>{
                     </li>
 
                     {/*Life*/}
-                    <li onClick={(e)=> setLifeIsActive(!isLifeActive) }>
+                    <li onClick={(e)=> {setLifeIsActive(!isLifeActive)} }>
                         Life
                     </li>
                     {isLifeActive && (

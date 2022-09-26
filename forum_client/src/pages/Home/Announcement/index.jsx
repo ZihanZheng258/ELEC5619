@@ -12,7 +12,7 @@ const Annoucement = ()=>{
             <div className="announcement-card">
                 {arr.map((index)=>{
                 // div class loop
-                    return <div className="card" key={index}>
+                    return <div className="card" key={index.toString()}>
                     <div className="card-title">
                         Card Title
                     </div>

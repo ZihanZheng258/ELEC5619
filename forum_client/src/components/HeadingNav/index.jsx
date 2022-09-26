@@ -6,6 +6,10 @@ import {SearchOutlined} from '@ant-design/icons'
 const HeadingNav = () => {
     return (
         <div className="navheader">
+            <div className="title_logo">
+                <span>Notepile</span>
+            </div>
+
             <div className="search">
                 <div className="searchIcon">
                     <img src={require("./assets/search.png")} alt="search" width="23px"/>
