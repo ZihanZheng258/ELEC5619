@@ -22,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
-    protected  void configure(HttpSecurity http) throws Exception {
+   /* protected  void configure(HttpSecurity http) throws Exception {
           http.logout().logoutUrl("/url").logoutSuccessUrl("/url").permitAll();
           http.exceptionHandling().accessDeniedPage("/unauthUrl");
           http.formLogin().loginPage("/loginurl").loginProcessingUrl("/loginProcessorUrl")
@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                   .and().authorizeHttpRequests().antMatchers("").permitAll()
                   .anyRequest().authenticated().and().csrf().disable();
 
-    }
+    }*/
 
     @Bean
     public PasswordEncoder passwordEncoder(){

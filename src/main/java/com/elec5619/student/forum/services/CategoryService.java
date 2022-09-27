@@ -2,11 +2,11 @@ package com.elec5619.student.forum.services;
 
 import com.elec5619.student.forum.daos.CategoryDao;
 import com.elec5619.student.forum.pojos.Category;
-import com.elec5619.student.forum.pojos.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryService {
@@ -47,6 +47,10 @@ public class CategoryService {
             return false;
         }
         return true;
+    }
+
+    public Category getByID(int id){
+        return categoryDao.findById(id).get();
     }
 
 

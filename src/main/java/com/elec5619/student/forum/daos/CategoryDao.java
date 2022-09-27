@@ -18,4 +18,6 @@ public interface CategoryDao extends JpaRepository<Category,Integer>, JpaSpecifi
 
     public Category_Note findByContent(String content);
 
+
+
 }
