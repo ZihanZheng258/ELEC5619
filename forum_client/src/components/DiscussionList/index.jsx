@@ -13,13 +13,27 @@ const DiscussionList = ()=>{
     //     const likesImg = likeClick ? likes : nlikes
     //
     // })
+    const [cardContent, setCardContent] = useState([]);
+    useEffect(() => {
+        fetch('https://jsonplaceholder.typicode.com/posts?_limit=1111')
+            .then((response) => response.json())
+            .then((data) => {
+                // console.log(data);
+                setCardContent(data);
+            })
+            .catch((err) => {
+                console.log(err.message);
+            });
+    }, []);
 
+    // setCardContent(Array.from(props))
+    console.log(cardContent)
     const arr = [1,2,3,4]
     return(
         <div className="discussion-list">
 
-            {arr.map((index)=>{
-                return <div className="discussion-card" key={index.toString()}>
+            {cardContent.map((index)=>{
+                return <div className="discussion-card" key={index.id}>
                 <div className="likes-column">
                     {/*<img onClick={(e)=>setLikeClick(!likeClick)} src= {likeClick ? likes: nlikes} alt=""/>*/}
                     <img src= {likes} alt=""/>
@@ -28,14 +42,14 @@ const DiscussionList = ()=>{
                 <div className="discussion-col">
                     <div className="discussion-info">
                         <Button variant="outline-primary" size="sm">Category</Button>{' '}
-                        <Button variant="outline-primary" size="sm">Author</Button>{' '}
+                        <Button variant="outline-primary" size="sm">{index.userId}</Button>{' '}
                         <Button variant="outline-primary" size="sm">DateTime</Button>{' '}
                     </div>
                     <div className="discussion-title">
-                        Title
+                        {index.title}
                     </div>
                     <div className="discussion-description">
-                        description content
+                        {index.body}
                     </div>
                     <div className="discussion-actionbar">
                         comment {}
