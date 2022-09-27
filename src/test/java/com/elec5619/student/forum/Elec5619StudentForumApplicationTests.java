@@ -8,6 +8,7 @@ import com.elec5619.student.forum.pojos.Category;
 import com.elec5619.student.forum.pojos.Category_Note;
 import com.elec5619.student.forum.pojos.Discussion;
 import com.elec5619.student.forum.pojos.User;
+import com.elec5619.student.forum.services.DiscussionService;
 import com.elec5619.student.forum.services.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,9 @@ class Elec5619StudentForumApplicationTests {
 
 	@Autowired
 	UserService userService;
+
+	@Autowired
+	DiscussionService discussionService;
 
 	@Test
 	void contextLoads() {
@@ -104,6 +108,9 @@ class Elec5619StudentForumApplicationTests {
 
 	@Test
 	void addLikeToDiscussion(){
-		discussionDao.addLike(1,12);
+		Discussion discussion = discussionService.findById(12);
+		System.out.println(discussion);
+		System.out.println("\n\n\n\n\n\n");
+		discussionService.beenLiked(discussion);
 	}
 }

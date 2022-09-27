@@ -2,6 +2,8 @@ package com.elec5619.student.forum.daos;
 
 import com.elec5619.student.forum.pojos.Comment;
 import com.elec5619.student.forum.pojos.Discussion;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
@@ -29,6 +31,26 @@ public interface DiscussionDao extends JpaRepository<Discussion,Integer>, JpaSpe
     @Modifying
     @Query("update Discussion d set d.likeNumber = d.likeNumber + ?1 where d.id = ?2")
     int addLike(int likeNumber, int ID);
+
+    @Transactional
+    @Modifying
+    @Query("update Discussion d set d.viewNumber = d.viewNumber + ?1 where d.id = ?2")
+    int addView(int viewNumber,int ID);
+
+    @Transactional
+    @Modifying
+    @Query("update Discussion d set d.commentNumber = d.commentNumber + ?1 where d.id = ?2")
+    int addCommentNumber(int commentNumber,int ID);
+
+    @Query("select d from Discussion d where d.category.id = ?1")
+    Page<Discussion> findByCategoryPaged(int id, Pageable pageable);
+
+
+
+
+
+
+
 
 
 
