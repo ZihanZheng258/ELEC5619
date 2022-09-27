@@ -9,29 +9,14 @@ import './index.less'
 const Home = () =>{
     return(
         <div>
-
+            <HeadingNav/>
+            <SidebarMenu/>
             <div className="homeContent">
-
-                    <div className="layout-header">
-                        <HeadingNav/>
-                    </div>
-                    <div className="layout-row">
-                        <div className="layout-sidebar">
-                            <SidebarMenu/>
-                        </div>
-                        <div className="layout-col">
-                            <div className="layout-content">
-                                <Announcement/>
-                                <DiscussionList/>
-                            </div>
-                            <div className="layout-footer">
-                                <BottomNav/>
-                            </div>
-                        </div>
-
-                </div>
+                <Announcement/>
+                <DiscussionList/>
 
             </div>
+            <BottomNav/>
         </div>
     )
 }
