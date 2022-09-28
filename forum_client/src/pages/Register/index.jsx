@@ -6,7 +6,7 @@ import { UserOutlined, LockOutlined, CloseCircleOutlined } from "@ant-design/ico
 import logo from "../../assets/images/logo.png";
 import loginLeft from "../../assets/images/login_left2.png";
 
-const Login = () => {
+const Register = () => {
     const navigate = useNavigate();
     const [form] = Form.useForm();
 
@@ -44,8 +44,9 @@ const Login = () => {
                         initialValues={{ remember: true }}
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}
-                        size="large"
+                        size="Default"
                         autoComplete="off"
+
                     >
                         <Form.Item label="Username" name="username" rules={[{ required: true, message: "please enter username" }]}>
                             <Input placeholder="please enter username" prefix={<UserOutlined />} />
@@ -92,4 +93,4 @@ const Login = () => {
     )
 };
 
-export default Login;
+export default Register;

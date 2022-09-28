@@ -17,7 +17,7 @@ const Login = () => {
         if (username === 'admin' && password === '123456') {
             message.success("login success!")
             setTimeout(() => {
-                navigate('/home')
+                navigate('/')
                 setLoading(false);
             }, 2500)
         } else {
@@ -48,7 +48,7 @@ const Login = () => {
                         initialValues={{ remember: true }}
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}
-                        size="large"
+                        size="Default"
                         autoComplete="off"
                     >
                         <Form.Item name="username" rules={[{ required: true, message: "please enter username" }]}>
