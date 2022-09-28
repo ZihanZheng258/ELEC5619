@@ -18,7 +18,7 @@ const Home = () =>{
 
 
     return(
-        <div>
+        <>
 
             <div className="homeContent">
 
@@ -32,7 +32,7 @@ const Home = () =>{
                         <div className="layout-col">
                             <div className="layout-content">
                                 <Announcement/>
-                                <DiscussionList {...cardContents}/>
+                                <DiscussionList />
                             </div>
                             <div className="layout-footer">
                                 <BottomNav/>
@@ -42,7 +42,7 @@ const Home = () =>{
                 </div>
 
             </div>
-        </div>
+        </>
     )
 }
 function getData(){
