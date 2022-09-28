@@ -56,24 +56,24 @@ public class User {
     @ManyToMany(targetEntity = Note.class,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinTable(name = "user_note",joinColumns = @JoinColumn(name = "userID"),
             inverseJoinColumns = @JoinColumn(name = "noteID"))
-    private Set<Note> notes = new HashSet<Note>();
+    private List<Note> notes = new ArrayList<Note>();
 
     @ManyToMany(targetEntity = Note.class,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinTable(name = "user_wished_note",joinColumns = @JoinColumn(name = "userID"),
             inverseJoinColumns = @JoinColumn(name = "noteID"))
-    private Set<Note> wishedNotes = new HashSet<Note>();
+    private List<Note> wishedNotes = new ArrayList<Note>();
 
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
-    private Set<Discussion> discussions = new HashSet<Discussion>();
+    private List<Discussion> discussions = new ArrayList<Discussion>();
 
     @OneToMany(mappedBy = "receiver",fetch = FetchType.LAZY)
-    private Set<Notice> receivedNotices = new HashSet<Notice>();
+    private List<Notice> receivedNotices = new ArrayList<Notice>();
 
     @OneToMany(mappedBy = "sender",fetch = FetchType.LAZY)
-    private Set<Comment> sendedComments = new HashSet<>();
+    private List<Comment> sendedComments = new ArrayList<Comment>();
 
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
-    private Set<Comment_Note> sendedNoteComments = new HashSet<>();
+    private List<Comment_Note> sendedNoteComments = new ArrayList<Comment_Note>();
 
 
 

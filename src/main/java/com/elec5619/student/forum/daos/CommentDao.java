@@ -18,8 +18,10 @@ public interface CommentDao extends JpaRepository<Comment,Integer>, JpaSpecifica
 
     @Transactional
     @Modifying
-    @Query("update Comment c set c.likeNumber = c.likeNumber + ?1")
-    int addLike(int likeNumber);
+    @Query("update Comment c set c.likeNumber = c.likeNumber + ?1 where c.id = ?2")
+    int addLike(int likeNumber,int ID);
+
+
 
 
 

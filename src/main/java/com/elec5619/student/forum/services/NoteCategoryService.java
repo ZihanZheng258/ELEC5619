@@ -48,4 +48,10 @@ public class NoteCategoryService {
         }
         return true;
     }
+
+    public Category_Note GetCategoryByID(int id){
+       return noteCategoryDao.findById(id).get();
+    }
+
+
 }
