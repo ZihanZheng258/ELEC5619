@@ -13,6 +13,7 @@ import Register from "../pages/Register/index"
 import FourZeroFour from "../pages/ErrorPage/page_404"
 import FourZeroThree from "../pages/ErrorPage/page_403"
 import FiveZeroZero from "../pages/ErrorPage/page_500"
+import Search from "../pages/Search";
 
 const AppRouter = () => {
     return (
@@ -22,6 +23,7 @@ const AppRouter = () => {
                 {/*In V6, you can't use the component prop anymore. It was replaced in favor of element:*/}
                 <Route exact path="/" element={<Home />}></Route>
                 <Route path="/user" element={< User />}></Route>
+                <Route path="/search" element={< Search />}></Route>
                 <Route path="/notes" element={< Note />}></Route>
                 <Route path="/discussion" element={<Discussion />}></Route>
                 <Route path="/login" element={<Login />}></Route>
