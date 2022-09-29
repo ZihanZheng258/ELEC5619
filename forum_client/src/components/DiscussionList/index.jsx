@@ -5,7 +5,8 @@ import likes from './assets/like-red.svg'
 import nlikes from './assets/like-grey.svg'
 import './index.less'
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import Comment from '../Comment'
+import 'react-comments-section/dist/index.css'
 
 const DiscussionList = ()=>{
     // const [likeClick, setLikeClick] = useState(false)
@@ -29,6 +30,27 @@ const DiscussionList = ()=>{
     // setCardContent(Array.from(props))
     console.log(cardContent)
     const arr = [1,2,3,4]
+    const [data] = useState([
+        {
+            userId: '01a',
+            comId: '012',
+            fullName: 'Riya Negi',
+            avatarUrl: 'https://ui-avatars.com/api/name=Riya&background=random',
+            userProfile: 'https://www.linkedin.com/in/riya-negi-8879631a9/',
+            text: 'Hey, Loved your blog! ',
+            replies: [
+                {
+                    userId: '02b',
+                    comId: '017',
+                    fullName: 'Lily',
+                    userProfile: 'https://www.linkedin.com/in/riya-negi-8879631a9/',
+                    text: 'I have a doubt about the 4th point🤔',
+                    avatarUrl: 'https://ui-avatars.com/api/name=Lily&background=random',
+                    replies: []
+                }
+            ]
+        }])
+
     return(
         <div className="discussion-list">
 
@@ -52,7 +74,7 @@ const DiscussionList = ()=>{
                         {index.body}
                     </div>
                     <div className="discussion-actionbar">
-                        comment {}
+                        <Comment />
                     </div>
                 </div>
 

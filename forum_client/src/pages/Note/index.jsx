@@ -19,9 +19,7 @@ const Note = () =>{
                         <SidebarMenu/>
                     </div>
                     <div className="layout-col">
-                        <div className="layout-content">
-                            <NoteList/>
-                        </div>
+                        <NoteList/>
                         <div className="layout-footer">
                             <BottomNav/>
                         </div>

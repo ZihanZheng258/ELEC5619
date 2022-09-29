@@ -1,7 +1,7 @@
 import React from "react";
 import './index.less'
 import { SearchOutlined } from '@ant-design/icons'
-import { useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const HeadingNav = () => {
     const navigate = useNavigate();
@@ -9,7 +9,10 @@ const HeadingNav = () => {
     return (
         <div className="navheader">
             <div className="title_logo">
-                <span>Notepile</span>
+                <Link to="/">
+                    <span>Notepile</span>
+                </Link>
+
             </div>
 
             <div className="search">
