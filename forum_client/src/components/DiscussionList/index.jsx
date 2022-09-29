@@ -8,7 +8,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Comment from '../Comment'
 import 'react-comments-section/dist/index.css'
 
-const DiscussionList = ()=>{
+const DiscussionList = ({handleClick})=>{
     // const [likeClick, setLikeClick] = useState(false)
     // useEffect(() => {s
     //     const likesImg = likeClick ? likes : nlikes
@@ -31,6 +31,12 @@ const DiscussionList = ()=>{
     console.log(cardContent)
     const arr = [1,2,3,4]
 
+        const [isChecked, setIsChecked] = useState(false);
+        const toggleCheck = () => {
+            setIsChecked(!isChecked);
+            handleClick()
+        }
+        const checkbox = isChecked ? nlikes : likes;
 
     return(
         <div className="discussion-list">
@@ -39,7 +45,7 @@ const DiscussionList = ()=>{
                 return <div className="discussion-card" key={index.id}>
                 <div className="likes-column">
                     {/*<img onClick={(e)=>setLikeClick(!likeClick)} src= {likeClick ? likes: nlikes} alt=""/>*/}
-                    <img src= {likes} alt=""/>
+                    <img src= {checkbox} alt="" onClick = {toggleCheck}/>
 
                 </div>
                 <div className="discussion-col">
