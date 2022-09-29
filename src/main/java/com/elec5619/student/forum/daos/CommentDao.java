@@ -11,8 +11,15 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface CommentDao extends JpaRepository<Comment,Integer>, JpaSpecificationExecutor<Comment> {
+    List<Comment> findByDiscussion_IdAndIsCommentOfComment(int id, int isCommentOfComment);
 
-    public List<Comment> findByDiscussion(int discussionID);
+    List<Comment> findByParent_Id(int id);
+
+
+    List<Comment> findByTarget_Id(int id);
+
+
+
 
     public List<Comment> findBySender(int senderID);
 

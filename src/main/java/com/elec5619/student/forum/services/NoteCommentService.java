@@ -29,6 +29,10 @@ public class NoteCommentService {
         return true;
     }
 
+    public Comment_Note findByid(int id){
+       return noteCommentDao.findById(id).get();
+    }
+
     public boolean delete(Comment_Note noteComment){
 
         noteCommentDao.delete(noteComment);
@@ -56,6 +60,15 @@ public class NoteCommentService {
     public List<Comment_Note> findCommentByUser(int ID){
         User user = userDao.findById(ID).get();
         return user.getSendedNoteComments();
+    }
+
+    public List<Comment_Note> findCommentByNoteMain(int ID){
+        List<Comment_Note> list = noteCommentDao.findByNote_IdAndIsCommentOfComment(ID,0);
+        return list;
+    }
+
+    public List<Comment_Note> findCommentByParent(int ID){
+        return findByid(ID).getChildren();
     }
 
 }

@@ -1,14 +1,20 @@
 package com.elec5619.student.forum.pojos;
 
+import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.util.Date;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Notice {
     @Id
     @GeneratedValue
@@ -19,16 +25,24 @@ public class Notice {
 
     @Column(name = "create_date")
     @CreatedDate
-    private Date createDate;
+    private Date createDate = new Date();
 
     @Column(name = "have_read")
-    private int haveRead;
+    private int haveRead = 0;
 
     @ManyToOne(targetEntity = User.class,fetch = FetchType.LAZY)
     @JoinColumn(name = "sender_id")
+    @JsonIgnore
     private User sender;
 
     @ManyToOne(targetEntity = User.class,fetch = FetchType.LAZY)
     @JoinColumn(name = "receiver_id")
+    @JsonIgnore
     private User receiver;
+
+    @Transient
+    private User JsonSender;
+
+    @Transient
+    private User JsonReceiver;
 }

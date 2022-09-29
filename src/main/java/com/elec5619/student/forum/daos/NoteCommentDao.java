@@ -15,6 +15,8 @@ public interface NoteCommentDao extends JpaRepository<Comment_Note,Integer>, Jpa
 
     public List<Comment_Note> findByUser(int senderID);
 
+    List<Comment_Note> findByNote_IdAndIsCommentOfComment(Integer id, int isCommentOfComment);
+
 
     @Transactional
     @Modifying
@@ -24,4 +26,6 @@ public interface NoteCommentDao extends JpaRepository<Comment_Note,Integer>, Jpa
 
     @Override
     void deleteById(Integer integer);
+
+
 }

@@ -27,6 +27,12 @@ public class DiscussionService {
     CategoryDao categoryDao;
 
 
+    public boolean addNew(Discussion discussion){
+
+        discussionDao.save(discussion);
+        return true;
+    }
+
     public boolean beenViewed(Discussion discussion){
         discussionDao.addView(1,discussion.getId());
         return true;

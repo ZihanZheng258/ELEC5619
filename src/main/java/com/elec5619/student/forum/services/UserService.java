@@ -29,4 +29,8 @@ public class UserService {
         user.setPassword(password);
     }
 
+    public User getUserByID(int id){
+        return userDao.findById(id).get();
+    }
+
 }

@@ -69,10 +69,26 @@ public class CommentService {
         return discussion.getComments();
     }
 
+    public  List<Comment> findCommentByDiscussionMain(int discussionID){
+       return commentDao.findByDiscussion_IdAndIsCommentOfComment(discussionID,0);
+    }
+
     public List<Comment> findCommentByUserId(int userId){
         User user = userDao.findById(userId).get();
         return user.getSendedComments();
     }
+
+    public  List<Comment> findChildComments(int CommentID){
+        return commentDao.findByParent_Id(CommentID);
+    }
+
+
+
+    public  Comment findByID(int ID){
+        return  commentDao.findById(ID).get();
+    }
+
+
 
 
 

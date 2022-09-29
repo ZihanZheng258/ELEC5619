@@ -1,6 +1,9 @@
 package com.elec5619.student.forum.pojos;
 
+import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -8,9 +11,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Comment {
     @Id
     @GeneratedValue
@@ -21,25 +27,62 @@ public class Comment {
 
     @Column(name = "create_date")
     @CreatedDate
-    private Date createDate;
+    private Date createDate = new Date();
 
     @Column(name = "like_number")
-    private int likeNumber;
+    private int likeNumber = 0;
 
     @Column(name = "is_comment_of_comment")
-    private int isCommentOfComment;
+    private int isCommentOfComment = 0;
 
     @ManyToOne(targetEntity = User.class,fetch = FetchType.LAZY)
     @JoinColumn(name = "sender_id")
+    @JsonIgnore
     private User sender;
 
     @ManyToOne(targetEntity = Discussion.class,fetch = FetchType.LAZY)
     @JoinColumn(name = "discussion_id")
+    @JsonIgnore
     private Discussion discussion;
 
-    @OneToOne(targetEntity = Comment.class,fetch = FetchType.LAZY)
-    @JoinColumn(name = "target_comment_id")
-    private Comment targetComment;
+    @ManyToOne(targetEntity = Comment.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "TargetComment_id")
+    @JsonIgnore
+    private Comment target;
+
+    @ManyToOne(targetEntity = Comment.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "ParentComment_id")
+    @JsonIgnore
+    private Comment parent;
+
+
+    @OneToMany(mappedBy="parent")
+    @JsonIgnore
+    private List<Comment> children;
+
+    @OneToMany(mappedBy="target")
+    @JsonIgnore
+    private List<Comment> beenTarget;
+
+    @Transient
+    private User JsonSender;
+
+    @Transient
+    private Discussion JsonDiscussion;
+
+    @Transient
+    private Comment JsonTarget;
+
+    @Transient
+    private Comment JsonParent;
+
+
+    @Transient
+    private List<Comment> JsonChildren;
+
+    @Transient
+    private List<Comment> JsonBeenTarget;
+
 
 
 }
