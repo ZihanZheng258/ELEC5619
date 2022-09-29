@@ -7,9 +7,11 @@ import ReactDOM from 'react-dom'
 // import common styles
 // import './assets/css/file.css'
 import AppRouter from "./router";
+
 import "./css/reset.less"
 import "./css/common.less"
-import 'antd/dist/antd.css'; 
+import 'antd/dist/antd.css'
+
 
 const container = document.getElementById('root');
 const root = createRoot(container); // createRoot(container!) if you use TypeScript

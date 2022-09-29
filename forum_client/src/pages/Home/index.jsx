@@ -5,19 +5,46 @@ import BottomNav from "../../components/BottomNav";
 import DiscussionList from "../../components/DiscussionList";
 import Announcement from "./Announcement";
 import './index.less'
+import '../../config/config.js';
+import {useEffect, useState} from "react";
+import axios from 'axios';
 
 const Home = () =>{
+    // const {title, description} = props
+    const [cardContents, setCardContents] = useState([]);
+    // useEffect(()=>{
+    //     setCardContents()
+    // })
+
+
     return(
-        <div>
-            <HeadingNav/>
-            <SidebarMenu/>
+        <>
+
             <div className="homeContent">
-                <Announcement/>
-                <DiscussionList/>
+
+                    <div className="layout-header">
+                        <HeadingNav/>
+                    </div>
+                    <div className="layout-row">
+                        <div className="layout-sidebar">
+                            <SidebarMenu/>
+                        </div>
+                        <div className="layout-col">
+                            <div className="layout-content">
+                                <Announcement/>
+                            </div>
+                            <DiscussionList />
+
+                            <div className="layout-footer">
+                                <BottomNav/>
+                            </div>
+                        </div>
+
+                </div>
 
             </div>
-            <BottomNav/>
-        </div>
+        </>
     )
 }
+
 export default Home

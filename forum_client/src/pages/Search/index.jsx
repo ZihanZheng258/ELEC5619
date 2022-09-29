@@ -1,14 +1,15 @@
 import React from "react";
 import HeadingNav from "../../components/HeadingNav";
 import SidebarMenu from "../../components/SidebarMenu";
-import Announcement from "../Home/Announcement";
-import DiscussionList from "../../components/DiscussionList";
 import BottomNav from "../../components/BottomNav";
-import NoteList from "../../components/NoteList";
+import './index.less'
+import '../../config/config.js';
+import SearchList from "../../components/SearchList";
 
-const Note = () =>{
-    return (
+const Search = () =>{
+    return(
         <>
+
             <div className="homeContent">
 
                 <div className="layout-header">
@@ -19,10 +20,10 @@ const Note = () =>{
                         <SidebarMenu/>
                     </div>
                     <div className="layout-col">
-                        <NoteList/>
-                        <div className="layout-footer">
-                            <BottomNav/>
+                        <div className="layout-content">
+                            <SearchList />
                         </div>
+
                     </div>
 
                 </div>
@@ -32,4 +33,4 @@ const Note = () =>{
     )
 }
 
-export default Note;
+export default Search

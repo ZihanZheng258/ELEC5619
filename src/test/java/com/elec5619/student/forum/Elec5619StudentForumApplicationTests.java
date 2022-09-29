@@ -3,6 +3,15 @@ package com.elec5619.student.forum;
 import com.elec5619.student.forum.daos.*;
 import com.elec5619.student.forum.pojos.*;
 import com.elec5619.student.forum.services.*;
+import com.elec5619.student.forum.daos.CategoryDao;
+import com.elec5619.student.forum.daos.DiscussionDao;
+import com.elec5619.student.forum.daos.NoteCategoryDao;
+import com.elec5619.student.forum.daos.UserDao;
+import com.elec5619.student.forum.pojos.Category;
+import com.elec5619.student.forum.pojos.Category_Note;
+import com.elec5619.student.forum.pojos.Discussion;
+import com.elec5619.student.forum.pojos.User;
+import com.elec5619.student.forum.services.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -53,6 +62,7 @@ class Elec5619StudentForumApplicationTests {
 
 	@Autowired
 	NoteCommentService noteCommentService;
+
 	@Test
 	void contextLoads() {
 		Category category = new Category();
@@ -118,10 +128,7 @@ class Elec5619StudentForumApplicationTests {
 
 	@Test
 	void addLikeToDiscussion(){
-		Discussion discussion = discussionService.findById(12);
-		System.out.println(discussion);
-		System.out.println("\n\n\n\n\n\n");
-		discussionService.beenLiked(discussion);
+		discussionDao.addLike(1,12);
 	}
 
 	@Test
