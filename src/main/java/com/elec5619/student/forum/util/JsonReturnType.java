@@ -14,4 +14,10 @@ public class JsonReturnType {
     public JsonReturnType(){
 
     }
+
+    public JsonReturnType(boolean flag, String message){
+        this.flag = flag;
+        this.message = message;
+
+    }
 }

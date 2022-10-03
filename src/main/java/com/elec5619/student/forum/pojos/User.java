@@ -61,7 +61,6 @@ public class User {
     private Integer credit = 100;
 
     @OneToMany(mappedBy = "owner",fetch = FetchType.LAZY)
-    @JsonManagedReference
     @JsonIgnore
     private List<Note> notes = new ArrayList<Note>();
 
