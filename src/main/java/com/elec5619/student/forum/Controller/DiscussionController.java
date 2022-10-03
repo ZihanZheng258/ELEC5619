@@ -35,7 +35,10 @@ public class DiscussionController {
         Discussion discussion = discussionService.findById(id);
         discussion.setJsonCategory(discussion.getCategory());
         discussion.setJsonUser(discussion.getUser());
-        discussion.setJsonComments(discussion.getComments());
+        discussion.setJsonComments(commentService.findCommentByDiscussionMain(id));
+        for (Comment comment: discussion.getJsonComments()) {
+            comment.setJsonChildren(commentService.findChildComments(comment.getId()));
+        }
         discussionService.beenLiked(discussion);
         JsonReturnType jsonReturnType = new JsonReturnType();
         jsonReturnType.getData().put("discussion",discussion);
@@ -44,10 +47,10 @@ public class DiscussionController {
 
     @PostMapping("/")
     @ResponseBody
-    public JsonReturnType AddDiscussion(@RequestBody Discussion discussion, Principal principal){
+    public JsonReturnType AddDiscussion(@RequestBody Discussion discussion, @RequestHeader (name="Authorization") String token){
         JsonReturnType jsonReturnType = new JsonReturnType();
         jsonReturnType.setFlag(true);
-        jsonReturnType.getData().put("name",principal.getName());
+        jsonReturnType.setMessage(token);
         return jsonReturnType;
     }
 
@@ -59,6 +62,8 @@ public class DiscussionController {
         jsonReturnType.getData().put("discussions",discussionService.findByCategoryPaged(id,pageable));
         return jsonReturnType;
     }
+
+
     @GetMapping("/{id}")
     @ResponseBody
     public JsonReturnType getDiscussion(@PathVariable int id){

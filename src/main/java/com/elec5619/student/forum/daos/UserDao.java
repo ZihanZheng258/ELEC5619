@@ -19,6 +19,10 @@ public interface UserDao extends JpaRepository<User,Integer>, JpaSpecificationEx
     @Query("update User u set u.credit = u.credit + ?1 where u.id = ?2")
     int addCredit(Integer credit,int ID);
 
+    boolean existsByNickName(String nickName);
+
+
+
 
 
 }
