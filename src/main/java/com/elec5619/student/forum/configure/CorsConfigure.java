@@ -21,7 +21,7 @@ public class CorsConfigure implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         String path = request.getServletPath();
         //前端react项目的域名
-        response.setHeader("Access-Control-Allow-Origin", request.getHeader("Origin"));
+        response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE, PUT");
         response.setHeader("Access-Control-Max-Age", "3600");
         //设置允许访问cookie

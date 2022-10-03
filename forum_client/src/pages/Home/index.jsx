@@ -19,7 +19,6 @@ const Home = () =>{
 
     return(
         <>
-
             <div className="homeContent">
 
                     <div className="layout-header">

@@ -7,6 +7,7 @@ import './index.less'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Comment from '../Comment'
 import 'react-comments-section/dist/index.css'
+import {Link} from "react-router-dom";
 
 const DiscussionList = ({handleClick})=>{
     // const [likeClick, setLikeClick] = useState(false)
@@ -16,7 +17,7 @@ const DiscussionList = ({handleClick})=>{
     // })
     const [cardContent, setCardContent] = useState([]);
     useEffect(() => {
-        fetch('https://jsonplaceholder.typicode.com/posts?_limit=1111')
+        fetch('https://jsonplaceholder.typicode.com/posts?_limit=5')
             .then((response) => response.json())
             .then((data) => {
                 // console.log(data);
@@ -36,7 +37,6 @@ const DiscussionList = ({handleClick})=>{
             setIsChecked(!isChecked);
             handleClick()
         }
-        const checkbox = isChecked ? nlikes : likes;
 
     return(
         <div className="discussion-list">
@@ -54,12 +54,15 @@ const DiscussionList = ({handleClick})=>{
                         <Button variant="outline-primary" size="sm">{index.userId}</Button>{' '}
                         <Button variant="outline-primary" size="sm">DateTime</Button>{' '}
                     </div>
-                    <div className="discussion-title">
-                        {index.title}
-                    </div>
-                    <div className="discussion-description">
-                        {index.body}
-                    </div>
+                    <Link to="/discussion">
+                        <div className="discussion-title">
+                                {index.title}
+                        </div>
+                        <div className="discussion-description">
+                                {index.body}
+                        </div>
+                    </Link>
+
                     <div className="discussion-actionbar">
                         <Comment />
                     </div>
