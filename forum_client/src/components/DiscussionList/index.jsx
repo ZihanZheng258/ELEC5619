@@ -11,10 +11,7 @@ import {Link} from "react-router-dom";
 
 const DiscussionList = ({handleClick})=>{
     // const [likeClick, setLikeClick] = useState(false)
-    // useEffect(() => {s
-    //     const likesImg = likeClick ? likes : nlikes
-    //
-    // })
+
     const [cardContent, setCardContent] = useState([]);
     useEffect(() => {
         fetch('https://jsonplaceholder.typicode.com/posts?_limit=5')
@@ -28,9 +25,25 @@ const DiscussionList = ({handleClick})=>{
             });
     }, []);
 
-    // setCardContent(Array.from(props))
-    console.log(cardContent)
-    const arr = [1,2,3,4]
+    // useEffect(()=>{
+    //     let api = "http://localhost:8090/discussion/6";
+    //     const axios = require('axios');
+    //     axios.get(api)
+    //         .then((response)=> {
+    //             // handle success
+    //             console.log(response.data);
+    //             let tempData = response.data
+    //             this.setState({
+    //                 welcome_list:tempData
+    //             })
+    //         })
+    //         .catch(function (error) {
+    //             // handle error
+    //             console.log(error);
+    //
+    //         })
+    // })
+
 
         const [isChecked, setIsChecked] = useState(false);
         const toggleCheck = () => {
@@ -45,7 +58,7 @@ const DiscussionList = ({handleClick})=>{
                 return <div className="discussion-card" key={index.id}>
                 <div className="likes-column">
                     {/*<img onClick={(e)=>setLikeClick(!likeClick)} src= {likeClick ? likes: nlikes} alt=""/>*/}
-                    <img src= {checkbox} alt="" onClick = {toggleCheck}/>
+                    <img src= {likes} alt=""/>
 
                 </div>
                 <div className="discussion-col">
