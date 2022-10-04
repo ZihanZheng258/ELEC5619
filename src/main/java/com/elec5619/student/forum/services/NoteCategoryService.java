@@ -49,7 +49,7 @@ public class NoteCategoryService {
         return true;
     }
 
-    public Category_Note GetCategoryByID(int id){
+    public Category_Note getCategoryByID(int id){
        return noteCategoryDao.findById(id).get();
     }
 

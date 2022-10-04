@@ -203,13 +203,13 @@ class Elec5619StudentForumApplicationTests {
 		Category_Note category_note = new Category_Note();
 		category_note.setContent("testNoteCategory");
 		noteCategoryService.insertCategory(category_note);
-		System.out.println(noteCategoryService.GetCategoryByID(12));
+		System.out.println(noteCategoryService.getCategoryByID(12));
 	}
 
 	@Test
 	void NoteTest2(){
 		Note note = new Note();
-		note.setCategory(noteCategoryService.GetCategoryByID(12));
+		note.setCategory(noteCategoryService.getCategoryByID(12));
 		note.setDescription("a test note2");
 		note.setPath("/Notes");
 		note.setOwner(userService.getUserByID(2));

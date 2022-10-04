@@ -15,7 +15,6 @@ import java.util.List;
 @Entity
 @Table
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Comment_Note {
     @Id
     @GeneratedValue
@@ -83,5 +82,14 @@ public class Comment_Note {
 
     @Transient
     private List<Comment_Note> JsonBeenTarget;
+
+    @Transient
+    private int targetID;
+
+    @Transient
+    private int parentID;
+
+    @Transient int noteID;
+
 
 }

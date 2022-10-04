@@ -27,8 +27,7 @@ public class TokenManager {
     }
 
     public String getUserFromToken(String token) {
-        String user =
-                Jwts.parser().setSigningKey(tokenSignKey).parseClaimsJws(token).getBody().getSubject();
+        String user = Jwts.parser().setSigningKey(tokenSignKey).parseClaimsJws(token).getBody().getSubject();
         return user;
     }
 

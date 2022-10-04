@@ -29,4 +29,6 @@ public class Category_Note {
 
     @Transient
     private List<Note> JsonNoteList;
+
+
 }
