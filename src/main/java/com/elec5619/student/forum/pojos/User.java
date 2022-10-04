@@ -15,7 +15,6 @@ import java.util.*;
 @Setter
 @Entity
 @Table(name = "User")
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class User {
     @Id

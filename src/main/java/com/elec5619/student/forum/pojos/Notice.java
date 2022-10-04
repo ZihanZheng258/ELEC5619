@@ -14,7 +14,6 @@ import java.util.Date;
 @Entity
 @Table
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Notice {
     @Id
     @GeneratedValue
@@ -45,4 +44,11 @@ public class Notice {
 
     @Transient
     private User JsonReceiver;
+
+    @Transient
+    private int senderID;
+
+    @Transient
+    private int receiverID;
+
 }

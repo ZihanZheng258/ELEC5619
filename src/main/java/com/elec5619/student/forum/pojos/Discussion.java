@@ -15,7 +15,6 @@ import java.util.List;
 @Setter
 @Entity
 @Table
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Discussion {
     @Id
@@ -59,6 +58,10 @@ public class Discussion {
     private User JsonUser;
     @Transient
     private Category JsonCategory;
+    @Transient
+    private int categoryID;
+    @Transient
+    private int userID;
     @Transient
     private List<Comment> JsonComments;
 

@@ -2,10 +2,13 @@ package com.elec5619.student.forum.Controller;
 
 import com.elec5619.student.forum.pojos.Comment;
 import com.elec5619.student.forum.pojos.Discussion;
+import com.elec5619.student.forum.pojos.User;
+import com.elec5619.student.forum.services.CategoryService;
 import com.elec5619.student.forum.services.CommentService;
 import com.elec5619.student.forum.services.DiscussionService;
 import com.elec5619.student.forum.services.UserService;
 import com.elec5619.student.forum.util.JsonReturnType;
+import com.elec5619.student.forum.util.TokenManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +29,10 @@ public class DiscussionController {
     @Autowired
     UserService userService;
 
+
+    @Autowired
+    CategoryService categoryService;
+
     @Autowired
     CommentService commentService;
 
@@ -33,42 +40,58 @@ public class DiscussionController {
     @ResponseBody
     public JsonReturnType likeDiscussion(@PathVariable int id){
         Discussion discussion = discussionService.findById(id);
-        discussion.setJsonCategory(discussion.getCategory());
-        discussion.setJsonUser(discussion.getUser());
-        discussion.setJsonComments(commentService.findCommentByDiscussionMain(id));
-        for (Comment comment: discussion.getJsonComments()) {
-            comment.setJsonChildren(commentService.findChildComments(comment.getId()));
-        }
         discussionService.beenLiked(discussion);
         JsonReturnType jsonReturnType = new JsonReturnType();
         jsonReturnType.getData().put("discussion",discussion);
+        jsonReturnType.flag = true;
         return jsonReturnType;
     }
 
     @PostMapping("/")
     @ResponseBody
-    public JsonReturnType AddDiscussion(@RequestBody Discussion discussion, @RequestHeader (name="Authorization") String token){
+    public JsonReturnType AddDiscussion(@RequestBody Discussion discussion,Principal user){
         JsonReturnType jsonReturnType = new JsonReturnType();
         jsonReturnType.setFlag(true);
-        jsonReturnType.setMessage(token);
+        discussion.setCategory(categoryService.getByID(discussion.getCategoryID()));
+        User user1 = userService.getUserByNickName(user.getName());
+        discussion.setUser(user1);
+        discussionService.addNew(discussion);
+        jsonReturnType.getData().put("discussion",discussion);
         return jsonReturnType;
     }
 
     @GetMapping("/{id}/{page}")
     @ResponseBody
-    public JsonReturnType getAllDiscussion(@PathVariable int id,@PathVariable int page){
+    public JsonReturnType getPageOfCategoryDiscussion(@PathVariable int id,@PathVariable int page){
         JsonReturnType jsonReturnType = new JsonReturnType();
         Pageable pageable = PageRequest.of(page,15);
         jsonReturnType.getData().put("discussions",discussionService.findByCategoryPaged(id,pageable));
         return jsonReturnType;
     }
 
+    @GetMapping("/user/{id}")
+    @ResponseBody
+    public JsonReturnType getUserDiscussions(@PathVariable int id){
+        JsonReturnType jsonReturnType = new JsonReturnType();
+        jsonReturnType.getData().put("discussions",discussionService.findByUser(id));
+        return jsonReturnType;
+    }
+
+
 
     @GetMapping("/{id}")
     @ResponseBody
     public JsonReturnType getDiscussion(@PathVariable int id){
         JsonReturnType jsonReturnType = new JsonReturnType();
-        List<Comment> comments = commentService.findCommentByDiscussionMain(id);
+        Discussion discussion = discussionService.findById(id);
+        discussion.setJsonCategory(discussion.getCategory());
+        discussion.setJsonUser(discussion.getUser());
+        discussion.setJsonComments(commentService.findCommentByDiscussionMain(id));
+        for (Comment comment: discussion.getJsonComments()) {
+            comment.setJsonChildren(commentService.findChildComments(comment.getId()));
+        }
+        discussionService.beenViewed(discussion);
+        jsonReturnType.getData().put("discussion",discussion);
         return jsonReturnType;
     }
 

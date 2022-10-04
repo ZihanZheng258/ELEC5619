@@ -20,4 +20,11 @@ public class JsonReturnType {
         this.message = message;
 
     }
+
+    public static JsonReturnType successReturn(){
+        JsonReturnType jsonReturnType = new JsonReturnType();
+        jsonReturnType.setFlag(true);
+        jsonReturnType.setMessage("");
+        return jsonReturnType;
+    }
 }
