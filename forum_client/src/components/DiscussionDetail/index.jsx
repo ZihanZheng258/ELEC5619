@@ -88,15 +88,17 @@ const DiscussionDetail = () =>{
                             </strong>
                         </div>
                     </div>
-                    <input className="reply-editor" type="text" placeholder="Add a comment" />
-                    <button>Reply</button>
-                    <Comment/>
+                    <div className="comment-box">
+                        <div className="reply-box">
+                            <img className="avatar" src={avatar} alt=""/>
+                            <input className="reply-editor" type="text" placeholder="Add a comment" />
+                            <button>Reply</button>
+                        </div>
+                        <Comment/>
+                    </div>
                 </div>
             </div>
 
-            <div className="commentBox" >
-
-            </div>
 
 
         </div>

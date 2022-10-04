@@ -3,9 +3,6 @@
 
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import ReactDOM from 'react-dom'
-// import common styles
-// import './assets/css/file.css'
 import AppRouter from "./router";
 
 import "./css/reset.less"
