@@ -11,7 +11,8 @@ const Comment =() =>{
 
     // fetch the content
     useEffect(()=>{
-        let api =  "/discussion/like/6";
+        let api =  "http://localhost:8090/discussion/like/6";
+        fetch(api,'')
         const axios = require('axios');
         axios.get(api)
             .then((response)=> {
