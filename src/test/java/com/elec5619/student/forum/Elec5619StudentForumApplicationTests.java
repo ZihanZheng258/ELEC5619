@@ -161,7 +161,7 @@ class Elec5619StudentForumApplicationTests {
 		 discussion.setTitle("testDiscussion2");
 		 discussion.setContent("test2");
 		 discussion.setUser(userService.getUserByID(2));
-		 discussion.setCategory(categoryService.getByID(3));
+		 discussion.setCategory(categoryService.getByID(4));
 		 discussionService.addNew(discussion);
 		 /*Discussion discussion = discussionService.findById(5);
 		 discussionService.beenLiked(discussion);

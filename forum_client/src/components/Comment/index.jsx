@@ -3,16 +3,29 @@ import './index.less'
 import commentImg from './assets/comment.svg'
 import avatar from './assets/avatar.jpeg'
 import {Link} from "react-router-dom";
+import '../../config/config.js'
+import axios from "axios";
 
-const Comment =(props) =>{
-    // const commentClick
+
+const Comment =() =>{
 
     // fetch the content
     useEffect(()=>{
-        fetch('https://jsonplaceholder.typicode.com/posts?_limit=10',
-            {method:"GET"})
-            .then(response => response.json())
-            .then(data => console.log(data));
+        let api =  "/discussion/like/6";
+        const axios = require('axios');
+        axios.get(api)
+            .then((response)=> {
+                // handle success
+                console.log(response.data);
+                let tempData = response.data
+                this.setState({
+                    welcome_list:tempData
+                })
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
     })
 
     return(

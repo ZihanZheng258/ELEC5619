@@ -7,16 +7,14 @@ import './index.less'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Comment from '../Comment'
 import 'react-comments-section/dist/index.css'
+import {Link} from "react-router-dom";
 
 const DiscussionList = ({handleClick})=>{
     // const [likeClick, setLikeClick] = useState(false)
-    // useEffect(() => {s
-    //     const likesImg = likeClick ? likes : nlikes
-    //
-    // })
+
     const [cardContent, setCardContent] = useState([]);
     useEffect(() => {
-        fetch('https://jsonplaceholder.typicode.com/posts?_limit=1111')
+        fetch('https://jsonplaceholder.typicode.com/posts?_limit=5')
             .then((response) => response.json())
             .then((data) => {
                 // console.log(data);
@@ -27,16 +25,31 @@ const DiscussionList = ({handleClick})=>{
             });
     }, []);
 
-    // setCardContent(Array.from(props))
-    console.log(cardContent)
-    const arr = [1,2,3,4]
+    // useEffect(()=>{
+    //     let api = "http://localhost:8090/discussion/6";
+    //     const axios = require('axios');
+    //     axios.get(api)
+    //         .then((response)=> {
+    //             // handle success
+    //             console.log(response.data);
+    //             let tempData = response.data
+    //             this.setState({
+    //                 welcome_list:tempData
+    //             })
+    //         })
+    //         .catch(function (error) {
+    //             // handle error
+    //             console.log(error);
+    //
+    //         })
+    // })
+
 
         const [isChecked, setIsChecked] = useState(false);
         const toggleCheck = () => {
             setIsChecked(!isChecked);
             handleClick()
         }
-        const checkbox = isChecked ? nlikes : likes;
 
     return(
         <div className="discussion-list">
@@ -45,7 +58,7 @@ const DiscussionList = ({handleClick})=>{
                 return <div className="discussion-card" key={index.id}>
                 <div className="likes-column">
                     {/*<img onClick={(e)=>setLikeClick(!likeClick)} src= {likeClick ? likes: nlikes} alt=""/>*/}
-                    <img src= {checkbox} alt="" onClick = {toggleCheck}/>
+                    <img src= {likes} alt=""/>
 
                 </div>
                 <div className="discussion-col">
@@ -54,12 +67,15 @@ const DiscussionList = ({handleClick})=>{
                         <Button variant="outline-primary" size="sm">{index.userId}</Button>{' '}
                         <Button variant="outline-primary" size="sm">DateTime</Button>{' '}
                     </div>
-                    <div className="discussion-title">
-                        {index.title}
-                    </div>
-                    <div className="discussion-description">
-                        {index.body}
-                    </div>
+                    <Link to="/discussion">
+                        <div className="discussion-title">
+                                {index.title}
+                        </div>
+                        <div className="discussion-description">
+                                {index.body}
+                        </div>
+                    </Link>
+
                     <div className="discussion-actionbar">
                         <Comment />
                     </div>

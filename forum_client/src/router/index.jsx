@@ -14,6 +14,7 @@ import FourZeroFour from "../pages/ErrorPage/page_404"
 import FourZeroThree from "../pages/ErrorPage/page_403"
 import FiveZeroZero from "../pages/ErrorPage/page_500"
 import Search from "../pages/Search";
+import DiscussionDetail from "../pages/DiscussionDetailPage";
 
 const AppRouter = () => {
     return (
@@ -25,9 +26,10 @@ const AppRouter = () => {
                 <Route path="/user" element={< User />}></Route>
                 <Route path="/search" element={< Search />}></Route>
                 <Route path="/notes" element={< Note />}></Route>
-                <Route path="/discussion" element={<Discussion />}></Route>
+                <Route path="/discussion" element={<DiscussionDetail />}></Route>
                 <Route path="/login" element={<Login />}></Route>
                 <Route path="/register" element={<Register />}></Route>
+                {/*<Route path="/discussion:id" element={<DiscussionDetail />}></Route>*/}
                 <Route path="/page_404" element={<FourZeroFour />}></Route>
                 <Route path="/page_403" element={<FourZeroThree />}></Route>
                 <Route path="/page_500" element={<FiveZeroZero />}></Route>

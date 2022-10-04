@@ -10,6 +10,9 @@ const NoteList = () =>{
                 return <div className="noteListCard" key={index.toString()}>
                     <div className="noteCardImage">
                         <img src="" alt=""/>
+                        <div className="card-unit">
+                            ELEC5619
+                        </div>
                     </div>
 
 
