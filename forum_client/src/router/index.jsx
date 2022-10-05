@@ -3,6 +3,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from '../pages/Home'
 import User from '../pages/User'
 import Note from '../pages/Note'
+import NoteDetailPage from '../pages/NoteDetailPage'
+import NoteDetail from "../components/NoteDetail";
 import Discussion from '../pages/Discussion'
 import HeadingNav from "../components/HeadingNav";
 import BottomNav from "../components/BottomNav";
@@ -26,6 +28,7 @@ const AppRouter = () => {
                 <Route path="/user" element={< User />}></Route>
                 <Route path="/search" element={< Search />}></Route>
                 <Route path="/notes" element={< Note />}></Route>
+                <Route path="/notedetail" element={< NoteDetail />}></Route>
                 <Route path="/discussion" element={<DiscussionDetail />}></Route>
                 <Route path="/login" element={<Login />}></Route>
                 <Route path="/register" element={<Register />}></Route>
@@ -33,6 +36,8 @@ const AppRouter = () => {
                 <Route path="/page_404" element={<FourZeroFour />}></Route>
                 <Route path="/page_403" element={<FourZeroThree />}></Route>
                 <Route path="/page_500" element={<FiveZeroZero />}></Route>
+
+                
 
             </Routes>
         </BrowserRouter>

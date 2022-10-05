@@ -5,13 +5,14 @@ import { useNavigate } from "react-router-dom";
 import Comment from '../Comment'
 
 
-const NoteList = () =>{
-    const arr = [1,2,3,4,5]
-    const navigate = useNavigate();
+const NoteDetail = () =>{
+    const arr = [1]
+    
     return(
         <>
             {arr.map((index)=>{
-                return <div className="noteListCard" key={index.toString()}>
+                return <div>
+                    <div className="noteListCard" key={index.toString()}>
                     <div className="noteCardImage">
                         <img src="" alt=""/>
                     </div>
@@ -32,18 +33,16 @@ const NoteList = () =>{
                             by authorName
                         </div>
                     </div>
-
-
-                    <div className="noteCardActionBar">
-                        <Button variant="outline-info" onClick={()=>navigate('/notedetailpage')}>View</Button>{' '}
-                        <Button variant="outline-info">Save</Button>{' '}
-                        <Button variant="outline-info">Buy</Button>{' '}
-
-                    </div>
+                    
                 </div>
+                <div>
+                    <Comment/>
+                </div>
+                </div>
+                
             })}
         </>
     )
 }
 
-export default NoteList
+export default NoteDetail
