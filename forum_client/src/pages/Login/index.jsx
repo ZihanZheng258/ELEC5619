@@ -1,10 +1,12 @@
 import React, {useState} from "react";
 import "./index.less"
+import "./setAuthToken"
 import {useNavigate} from "react-router-dom";
 import {Button, Form, Input, message} from "antd";
 import {CloseCircleOutlined, LockOutlined, UserOutlined} from "@ant-design/icons";
 import loginLeft from "../../assets/images/login_left4.png";
 import logo from "../../assets/images/logo.png";
+import setAuthToken from "./setAuthToken";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -42,10 +44,17 @@ const Login = () => {
                 console.log(res)
                 if (res.status === 200){
                     setLoading(false);
-                    // console.log(data); // JSON data parsed by `data.json()` call
                     message.success("login success!")
-                    console.log('@AccessToken', res.data.accessToken)
-                    localStorage.setItem('accessToken',res.data.accessToken);
+                    localStorage.removeItem('token');
+                    //get token from response
+                    const token  =  res.data.accessToken;
+
+                    //set JWT token to local
+                    localStorage.setItem("token", token);
+
+                    // set token to axios common header
+                    setAuthToken(token);
+
                     setTimeout(() => {
                         navigate('/')
                         setLoading(false);

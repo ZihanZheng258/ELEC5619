@@ -1,32 +1,55 @@
-import React from "react";
+import React, {useState, useEffect, useInsertionEffect} from "react";
 import Comment from '../Comment'
 import {Link} from "react-router-dom";
 import avatar from "../Comment/assets/avatar.jpeg";
 import './index.less'
-
+import axios from "axios";
 
 
 
 
 const DiscussionDetail = () =>{
 
+    const setAuthToken = token => {
+        if (token) {
+            axios.defaults.headers.common["Authorization"] = `${token}`;
+        }
+        else
+            delete axios.defaults.headers.common["Authorization"];
+    }
+
+
+    const [detail, setDetail] = useState();
+
+    useEffect(()=>{
+
+        axios.get('http://localhost:8090/discussion/6')
+            .then((response) => {
+                setDetail(response.data.data.discussion);
+                console.log(response.data.data.discussion);
+            });
+
+    }, []);
+
+
+
     return(
         <div className="discussionDetail">
             <div className="discussion-title">
-                    # title
+                {detail.title}
             </div>
             <div className="discussionCategory">
-                Entertainment
+                {detail.jsonCategory.content}
             </div>
             <hr/>
             <div className="discussion-content">
                 <div className="creator">
                     <div className="avatar">
                         <img className="avatar" src={avatar} alt=""/>
-                        <div className="creator-name">userNameCoco</div>
+                        <div className="creator-name">{detail.jsonUser.nickName}</div>
                     </div>
                     <div className="create-date">
-                        03 OCT
+                        {detail.createDate}
                     </div>
                 </div>
                 {/*{index.body}*/}
@@ -104,4 +127,6 @@ const DiscussionDetail = () =>{
         </div>
     )
 }
+
+
 export default DiscussionDetail
