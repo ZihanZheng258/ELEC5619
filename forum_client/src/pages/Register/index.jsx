@@ -44,9 +44,8 @@ const Register = () => {
                         initialValues={{ remember: true }}
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}
-                        size="Default"
+                        size="large"
                         autoComplete="off"
-
                     >
                         <Form.Item label="Username" name="username" rules={[{ required: true, message: "please enter username" }]}>
                             <Input placeholder="please enter username" prefix={<UserOutlined />} />
@@ -74,14 +73,14 @@ const Register = () => {
 
                         <Form.Item className="login-btn">
                             <Button
+                                loading={loading}
                                 onClick={() => {
                                     form.resetFields();
                                 }}
-                                icon={<CloseCircleOutlined />}
                             >
                                 Reset
                             </Button>
-                            <Button type="primary" htmlType="submit" loading={loading} icon={<UserOutlined />}>
+                            <Button type="primary" htmlType="submit" loading={loading} >
                                 Register
                             </Button>
                         </Form.Item>
