@@ -25,7 +25,7 @@ public class Discussion {
     private String title;
 
     @Column(name = "content")
-    private String Content;
+    private String content;
 
     @Column(name = "comments_number")
     private int commentNumber = 0;

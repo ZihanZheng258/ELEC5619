@@ -16,7 +16,7 @@ public interface CategoryDao extends JpaRepository<Category,Integer>, JpaSpecifi
 
     public Long deleteByContent(String Content);
 
-    public Category_Note findByContent(String content);
+    public Category findByContent(String content);
 
 
 

@@ -63,8 +63,24 @@ public class DiscussionService {
         return category.getDiscussionList();
     }
 
+
     public Page<Discussion> findByCategoryPaged(int id,Pageable pageable){
         Page<Discussion> page= discussionDao.findByCategoryPaged(id,pageable);
+        return page;
+    }
+
+    public Page<Discussion> findByCategoryPaged(String content,Pageable pageable){
+        Page<Discussion> page= discussionDao.findByCategoryPaged(content,pageable);
+        return page;
+    }
+
+    public List<Discussion> findByUser(String nickName){
+        User user = userDao.findByNickName(nickName);
+        return user.getDiscussions();
+    }
+
+    public Page<Discussion> findByContain(String content,Pageable pageable){
+        Page<Discussion> page = discussionDao.findByContentContaining(content,pageable);
         return page;
     }
 
