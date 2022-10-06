@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -47,6 +48,21 @@ public interface DiscussionDao extends JpaRepository<Discussion,Integer>, JpaSpe
     Page<Discussion> findByCategoryPaged(int id, Pageable pageable);
 
     Page<Discussion> findAll(Pageable pageable);
+
+    @Query("select d from Discussion d where d.category.content = ?1")
+    Page<Discussion> findByCategoryPaged(String content, Pageable pageable);
+
+    List<Discussion> findByUser_NickName(String nickName);
+
+    Page<Discussion> findByContentContaining(String content, Pageable pageable);
+
+
+
+
+
+
+
+
 
 
 

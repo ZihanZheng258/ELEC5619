@@ -1,9 +1,9 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "./index.less"
 import "./setAuthToken"
-import {useNavigate} from "react-router-dom";
-import {Button, Form, Input, message} from "antd";
-import {CloseCircleOutlined, LockOutlined, UserOutlined} from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
+import { Button, Form, Input, message } from "antd";
+import { CloseCircleOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
 import loginLeft from "../../assets/images/login_left4.png";
 import logo from "../../assets/images/logo.png";
 import setAuthToken from "./setAuthToken";
@@ -16,7 +16,7 @@ const Login = () => {
 
     const onFinish = async ({ username, password }) => {
         setLoading(true);
-// Example POST method implementation:
+        // Example POST method implementation:
         async function postData(url = '', data = {}) {
             // Default options are marked with *
             const response = await fetch(url, {
@@ -36,18 +36,18 @@ const Login = () => {
 
         }
 
-        postData('http://localhost:8090/auth/signin', { usernameOrEmail: username, password:password })
-            .then((res=> res.json().then( data=> ({
-                data:data,
+        postData('http://localhost:8090/auth/signin', { usernameOrEmail: username, password: password })
+            .then((res => res.json().then(data => ({
+                data: data,
                 status: res.status
-            })).then(res=> {
+            })).then(res => {
                 console.log(res)
-                if (res.status === 200){
+                if (res.status === 200) {
                     setLoading(false);
                     message.success("login success!")
                     localStorage.removeItem('token');
                     //get token from response
-                    const token  =  res.data.accessToken;
+                    const token = res.data.accessToken;
 
                     //set JWT token to local
                     localStorage.setItem("token", token);
@@ -59,9 +59,9 @@ const Login = () => {
                         navigate('/')
                         setLoading(false);
                     }, 500)
-                } else{
+                } else {
                     setLoading(false);
-                    message.error("please check your account or password!" )
+                    message.error("please check your account or password!")
                 }
 
 
@@ -91,7 +91,7 @@ const Login = () => {
                         initialValues={{ remember: true }}
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}
-                        size="Default"
+                        size="large"
                         autoComplete="off"
                     >
                         <Form.Item name="username" rules={[{ required: true, message: "please enter username" }]}>
@@ -102,14 +102,14 @@ const Login = () => {
                         </Form.Item>
                         <Form.Item className="login-btn">
                             <Button
+                                loading={loading}
                                 onClick={() => {
                                     form.resetFields();
                                 }}
-                                icon={<CloseCircleOutlined />}
                             >
                                 Reset
                             </Button>
-                            <Button type="primary" htmlType="submit" loading={loading} icon={<UserOutlined />}>
+                            <Button type="primary" htmlType="submit" loading={loading} >
                                 Login
                             </Button>
                         </Form.Item>

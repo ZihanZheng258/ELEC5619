@@ -33,7 +33,7 @@ const RouteGuard: React.FC<{ children: JSX.Element }> = ({ children }) => {
         let flag = false;
 
         //check user has JWT token
-        localStorage.getItem("token") ? flag=true : flag=false
+        localStorage.getItem("token") ? flag = true : flag = false
 
         return flag
     }

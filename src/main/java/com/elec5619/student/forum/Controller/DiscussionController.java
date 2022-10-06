@@ -106,4 +106,31 @@ public class DiscussionController {
         return jsonReturnType;
     }
 
+    @GetMapping("/user/nickName/{nickName}")
+    @ResponseBody
+    public JsonReturnType getUserDiscussions(@PathVariable String nickName){
+        JsonReturnType jsonReturnType = new JsonReturnType();
+        jsonReturnType.getData().put("discussions",discussionService.findByUser(nickName));
+        return jsonReturnType;
+    }
+
+    @GetMapping("/search/{content}/{page}")
+    @ResponseBody
+    public JsonReturnType getSearchDiscussions(@PathVariable String content,@PathVariable int page){
+        JsonReturnType jsonReturnType = new JsonReturnType();
+        Pageable pageable = PageRequest.of(page,15);
+        jsonReturnType.getData().put("discussions",discussionService.findByContain(content,pageable));
+        return jsonReturnType;
+    }
+
+    @GetMapping("/category/{content}/{page}")
+    @ResponseBody
+    public JsonReturnType getDiscussionsByCategory(@PathVariable String content,@PathVariable int page){
+        JsonReturnType jsonReturnType = new JsonReturnType();
+        Pageable pageable = PageRequest.of(page,15);
+        jsonReturnType.getData().put("discussions",discussionService.findByCategoryPaged(content,pageable));
+        return jsonReturnType;
+    }
+
+
 }

@@ -1,8 +1,10 @@
-import React, {useEffect, useState} from "react";
+import {React, useEffect, useState} from "react";
 import './index.less'
 import { SearchOutlined } from '@ant-design/icons'
 import {Link, useNavigate} from "react-router-dom";
 import api from "../../api";
+import AvatarIcon from "./AvatarIcon"
+
 
 const HeadingNav = () => {
     const navigate = useNavigate();
@@ -34,7 +36,8 @@ const HeadingNav = () => {
             </div>
             <div className="profile">
                 <div className="profileImage">
-                    <img src={require("./assets/user.png")} alt="user" width="33px" />
+                    <AvatarIcon />
+                    {/* <img src={require("./assets/user.png")} alt="user" width="33px" /> */}
                 </div>
                 <div className="signInText" onClick={() => navigate('/login')}>
                     <span>{user}</span>
