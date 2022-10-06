@@ -10,6 +10,7 @@ import com.elec5619.student.forum.services.UserService;
 import com.elec5619.student.forum.util.JsonReturnType;
 import com.elec5619.student.forum.util.TokenManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -92,6 +93,16 @@ public class DiscussionController {
         }
         discussionService.beenViewed(discussion);
         jsonReturnType.getData().put("discussion",discussion);
+        return jsonReturnType;
+    }
+
+    @GetMapping("/page/{page}")
+    @ResponseBody
+    public JsonReturnType getAllDiscussion(@PathVariable int page){
+        JsonReturnType jsonReturnType = new JsonReturnType();
+        Pageable pageable = PageRequest.of(page,15);
+        Page<Discussion> page1 = discussionService.getAllDiscussionPaged(pageable);
+        jsonReturnType.getData().put("discussion",page1);
         return jsonReturnType;
     }
 

@@ -9,6 +9,8 @@ import com.elec5619.student.forum.pojos.Discussion;
 import com.elec5619.student.forum.pojos.Note;
 import com.elec5619.student.forum.pojos.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.Id;
@@ -68,6 +70,17 @@ public class NoteService {
         User owner = userDao.findById(ID).get();
         return owner.getWishedNotes();
     }
+
+    public Page<Note> findByCategoryPaged(int id, Pageable pageable){
+        Page<Note> page= noteDao.findByCategory_Id(id,pageable);
+        return page;
+    }
+
+    public Page<Note> getAllNotePaged(Pageable pageable){
+        Page<Note> page= noteDao.findAll(pageable);
+        return page;
+    }
+
 
 
 

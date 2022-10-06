@@ -12,6 +12,9 @@ import com.elec5619.student.forum.util.JsonReturnType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -147,6 +150,31 @@ public class NoteController {
         jsonReturnType.setMessage("");
         return jsonReturnType;
     }
+
+    @GetMapping("/page/{page}")
+    @ResponseBody
+    public JsonReturnType getAllNotePaged(@PathVariable int page){
+        Pageable pageable = PageRequest.of(page,15);
+        Page<Note> page1= noteService.getAllNotePaged(pageable);
+        JsonReturnType jsonReturnType = new JsonReturnType();
+        jsonReturnType.getData().put("notes",page1);
+        jsonReturnType.setFlag(true);
+        jsonReturnType.setMessage("");
+        return jsonReturnType;
+    }
+
+    @GetMapping("/{id}/{page}")
+    @ResponseBody
+    public JsonReturnType getNotePagedByCategory(@PathVariable int page,@PathVariable int id){
+        Pageable pageable = PageRequest.of(page,15);
+        Page<Note> page1= noteService.findByCategoryPaged(id,pageable);
+        JsonReturnType jsonReturnType = new JsonReturnType();
+        jsonReturnType.getData().put("notes",page1);
+        jsonReturnType.setFlag(true);
+        jsonReturnType.setMessage("");
+        return jsonReturnType;
+    }
+
 
     @PostMapping("/uploadNote")
     @ResponseBody

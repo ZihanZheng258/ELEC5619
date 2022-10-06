@@ -33,6 +33,11 @@ public class DiscussionService {
         return true;
     }
 
+    public Page<Discussion> getAllDiscussionPaged(Pageable pageable){
+        Page<Discussion> page= discussionDao.findAll(pageable);
+        return page;
+    }
+
     public boolean beenViewed(Discussion discussion){
         discussionDao.addView(1,discussion.getId());
         return true;

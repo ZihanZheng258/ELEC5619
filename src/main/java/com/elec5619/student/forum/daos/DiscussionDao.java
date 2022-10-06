@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public interface DiscussionDao extends JpaRepository<Discussion,Integer>, JpaSpecificationExecutor<Discussion> {
 
@@ -45,17 +46,7 @@ public interface DiscussionDao extends JpaRepository<Discussion,Integer>, JpaSpe
     @Query("select d from Discussion d where d.category.id = ?1")
     Page<Discussion> findByCategoryPaged(int id, Pageable pageable);
 
-
-
-
-
-
-
-
-
-
-
-
+    Page<Discussion> findAll(Pageable pageable);
 
 
 
