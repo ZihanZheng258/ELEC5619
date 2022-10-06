@@ -4,7 +4,7 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
 import AppRouter from "./router";
-
+import "./pages/Login/setAuthToken"
 import "./css/reset.less"
 import "./css/common.less"
 import 'antd/dist/antd.css'
@@ -12,7 +12,9 @@ import 'antd/dist/antd.css'
 
 const container = document.getElementById('root');
 const root = createRoot(container); // createRoot(container!) if you use TypeScript
+
 root.render(
+
     <AppRouter/>
 );
 
