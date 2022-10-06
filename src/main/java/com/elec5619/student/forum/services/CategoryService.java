@@ -53,5 +53,11 @@ public class CategoryService {
         return categoryDao.findById(id).get();
     }
 
+    public Category getByContent(String content){
+        return categoryDao.findByContent(content);
+    }
+
+
+
 
 }
