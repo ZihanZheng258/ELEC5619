@@ -1,6 +1,6 @@
 import React from 'react'
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { browserHistory } from 'react-router'
+import {useEffect} from "react";
 
 // pages
 import Login from "../pages/Login/index"
@@ -22,10 +22,18 @@ import setAuthToken from "../pages/Login/setAuthToken";
 
 const AppRouter = () => {
 //check jwt token
-    const token = localStorage.getItem("token");
-    if (token) {
-        setAuthToken(token);
-    }
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            setAuthToken(token);
+            console.log('auth runned login')
+        }
+
+    }, []);
+
+
+
     return (
         <BrowserRouter>
 

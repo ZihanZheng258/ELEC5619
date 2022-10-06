@@ -10,26 +10,17 @@ import axios from "axios";
 
 const DiscussionDetail = () =>{
 
-    const setAuthToken = token => {
-        if (token) {
-            axios.defaults.headers.common["Authorization"] = `${token}`;
-        }
-        else
-            delete axios.defaults.headers.common["Authorization"];
-    }
-
-
     const [detail, setDetail] = useState();
 
-    useEffect(()=>{
-
-        axios.get('http://localhost:8090/discussion/6')
-            .then((response) => {
-                setDetail(response.data.data.discussion);
-                console.log(response.data.data.discussion);
-            });
-
-    }, []);
+    // useEffect(()=>{
+    //
+    //     axios.get('http://localhost:8090/discussion/6')
+    //         .then((response) => {
+    //             setDetail(response.data.data.discussion);
+    //             console.log(response.data.data.discussion);
+    //         });
+    //
+    // }, []);
 
 
 

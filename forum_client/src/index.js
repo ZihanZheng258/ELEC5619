@@ -8,14 +8,14 @@ import "./pages/Login/setAuthToken"
 import "./css/reset.less"
 import "./css/common.less"
 import 'antd/dist/antd.css'
+import RouteGuard from "./components/RouteGuard";
 
 
 const container = document.getElementById('root');
 const root = createRoot(container); // createRoot(container!) if you use TypeScript
 
 root.render(
-
-    <AppRouter/>
+        <AppRouter/>
 );
 
 

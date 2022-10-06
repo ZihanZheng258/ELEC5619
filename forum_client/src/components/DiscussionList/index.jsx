@@ -10,8 +10,7 @@ import 'react-comments-section/dist/index.css'
 import {Link} from "react-router-dom";
 
 const DiscussionList = ({handleClick})=>{
-    // const [likeClick, setLikeClick] = useState(false)
-
+    const [discussion,setDiscussion] = useState([]);
     const [cardContent, setCardContent] = useState([]);
     useEffect(() => {
         fetch('https://jsonplaceholder.typicode.com/posts?_limit=5')
