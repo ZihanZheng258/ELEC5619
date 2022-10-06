@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.security.Principal;
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -22,6 +24,16 @@ public class UserController {
     @ResponseBody
     public JsonReturnType GetUserByID(@PathVariable int id){
         User user = userService.getUserByID(id);
+        JsonReturnType jsonReturnType = new JsonReturnType();
+        jsonReturnType.getData().put("user",user);
+        jsonReturnType.flag = true;
+        return jsonReturnType;
+    }
+
+    @GetMapping("/self")
+    @ResponseBody
+    public JsonReturnType GetUserByID(Principal principal){
+        User user = userService.getUserByNickName(principal.getName());
         JsonReturnType jsonReturnType = new JsonReturnType();
         jsonReturnType.getData().put("user",user);
         jsonReturnType.flag = true;
