@@ -44,6 +44,10 @@ const Login = () => {
                     message.error("please check your account or password!")
                 }
             })
+            .catch(function (error) {
+            setLoading(false);
+            message.error("please check your account or password!")
+        });
 
     };
 
