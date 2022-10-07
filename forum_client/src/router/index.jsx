@@ -60,7 +60,7 @@ const AppRouter = () => {
                     </RouteGuard>
                 }></Route>
 
-                <Route path="/discussion" element={
+                <Route path="/discussion/:id" element={
                     <RouteGuard>
                     <DiscussionDetail />
                     </RouteGuard>

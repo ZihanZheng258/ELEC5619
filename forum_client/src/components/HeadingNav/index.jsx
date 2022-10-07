@@ -13,9 +13,7 @@ const HeadingNav = () => {
     useEffect( () => {
         api.getSelf().
         then((response)=>{
-            console.log('good',response)
             setUser(response.data.data.user.nickName)
-            console.log(user)
         })
     }, []);
     return (
@@ -39,7 +37,7 @@ const HeadingNav = () => {
                     <AvatarIcon />
                     {/* <img src={require("./assets/user.png")} alt="user" width="33px" /> */}
                 </div>
-                <div className="signInText" onClick={() => navigate('/login')}>
+                <div className="signInText">
                     <span>{user}</span>
                 </div>
             </div>

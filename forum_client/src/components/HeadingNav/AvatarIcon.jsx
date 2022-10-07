@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import {React, useRef} from "react";
 import { Avatar, Modal, Menu, Dropdown, message } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
@@ -60,10 +60,11 @@ const AvatarIcon = () => {
     return (
         <>
             <Dropdown overlay={menu} placement="bottom" arrow trigger={["click"]}>
-                <Avatar size="large" src={avatar} />
+                <Avatar size="large" src={avatar}></Avatar>
             </Dropdown>
             <InfoModal innerRef={infoRef}></InfoModal>
             <PasswordModal innerRef={passRef}></PasswordModal>
+
         </>
     );
 };

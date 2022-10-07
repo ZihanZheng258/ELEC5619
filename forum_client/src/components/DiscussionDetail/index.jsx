@@ -1,81 +1,60 @@
-import React, {useState, useEffect, useInsertionEffect} from "react";
+import React from "react";
+import {useState, useEffect} from "react";
+import {Link, useParams} from "react-router-dom";
+
 import Comment from '../Comment'
-import {Link} from "react-router-dom";
 import avatar from "../Comment/assets/avatar.jpeg";
+import api from "../../api"
 import './index.less'
-import axios from "axios";
-
-
-
+import moment from "moment/moment";
 
 const DiscussionDetail = () =>{
+    const params = useParams().id;
+    const [detail, setDetail] = useState([]);
+    const [detailUser, setDetailUser] = useState([])
+    const [detailCategory, setDetailCategory] = useState([])
 
-    const [detail, setDetail] = useState();
-
-    // useEffect(()=>{
-    //
-    //     axios.get('http://localhost:8090/discussion/6')
-    //         .then((response) => {
-    //             setDetail(response.data.data.discussion);
-    //             console.log(response.data.data.discussion);
-    //         });
-    //
-    // }, []);
-
-
-
+    useEffect(()=>{
+        api.getDiscussionDetail(params)
+            .then((response)=>{
+                setDetail(response.data.data.discussion)
+                console.log(response.data.data.discussion)
+                setDetailUser(response.data.data.discussion.jsonUser)
+                setDetailCategory(response.data.data.discussion.jsonCategory)
+            })
+    },[]);
     return(
+        <>
         <div className="discussionDetail">
             <div className="discussion-title">
                 {detail.title}
             </div>
             <div className="discussionCategory">
-                {detail.jsonCategory.content}
+                {detailCategory.content}
             </div>
             <hr/>
             <div className="discussion-content">
                 <div className="creator">
                     <div className="avatar">
                         <img className="avatar" src={avatar} alt=""/>
-                        <div className="creator-name">{detail.jsonUser.nickName}</div>
+                        <div className="creator-name">
+                            {detailUser.nickName}
+                        </div>
                     </div>
                     <div className="create-date">
-                        {detail.createDate}
+                        {moment(detail.createDate).format('L')}
                     </div>
                 </div>
                 {/*{index.body}*/}
                 <div className="contents-block">
-                    Steps to reproduce
-                    Export PDF.
-                    Expected result
-                    Expected to be able to search the PDF for a term that I knew was in it.
-
-                    Actual result
-                    Search only finds the word if the word is typed backwards.
-                    Environment
-                    Mac OS 12.3
-                    Operating system:
-                    Debug info:
-                    SYSTEM INFO:
-                    Obsidian version: v0.15.8
-                    Installer version: v0.15.8
-                    Operating system: Darwin Kernel Version 21.4.0: Mon Feb 21 20:36:53 PST 2022; root:xnu-8020.101.4~2/RELEASE_ARM64_T8101 21.4.0
-                    Login status: logged in
-                    Catalyst license: supporter
-                    Insider build toggle: off
-                    Live preview: on
-                    Legacy editor: off
-                    Base theme: light
-                    Community theme: Prism
-                    Snippets enabled: 3
-                    Restricted mode: on
+                    {detail.content}
                     <div className="infoBar">
                         <div className="post">
                             <strong>
                                 Poster:
                             </strong>
                             <span className="poster-name">
-                                userNameCoco
+                                {detailUser.nickName}
                             </span>
                         </div>
                         <div className="created">
@@ -83,22 +62,25 @@ const DiscussionDetail = () =>{
                                 Created by:
                             </strong>
                             <span className="poster-date">
-                                03 OCT
+                                {moment(detail.createDate).format('DD MMM')}
                             </span>
                         </div>
                         <div className="numComments">
                             <strong>
-                                22 Comments
+                                {detail.commentNumber}
+                                <span> Comments</span>
                             </strong>
                         </div>
                         <div className="numViews">
                             <strong>
-                                202 Views
+                                {detail.viewNumber}
+                                <span> Views</span>
                             </strong>
                         </div>
                         <div className="numLikes">
                             <strong>
-                                10 Likes
+                                {detail.likeNumber}
+                                <span> Likes</span>
                             </strong>
                         </div>
                     </div>
@@ -112,10 +94,8 @@ const DiscussionDetail = () =>{
                     </div>
                 </div>
             </div>
-
-
-
         </div>
+        </>
     )
 }
 

@@ -30,7 +30,7 @@ const PasswordModal = (props) => {
                 onOk={handleOk}
                 destroyOnClose={true}
                 onCancel={handleCancel}
-                visible={isModalVisible}
+                open={isModalVisible}
             >
                 <Form
                     name="basic"

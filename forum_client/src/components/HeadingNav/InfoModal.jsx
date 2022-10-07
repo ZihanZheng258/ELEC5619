@@ -26,7 +26,7 @@ const InfoModal = (props) => {
             title="Personal Information"
             onOk={handleOk}
             destroyOnClose={true}
-            visible={modalVisible}
+            open={modalVisible}
             onCancel={handleCancel}
             footer={null}
         >
