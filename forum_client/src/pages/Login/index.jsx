@@ -1,12 +1,15 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import "./index.less"
 import "./setAuthToken"
-import {useNavigate} from "react-router-dom";
-import {Button, Form, Input, message} from "antd";
-import {CloseCircleOutlined, LockOutlined, UserOutlined} from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
+import { Button, Form, Input, message } from "antd";
+import { CloseCircleOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
 import loginLeft from "../../assets/images/login_left4.png";
 import logo from "../../assets/images/logo.png";
 import setAuthToken from "./setAuthToken";
+
+// import api
+import api from "../../api"
 
 const Login = () => {
     const navigate = useNavigate();
@@ -16,56 +19,35 @@ const Login = () => {
 
     const onFinish = async ({ username, password }) => {
         setLoading(true);
-// Example POST method implementation:
-        async function postData(url = '', data = {}) {
-            // Default options are marked with *
-            const response = await fetch(url, {
-                method: 'POST', // *GET, POST, PUT, DELETE, etc.
-                mode: 'cors', // no-cors, *cors, same-origin
-                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-                credentials: 'same-origin', // include, *same-origin, omit
-                headers: {
-                    'Content-Type': 'application/json'
-                    // 'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                redirect: 'follow', // manual, *follow, error
-                referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
-                body: JSON.stringify(data) // body data type must match "Content-Type" header
-            });
-            return response// parses JSON response into native JavaScript objects
-
-        }
-
-        postData('http://localhost:8090/auth/signin', { usernameOrEmail: username, password:password })
-            .then((res=> res.json().then( data=> ({
-                data:data,
-                status: res.status
-            })).then(res=> {
-                console.log(res)
-                if (res.status === 200){
-                    setLoading(false);
-                    message.success("login success!")
+        api.signIn(username,password)
+            .then((response)=>{
+                console.log(response)
+                if (response.status === 200){
+                    // remove current user info
                     localStorage.removeItem('token');
-                    //get token from response
-                    const token  =  res.data.accessToken;
 
-                    //set JWT token to local
+                    //             //get token from response
+                    const token = response.data.accessToken;
+
+                    //             //set JWT token to local
                     localStorage.setItem("token", token);
 
-                    // set token to axios common header
-                    setAuthToken(token);
-
+                    message.success("login success!")
+                    console.log(token);
                     setTimeout(() => {
                         navigate('/')
                         setLoading(false);
                     }, 500)
-                } else{
+
+                }else {
                     setLoading(false);
-                    message.error("please check your account or password!" )
+                    message.error("please check your account or password!")
                 }
-
-
-            })));
+            })
+            .catch(function (error) {
+            setLoading(false);
+            message.error("please check your account or password!")
+        });
 
     };
 
@@ -91,7 +73,7 @@ const Login = () => {
                         initialValues={{ remember: true }}
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}
-                        size="Default"
+                        size="large"
                         autoComplete="off"
                     >
                         <Form.Item name="username" rules={[{ required: true, message: "please enter username" }]}>
@@ -102,14 +84,14 @@ const Login = () => {
                         </Form.Item>
                         <Form.Item className="login-btn">
                             <Button
+                                loading={loading}
                                 onClick={() => {
                                     form.resetFields();
                                 }}
-                                icon={<CloseCircleOutlined />}
                             >
                                 Reset
                             </Button>
-                            <Button type="primary" htmlType="submit" loading={loading} icon={<UserOutlined />}>
+                            <Button type="primary" htmlType="submit" loading={loading} >
                                 Login
                             </Button>
                         </Form.Item>

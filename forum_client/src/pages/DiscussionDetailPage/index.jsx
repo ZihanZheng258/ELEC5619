@@ -4,7 +4,6 @@ import SidebarMenu from "../../components/SidebarMenu";
 import BottomNav from "../../components/BottomNav";
 import DiscussionDetail from "../../components/DiscussionDetail";
 import './index.less'
-import '../../config/config.js';
 
 const DiscussionDetailPage = () =>{
 

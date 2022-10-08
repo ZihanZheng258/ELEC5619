@@ -7,14 +7,10 @@ import Announcement from "./Announcement";
 import './index.less'
 import '../../config/config.js';
 import {useEffect, useState} from "react";
-import axios from 'axios';
+import api from "../../api/index"
+import setAuthToken from "../Login/setAuthToken";
 
 const Home = () =>{
-    // const {title, description} = props
-    const [cardContents, setCardContents] = useState([]);
-    // useEffect(()=>{
-    //     setCardContents()
-    // })
 
 
     return(
@@ -22,7 +18,7 @@ const Home = () =>{
             <div className="homeContent">
 
                     <div className="layout-header">
-                        <HeadingNav/>
+                        <HeadingNav />
                     </div>
                     <div className="layout-row">
                         <div className="layout-sidebar">
