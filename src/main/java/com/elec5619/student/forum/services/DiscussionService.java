@@ -84,4 +84,29 @@ public class DiscussionService {
         return page;
     }
 
+    public void loadUserDataForPage(Page<Discussion> discussions){
+        List<Discussion> discussionList = discussions.getContent();
+        for (Discussion discussion: discussionList) {
+            discussion.setJsonUser(discussion.getUser());
+        }
+    }
+
+    public void loadCategoryDataForPage(Page<Discussion> discussions){
+        List<Discussion> discussionList = discussions.getContent();
+        for (Discussion discussion: discussionList) {
+            discussion.setJsonCategory(discussion.getCategory());
+        }
+    }
+
+    public void loadUserDataForList(List<Discussion> discussions){
+        for (Discussion discussion: discussions) {
+            discussion.setJsonUser(discussion.getUser());
+        }
+    }
+
+    public void loadCategoryDataForPage(List<Discussion> discussions){
+        for (Discussion discussion: discussions) {
+            discussion.setJsonCategory(discussion.getCategory());
+        }
+    }
 }

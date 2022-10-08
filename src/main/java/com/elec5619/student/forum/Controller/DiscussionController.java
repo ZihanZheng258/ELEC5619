@@ -102,6 +102,8 @@ public class DiscussionController {
         JsonReturnType jsonReturnType = new JsonReturnType();
         Pageable pageable = PageRequest.of(page,15);
         Page<Discussion> page1 = discussionService.getAllDiscussionPaged(pageable);
+        discussionService.loadUserDataForPage(page1);
+        discussionService.loadCategoryDataForPage(page1);
         jsonReturnType.getData().put("discussion",page1);
         return jsonReturnType;
     }
@@ -119,7 +121,13 @@ public class DiscussionController {
     public JsonReturnType getSearchDiscussions(@PathVariable String content,@PathVariable int page){
         JsonReturnType jsonReturnType = new JsonReturnType();
         Pageable pageable = PageRequest.of(page,15);
-        jsonReturnType.getData().put("discussions",discussionService.findByContain(content,pageable));
+        Page<Discussion> discussions = discussionService.findByContain(content,pageable);
+        List<Discussion> discussionList = discussions.getContent();
+        for (Discussion discussion: discussionList) {
+            discussion.setJsonUser(discussion.getUser());
+            discussion.setJsonCategory(discussion.getCategory());
+        }
+        jsonReturnType.getData().put("discussions",discussions);
         return jsonReturnType;
     }
 
@@ -128,7 +136,10 @@ public class DiscussionController {
     public JsonReturnType getDiscussionsByCategory(@PathVariable String content,@PathVariable int page){
         JsonReturnType jsonReturnType = new JsonReturnType();
         Pageable pageable = PageRequest.of(page,15);
-        jsonReturnType.getData().put("discussions",discussionService.findByCategoryPaged(content,pageable));
+        Page<Discussion> discussions = discussionService.findByCategoryPaged(content,pageable);
+        discussionService.loadCategoryDataForPage(discussions);
+        discussionService.loadUserDataForPage(discussions);
+        jsonReturnType.getData().put("discussions",discussions);
         return jsonReturnType;
     }
 

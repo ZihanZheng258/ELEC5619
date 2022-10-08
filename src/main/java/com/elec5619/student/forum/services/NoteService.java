@@ -81,6 +81,32 @@ public class NoteService {
         return page;
     }
 
+    public void loadOwnerUserDataForPage(Page<Note> notes){
+        List<Note> noteList = notes.getContent();
+        for (Note note: noteList) {
+            note.setJsonOwner(note.getOwner());
+        }
+    }
+
+    public void loadCategoryDataForPage(Page<Note> notes){
+        List<Note> noteList = notes.getContent();
+        for (Note note: noteList) {
+            note.setJsonCategory(note.getCategory());
+        }
+    }
+
+    public void loadUserDataForList(List<Note> notes){
+        for (Note note : notes) {
+            note.setJsonOwner(note.getOwner());
+        }
+    }
+
+    public void loadCategoryDataForPage(List<Note> notes){
+        for (Note note : notes) {
+            note.setJsonCategory(note.getCategory());
+        }
+    }
+
 
 
 

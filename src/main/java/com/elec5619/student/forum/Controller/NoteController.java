@@ -129,7 +129,7 @@ public class NoteController {
         JsonReturnType jsonReturnType = new JsonReturnType();
         jsonReturnType.setFlag(true);
         User user1 = userService.getUserByNickName(user.getName());
-        note.setCategory(noteCategoryService.getCategoryByID(user1.getId()));
+        note.setCategory(noteCategoryService.getCategoryByID(note.getCategoryId()));
         note.setOwner(user1);
         noteService.insertOrUpdate(note);
         jsonReturnType.getData().put("note",note);
