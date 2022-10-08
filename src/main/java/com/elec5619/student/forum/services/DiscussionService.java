@@ -47,9 +47,18 @@ public class DiscussionService {
         return discussionDao.findById(ID).get();
     }
 
-    public boolean beenLiked(Discussion discussion){
+    public boolean beenLiked(Discussion discussion,int userID){
         discussionDao.addLike(1,discussion.getId());
+        System.out.println("\n\n\n\n\n");
+        System.out.println("userID" + userID);
+        User user = userDao.findById(userID).get();
+        user.getLikedDiscussion().add(discussion);
+        discussion.getLiker().add(userDao.findById(userID).get());
+        discussionDao.save(discussion);
+        System.out.println(discussion.getLiker());
+        userDao.save(user);
         userDao.addCredit(5,discussion.getUser().getId());
+
         return true;
     }
 
@@ -104,9 +113,21 @@ public class DiscussionService {
         }
     }
 
-    public void loadCategoryDataForPage(List<Discussion> discussions){
+    public void loadCategoryDataForList(List<Discussion> discussions){
         for (Discussion discussion: discussions) {
             discussion.setJsonCategory(discussion.getCategory());
+        }
+    }
+
+    public void loadLikerForList(List<Discussion> discussions){
+        for (Discussion discussion: discussions) {
+            discussion.setJsonLiker(discussion.getLiker());
+        }
+    }
+
+    public void loadLikerForPage(Page<Discussion> discussions){
+        for (Discussion discussion: discussions.getContent()) {
+            discussion.setJsonLiker(discussion.getLiker());
         }
     }
 }

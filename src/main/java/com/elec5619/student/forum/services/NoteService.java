@@ -81,6 +81,11 @@ public class NoteService {
         return page;
     }
 
+    public Page<Note> getSearchedNotePaged(String content,Pageable pageable){
+        Page<Note> page= noteDao.findByDescriptionContains(content,pageable);
+        return page;
+    }
+
     public void loadOwnerUserDataForPage(Page<Note> notes){
         List<Note> noteList = notes.getContent();
         for (Note note: noteList) {
@@ -101,7 +106,7 @@ public class NoteService {
         }
     }
 
-    public void loadCategoryDataForPage(List<Note> notes){
+    public void loadCategoryDataForList(List<Note> notes){
         for (Note note : notes) {
             note.setJsonCategory(note.getCategory());
         }

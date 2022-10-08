@@ -75,6 +75,14 @@ public class User {
     @JsonIgnore
     private List<Note> boughtNotes = new ArrayList<Note>();
 
+
+    @ManyToMany(targetEntity = Discussion.class,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JoinTable(name = "user_liked_discussion",joinColumns = @JoinColumn(name = "userID"),
+            inverseJoinColumns = @JoinColumn(name = "discussionID"))
+    @JsonIgnore
+    private List<Discussion> likedDiscussion = new ArrayList<Discussion>();
+
+
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
     @JsonIgnore
     private List<Discussion> discussions = new ArrayList<Discussion>();

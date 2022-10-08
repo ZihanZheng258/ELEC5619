@@ -2,12 +2,14 @@ package com.elec5619.student.forum.daos;
 
 import com.elec5619.student.forum.pojos.Comment;
 import com.elec5619.student.forum.pojos.Discussion;
+import com.elec5619.student.forum.pojos.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
@@ -55,6 +57,13 @@ public interface DiscussionDao extends JpaRepository<Discussion,Integer>, JpaSpe
     List<Discussion> findByUser_NickName(String nickName);
 
     Page<Discussion> findByContentContaining(String content, Pageable pageable);
+
+    @Transactional
+    @Modifying
+    @Query("update Discussion d set d.liker = :liker where d.id = :id")
+    int updateLikerById(@Param("liker") User liker, @Param("id") int id);
+
+
 
 
 

@@ -54,6 +54,10 @@ public class Discussion {
     @JsonIgnore
     private User user;
 
+    @ManyToMany(mappedBy="likedDiscussion",fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<User> liker = new ArrayList<User>();
+
     @Transient
     private User JsonUser;
     @Transient
@@ -64,5 +68,8 @@ public class Discussion {
     private int userID;
     @Transient
     private List<Comment> JsonComments;
+    @Transient
+    private List<User> JsonLiker;
+
 
 }

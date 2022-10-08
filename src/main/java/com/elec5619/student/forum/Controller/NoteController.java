@@ -84,6 +84,8 @@ public class NoteController {
     public JsonReturnType getNoteForCategory(@PathVariable int id){
         JsonReturnType jsonReturnType = new JsonReturnType();
         List<Note> list = noteService.getNoteByCategory(id);
+        noteService.loadUserDataForList(list);
+        noteService.loadCategoryDataForList(list);
         jsonReturnType.getData().put("notes",list);
         jsonReturnType.setFlag(true);
         jsonReturnType.setMessage("");
@@ -95,6 +97,8 @@ public class NoteController {
     public JsonReturnType getNoteForWisher(@PathVariable int id){
         JsonReturnType jsonReturnType = new JsonReturnType();
         List<Note> list = noteService.getNoteByWished(id);
+        noteService.loadUserDataForList(list);
+        noteService.loadCategoryDataForList(list);
         jsonReturnType.getData().put("notes",list);
         jsonReturnType.setFlag(true);
         jsonReturnType.setMessage("");
@@ -106,6 +110,8 @@ public class NoteController {
     public JsonReturnType getNoteForBuyer(@PathVariable int id){
         JsonReturnType jsonReturnType = new JsonReturnType();
         List<Note> list = noteService.getNoteByBought(id);
+        noteService.loadUserDataForList(list);
+        noteService.loadCategoryDataForList(list);
         jsonReturnType.getData().put("notes",list);
         jsonReturnType.setFlag(true);
         jsonReturnType.setMessage("");
@@ -117,6 +123,8 @@ public class NoteController {
     public JsonReturnType getNoteForOwner(@PathVariable int id){
         JsonReturnType jsonReturnType = new JsonReturnType();
         List<Note> list = noteService.getNoteByOwned(id);
+        noteService.loadUserDataForList(list);
+        noteService.loadCategoryDataForList(list);
         jsonReturnType.getData().put("notes",list);
         jsonReturnType.setFlag(true);
         jsonReturnType.setMessage("");
@@ -156,6 +164,8 @@ public class NoteController {
     public JsonReturnType getAllNotePaged(@PathVariable int page){
         Pageable pageable = PageRequest.of(page,15);
         Page<Note> page1= noteService.getAllNotePaged(pageable);
+        noteService.loadOwnerUserDataForPage(page1);
+        noteService.loadCategoryDataForPage(page1);
         JsonReturnType jsonReturnType = new JsonReturnType();
         jsonReturnType.getData().put("notes",page1);
         jsonReturnType.setFlag(true);
@@ -168,6 +178,8 @@ public class NoteController {
     public JsonReturnType getNotePagedByCategory(@PathVariable int page,@PathVariable int id){
         Pageable pageable = PageRequest.of(page,15);
         Page<Note> page1= noteService.findByCategoryPaged(id,pageable);
+        noteService.loadOwnerUserDataForPage(page1);
+        noteService.loadCategoryDataForPage(page1);
         JsonReturnType jsonReturnType = new JsonReturnType();
         jsonReturnType.getData().put("notes",page1);
         jsonReturnType.setFlag(true);
@@ -175,6 +187,19 @@ public class NoteController {
         return jsonReturnType;
     }
 
+    @GetMapping("/search/{content}/{page}")
+    @ResponseBody
+    public JsonReturnType getNotePagedBySearch(@PathVariable int page,@PathVariable String content){
+        Pageable pageable = PageRequest.of(page,15);
+        Page<Note> page1= noteService.getSearchedNotePaged(content,pageable);
+        noteService.loadOwnerUserDataForPage(page1);
+        noteService.loadCategoryDataForPage(page1);
+        JsonReturnType jsonReturnType = new JsonReturnType();
+        jsonReturnType.getData().put("notes",page1);
+        jsonReturnType.setFlag(true);
+        jsonReturnType.setMessage("");
+        return jsonReturnType;
+    }
 
     @PostMapping("/uploadNote")
     @ResponseBody

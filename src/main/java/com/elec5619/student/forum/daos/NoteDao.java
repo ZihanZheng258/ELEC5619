@@ -27,6 +27,10 @@ public interface NoteDao extends JpaRepository<Note,Integer>, JpaSpecificationEx
 
     Page<Note> findAll(Pageable pageable);
 
+    Page<Note> findByDescriptionContains(String description, Pageable pageable);
+
+
+
 
 
 

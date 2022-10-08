@@ -39,9 +39,10 @@ public class DiscussionController {
 
     @GetMapping("/like/{id}")
     @ResponseBody
-    public JsonReturnType likeDiscussion(@PathVariable int id){
+    public JsonReturnType likeDiscussion(@PathVariable int id,Principal user){
         Discussion discussion = discussionService.findById(id);
-        discussionService.beenLiked(discussion);
+        User user1 = userService.getUserByNickName(user.getName());
+        discussionService.beenLiked(discussion,user1.getId());
         JsonReturnType jsonReturnType = new JsonReturnType();
         jsonReturnType.getData().put("discussion",discussion);
         jsonReturnType.flag = true;
@@ -88,6 +89,7 @@ public class DiscussionController {
         discussion.setJsonCategory(discussion.getCategory());
         discussion.setJsonUser(discussion.getUser());
         discussion.setJsonComments(commentService.findCommentByDiscussionMain(id));
+        discussion.setJsonLiker(discussion.getLiker());
         for (Comment comment: discussion.getJsonComments()) {
             comment.setJsonChildren(commentService.findChildComments(comment.getId()));
         }
@@ -104,6 +106,7 @@ public class DiscussionController {
         Page<Discussion> page1 = discussionService.getAllDiscussionPaged(pageable);
         discussionService.loadUserDataForPage(page1);
         discussionService.loadCategoryDataForPage(page1);
+        discussionService.loadLikerForPage(page1);
         jsonReturnType.getData().put("discussion",page1);
         return jsonReturnType;
     }
@@ -127,6 +130,7 @@ public class DiscussionController {
             discussion.setJsonUser(discussion.getUser());
             discussion.setJsonCategory(discussion.getCategory());
         }
+        discussionService.loadLikerForPage(discussions);
         jsonReturnType.getData().put("discussions",discussions);
         return jsonReturnType;
     }
@@ -139,6 +143,7 @@ public class DiscussionController {
         Page<Discussion> discussions = discussionService.findByCategoryPaged(content,pageable);
         discussionService.loadCategoryDataForPage(discussions);
         discussionService.loadUserDataForPage(discussions);
+        discussionService.loadLikerForPage(discussions);
         jsonReturnType.getData().put("discussions",discussions);
         return jsonReturnType;
     }
