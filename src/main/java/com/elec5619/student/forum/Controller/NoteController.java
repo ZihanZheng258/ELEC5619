@@ -213,14 +213,6 @@ public class NoteController {
         System.out.println(classPathResource.exists());
         File file = new File(path);
         multipartFile.transferTo(file.getAbsoluteFile());
-        /*classPathResource = new ClassPathResource("Notes" + File.separator + random.nextInt());
-        JsonReturnType jsonReturnType = new JsonReturnType();
-        if(!classPathResource.getFile().exists()){
-            classPathResource.getFile().createNewFile();
-        }
-        multipartFile.transferTo(classPathResource.getFile());
-        jsonReturnType.getData().put("id",classPathResource.getPath());
-        return jsonReturnType;*/
         jsonReturnType.setMessage(""+rint);
         return jsonReturnType;
     }
@@ -249,9 +241,16 @@ public class NoteController {
         ResponseEntity<byte[]> response = new ResponseEntity<byte[]>(bytes,header,statusCode);
         inputStream.close();
         return response;
-
-
    }
+
+    @GetMapping("/downloadNoteSimple/{id}")
+    @ResponseBody
+    public JsonReturnType downloadNote(@PathVariable int id){
+        JsonReturnType jsonReturnType = JsonReturnType.successReturn();
+        jsonReturnType.getData().put("content",noteService.findById(id).getContent());
+        return jsonReturnType;
+    }
+
 
 
 }

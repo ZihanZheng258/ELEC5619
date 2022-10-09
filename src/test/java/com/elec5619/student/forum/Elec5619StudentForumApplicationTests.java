@@ -27,6 +27,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.List;
 
 @SpringBootTest
@@ -273,4 +277,16 @@ class Elec5619StudentForumApplicationTests {
 		}
 		googleFireBaseStorageServices.uploadFile(file,"testFile","testBucket");
 	}
+
+	@Test
+	public void testWeather() throws IOException, InterruptedException {
+		HttpRequest request = HttpRequest.newBuilder()
+				.uri(URI.create("https://aerisweather1.p.rapidapi.com/observations/Sydney,%20Australia"))
+				.header("X-RapidAPI-Key", "ed571b3739msh39e3112063195c1p136ce9jsn6ce6f3e542d0")
+				.header("X-RapidAPI-Host", "aerisweather1.p.rapidapi.com")
+				.method("GET", HttpRequest.BodyPublishers.noBody())
+				.build();
+		HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+		System.out.println(response.body());
+}
 }

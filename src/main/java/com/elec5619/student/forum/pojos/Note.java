@@ -32,6 +32,11 @@ public class Note {
     @Column(name = "description")
     public String description;
 
+    @Lob
+    @Column(name = "content")
+    @JsonIgnore
+    public String content;
+
     @Column(name = "create_date")
     @CreatedDate
     private Date createDate = new Date();
