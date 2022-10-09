@@ -1,60 +1,126 @@
-import React, {useEffect} from "react";
+import React, {useState,useEffect} from "react";
 import './index.less'
 import commentImg from './assets/comment.svg'
 import avatar from './assets/avatar.jpeg'
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 import '../../config/config.js'
-import axios from "axios";
+import api from "../../api"
+import moment from "moment";
+import {message} from "antd";
 
+const Comment =(props) =>{
+    const [comments, setComments] = useState([]);
+    const [replyMessage, setReplyMessage] = useState([]);
+    const [target, setTarget] = useState({});
+    const [parent, setParent] = useState({});
+    const discussionID = useParams().id;
 
-const Comment =() =>{
+    useEffect(()=>{
+        api.getComments(discussionID)
+            .then((response)=>{
+                console.log(response.data.data.comments)
+                setComments(response.data.data.comments)
+            })
+        },[])
+
+    const handleSubmit = event => {
+        event.preventDefault();
+        api.postComment(discussionID,target.targetID,parent.parentID,1,replyMessage)
+            .then(()=>{
+                message.success("message posted!")
+                console.log('target: '+target.targetID , 'parent: '+ parent.parentID)
+                setReplyMessage('');
+            }).catch(function (error) {
+            message.error("something wrong, please try again!")
+        });
+
+        console.log('form submitted ✅');
+    };
 
     return(
         <>
             <div className="commentBlock">
                 <div className="comment-action" onClick={()=>{}}>
-                    <img src= {commentImg} alt=""/> <span>22 Comments</span>
+                    <img src= {commentImg} alt=""/> <span>{props.numComment} Comments</span>
                 </div>
-                <div className="comment-expand">
+                <div  className="comment-expand">
                     <div className="comment">
                         <div className="mainCommenter">
-                            <div className="commenterInfo">
-                                <img className="avatar" src={avatar} alt=""/>
-                                <span className="commentUserName">userNameCoco</span>
-                            </div>
-                            <div className="mainCommenterContent">
-                                <div className="mainCommenterContent-content">
-                                    comment content
-                                    quia et suscipit suscipit recusandae consequuntur expedita et cum reprehenderit mole
-                                    stiae ut ut quas totam nostrum rerum est autem sunt rem eveniet architecto
-                                </div>
-                                <div className="mainCommenterContent-dateReply">
-                                    <span className="date">29/09/2022 </span>
-                                    <Link to="">
-                                        <span>reply</span>
-                                    </Link>
-                                </div>
-                                <div className="subCommenter">
-                                    <div className="subCommenterContent">
-                                        <div>
-                                            <img className="avatar" src={avatar} alt=""/>
-                                            <span className="commentUserName">userNameCisco reply userNameCoco</span>
-                                        </div>
-                                        <div className="subCommenterContent-content">
-                                            comment content
-                                            quia et suscipit suscipit recusandae consequuntur expedita et cum reprehenderit mole
-                                            stiae ut ut quas totam nostrum rerum est autem sunt rem eveniet architecto
-                                            <div className="subCommenterContent-dateReply">
-                                                <span className="date">29/09/2022 </span>
-                                                <Link to="">
-                                                    <span>reply</span>
-                                                </Link>
-                                            </div>
-                                        </div>
+                            {comments.map((index)=>{
+                                return <div key={index.id}>
+                                    <div className="commenterInfo">
+                                        <img className="avatar" src={avatar} alt=""/>
+                                        <span className="commentUserName">{index.jsonSender.nickName}</span>
                                     </div>
+                                    <div className="mainCommenterContent">
+                                        <div className="mainCommenterContent-content">
+                                            {index.content}
+                                        </div>
+                                        <div className="mainCommenterContent-dateReply">
+                                            <span className="date">{moment(index.createDate).format('L')} </span>
+                                            <button
+                                                onClick={()=>{
+                                                    setTarget(
+                                                        {...target, targetID: index.jsonSender.id,
+                                                            targetName:index.jsonSender.nickName});
+                                                    setParent({...parent, parentID:index.id})
+                                                }
+                                                }>
+                                                reply
+                                            </button>
+                                        </div>
+                                        {index.jsonChildren.map((child)=>{
+                                            return <>
+                                                <div className="subCommenter" key={child.id}>
+                                                    <div className="subCommenterContent">
+                                                        <div>
+                                                            <img className="avatar" src={avatar} alt=""/>
+                                                            <span className="commentUserName">{child.jsonSender.nickName} replied @{child.targetName}</span>
+                                                        </div>
+                                                        <div className="subCommenterContent-content">
+                                                            {child.content}
+                                                            <div className="subCommenterContent-dateReply">
+                                                                <span className="date">{moment(child.createDate).format('L')} </span>
+                                                                    <button
+                                                                        onClick={()=>{
+                                                                            setTarget(
+                                                                                {...target, targetID: child.jsonSender.id,
+                                                                                    targetName:child.jsonSender.nickName});
+                                                                            setParent({...parent, parentID:index.id})
+                                                                        }
+                                                                        }>
+                                                                        reply
+                                                                    </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </>
+                                        })
+                                        }
+
+                                    </div>
+                                    {target.targetName && index.id===parent.parentID &&
+                                        <div>
+                                            <form onSubmit={handleSubmit}>
+                                                <img className="avatar" src={avatar} alt=""/>
+                                                <input
+                                                    className="reply-editor"
+                                                    type="text"
+                                                    placeholder={"reply to @"+ target.targetName}
+                                                    value = {replyMessage}
+                                                    onChange={event => setReplyMessage(event.target.value)}
+                                                />
+                                                <button type="submit">Reply</button>
+                                            </form>
+                                        </div>
+                                    }
 
                                 </div>
-                            </div>
+                            })
+
+                            }
 
                         </div>
 

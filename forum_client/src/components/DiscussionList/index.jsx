@@ -13,15 +13,18 @@ import 'react-comments-section/dist/index.css'
 
 import api from "../../api"
 import moment from "moment";
+import commentImg from "../Comment/assets/comment.svg";
 
 const DiscussionList = ({handleClick})=>{
     const [discussion,setDiscussion] = useState([]);
+    const [isCommentActivate, setIsCommentActivate] = useState(false);
+
 
     useEffect(()=>{
         api.getDiscussionByPage(0)
             .then((response)=>{
                 console.log(response)
-                setDiscussion(response.data.data.discussion.content)
+                setDiscussion(response.data.data.discussion.content);
         })
     },[])
 
@@ -46,8 +49,8 @@ const DiscussionList = ({handleClick})=>{
                 </div>
                 <div className="discussion-col">
                     <div className="discussion-info">
-                        <Button variant="outline-primary" size="sm">JsonCategory</Button>{' '}
-                        <Button variant="outline-primary" size="sm">UserName</Button>{' '}
+                        <Button variant="outline-primary" size="sm">{index.jsonCategory.content}</Button>{' '}
+                        <Button variant="outline-primary" size="sm">{index.jsonUser.nickName}</Button>{' '}
                         <Button variant="outline-primary" size="sm">{moment(index.createDate).fromNow()}</Button>{' '}
                     </div>
                     <Link to={"/discussion/"+index.id}>
@@ -57,11 +60,15 @@ const DiscussionList = ({handleClick})=>{
                         <div className="discussion-description">
                                 {index.content}
                         </div>
+
+                    <div className="discussion-actionbar" >
+                        <div className="comment-action" onClick={()=>{}}>
+                            <img src= {commentImg} alt=""/> <span>{index.commentNumber} Comments</span>
+                        </div>
+                        {/*<Comment/>*/}
+                    </div>
                     </Link>
 
-                    <div className="discussion-actionbar">
-                        <Comment />
-                    </div>
                 </div>
 
             </div>

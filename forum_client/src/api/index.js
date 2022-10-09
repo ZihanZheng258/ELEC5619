@@ -26,9 +26,9 @@ export default {
     },
 
     // get all discussion list  by page - /discussion/page/:pageNum
-    getDiscussionByPage: (pageNum)=>{
+    getDiscussionByPage: (page)=>{
         return axios.get(
-            'http://localhost:8090/discussion/page/' + pageNum,
+            'http://localhost:8090/discussion/page/' + page,
             {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
         );
     },
@@ -39,13 +39,56 @@ export default {
             {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
         );
     },
+    // get Discussion details
     getDiscussionDetail:(discussionID) =>{
         return axios.get(
             'http://localhost:8090/discussion/'+discussionID ,
             {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
         );
-    }
+    },
+    //get Comments by disucssion id
+    getComments: (discussionID)=>{
+        return axios.get(
+            'http://localhost:8090/comment/discussion/'+discussionID ,
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+        );
+    },
+    // post new comment
+    postComment: (discussionID, targetID, parentID,isComment,message)=>{
+        return axios.post(
+            'http://localhost:8090/comment/' ,
+            {
+                discussionID:discussionID,
+                targetID: targetID, // user target id
+                parentID: parentID, // parent comment id
+                isCommentOfComment: isComment, // if it is comment under comment
+                content: message // content
+            },
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+        );
+    },
+    // get note list by page
+    getNotesByPage: (page)=>{
+        return axios.get(
+            'http://localhost:8090/note/page/' + page,
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+        );
+    },
+    // save note to wish list
+    saveNote: (noteID)=>{
+        return axios.get(
+            'http://localhost:8090/note/wish/' + noteID,
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+        );
+    },
+    buyNote: (noteID)=>{
+        return axios.get(
+            'http://localhost:8090/note/buy/' + noteID,
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+        );
+    },
 
 }
+
 
 
