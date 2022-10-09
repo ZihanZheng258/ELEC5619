@@ -32,6 +32,9 @@ public class Note {
     @Column(name = "description")
     public String description;
 
+    @Column(name = "name")
+    public String name;
+
     @Lob
     @Column(name = "content")
     @JsonIgnore
