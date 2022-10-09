@@ -13,7 +13,6 @@ import java.util.List;
 @Entity
 @Table(name = "category_Note")
 @JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Category_Note {
     @Id
     @GeneratedValue

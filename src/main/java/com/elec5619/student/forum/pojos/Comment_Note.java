@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.domain.Page;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -63,6 +64,10 @@ public class Comment_Note {
     @JsonIgnore
     private List<Comment_Note> beenTarget;
 
+    @ManyToMany(mappedBy="likedNoteComment",fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<User> liker = new ArrayList<User>();
+
 
     @Transient
     private User JsonUser;
@@ -90,6 +95,31 @@ public class Comment_Note {
     private int parentID;
 
     @Transient int noteID;
+
+    @Transient
+    private List<User> JsonLiker;
+
+    public void loadSenderForList(List<Comment_Note> comments){
+        for (Comment_Note comment: comments) {
+            comment.setJsonUser(comment.getUser());
+        }
+    }
+
+    public void LoadSenderForPage(Page<Comment_Note> Pages){
+        List<Comment_Note> comments = Pages.getContent();
+        loadSenderForList(comments);
+    }
+
+    public void loadLikerForList(List<Comment_Note> comments){
+        for (Comment_Note comment: comments) {
+            comment.setJsonLiker(comment.getLiker());
+        }
+    }
+
+    public void loadLikerForPage(Page<Comment_Note> Pages){
+        List<Comment_Note> comments = Pages.getContent();
+        loadLikerForList(comments);
+    }
 
 
 }

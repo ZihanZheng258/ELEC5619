@@ -54,6 +54,10 @@ public class Comment {
     @JsonIgnore
     private Comment parent;
 
+    @ManyToMany(mappedBy="likedComment",fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<User> liker = new ArrayList<User>();
+
 
     @OneToMany(mappedBy="parent")
     @JsonIgnore
@@ -90,6 +94,8 @@ public class Comment {
 
     @Transient int discussionID;
 
+    @Transient
+    private List<User> JsonLiker;
 
 
 

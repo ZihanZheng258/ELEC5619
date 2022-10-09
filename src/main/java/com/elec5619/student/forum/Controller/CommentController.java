@@ -32,9 +32,12 @@ public class CommentController {
 
     @GetMapping("/like/{id}")
     @ResponseBody
-    public JsonReturnType likeComment(@PathVariable int id){
+    public JsonReturnType likeComment(@PathVariable int id,Principal user){
         Comment comment = commentService.findByID(id);
         commentService.addLike(comment);
+        User user1 = userService.getUserByNickName(user.getName());
+        user1.getLikedComment().add(comment);
+        userService.insert(user1);
         JsonReturnType jsonReturnType = new JsonReturnType();
         jsonReturnType.getData().put("comment",comment);
         jsonReturnType.flag = true;

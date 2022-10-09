@@ -7,6 +7,7 @@ import com.elec5619.student.forum.pojos.Comment;
 import com.elec5619.student.forum.pojos.Discussion;
 import com.elec5619.student.forum.pojos.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Synchronization;
@@ -88,6 +89,28 @@ public class CommentService {
         return  commentDao.findById(ID).get();
     }
 
+
+    public void loadSenderForList(List<Comment> comments){
+        for (Comment comment: comments) {
+            comment.setJsonSender(comment.getSender());
+        }
+    }
+
+    public void LoadSenderForPage(Page<Comment> Pages){
+        List<Comment> comments = Pages.getContent();
+        loadSenderForList(comments);
+    }
+
+    public void loadLikerForList(List<Comment> comments){
+        for (Comment comment: comments) {
+            comment.setJsonLiker(comment.getLiker());
+        }
+    }
+
+    public void loadLikerForPage(Page<Comment> Pages){
+        List<Comment> comments = Pages.getContent();
+        loadLikerForList(comments);
+    }
 
 
 

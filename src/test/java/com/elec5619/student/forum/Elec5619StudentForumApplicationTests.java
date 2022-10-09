@@ -12,14 +12,21 @@ import com.elec5619.student.forum.pojos.Category_Note;
 import com.elec5619.student.forum.pojos.Discussion;
 import com.elec5619.student.forum.pojos.User;
 import com.elec5619.student.forum.services.UserService;
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.BlobId;
+import com.google.cloud.storage.BlobInfo;
+import com.google.cloud.storage.Storage;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @SpringBootTest
@@ -62,6 +69,9 @@ class Elec5619StudentForumApplicationTests {
 
 	@Autowired
 	NoteCommentService noteCommentService;
+
+	@Autowired
+	GoogleFireBaseStorageServices googleFireBaseStorageServices;
 
 	@Test
 	void contextLoads() {
@@ -253,4 +263,14 @@ class Elec5619StudentForumApplicationTests {
 	/*commentService.addLike(commentService.findByID(6));*/
 	/*System.out.println(commentService.findChildComments(6));*/
 		//System.out.println(commentService.findCommentByDiscussionMain(5));
+	@Test
+	public void testUpload() throws IOException {
+		ClassPathResource classPathResource = new ClassPathResource("Notes");
+		String path = classPathResource.getFile().getAbsoluteFile() + File.separator + "313555827";
+		File file = new File("src/main/resources/Notes/html.html");
+		if(!file.exists()){
+			System.out.println("\n\n\n\n\n\n\n"+"file not exist");
+		}
+		googleFireBaseStorageServices.uploadFile(file,"testFile","testBucket");
+	}
 }
