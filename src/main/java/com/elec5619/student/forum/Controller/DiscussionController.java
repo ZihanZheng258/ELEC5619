@@ -94,7 +94,6 @@ public class DiscussionController {
             comment.setJsonChildren(commentService.findChildComments(comment.getId()));
             comment.setJsonSender(comment.getSender());
             if (comment.getTarget() != null){
-                comment.setJsonTarget(comment.getTarget());
                 comment.setTargetName(comment.getTarget().getSender().getNickName());
             }
         }
