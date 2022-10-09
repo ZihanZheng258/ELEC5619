@@ -92,6 +92,10 @@ public class DiscussionController {
         discussion.setJsonLiker(discussion.getLiker());
         for (Comment comment: discussion.getJsonComments()) {
             comment.setJsonChildren(commentService.findChildComments(comment.getId()));
+            comment.setJsonSender(comment.getSender());
+            if (comment.getTarget() != null){
+                comment.setJsonTarget(comment.getTarget());
+            }
         }
         discussionService.beenViewed(discussion);
         jsonReturnType.getData().put("discussion",discussion);

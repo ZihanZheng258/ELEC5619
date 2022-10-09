@@ -63,6 +63,7 @@ public class CommentController {
             for (Comment childComment:comment.getJsonChildren()) {
                 if(childComment.getTarget()!= null){
                     childComment.setTargetID(childComment.getTarget().getId());
+                    childComment.setJsonTarget(childComment.getTarget());
                 }
             }
         }
