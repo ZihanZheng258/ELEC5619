@@ -60,7 +60,9 @@ public class CommentController {
         List<Comment> comments = commentService.findCommentByDiscussionMain(id);
         for (Comment comment: comments) {
             comment.setJsonChildren(comment.getChildren());
+            comment.setJsonSender(comment.getSender());
             for (Comment childComment:comment.getJsonChildren()) {
+                childComment.setJsonSender(childComment.getSender());
                 if(childComment.getTarget()!= null){
                     childComment.setTargetID(childComment.getTarget().getId());
                     childComment.setTargetName(childComment.getTarget().getSender().getNickName());
