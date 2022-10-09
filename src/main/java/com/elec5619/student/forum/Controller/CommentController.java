@@ -88,7 +88,7 @@ public class CommentController {
     @ResponseBody
     public JsonReturnType createComment(@RequestBody Comment comment, Principal user){
         comment.setDiscussion(discussionService.findById(comment.getDiscussionID()));
-        if(comment.getIsCommentOfComment() != -1){
+        if(comment.getIsCommentOfComment() != 0){
             comment.setParent(commentService.findByID(comment.getParentID()));
             if(comment.getTargetID() != -1){
                 comment.setTarget(commentService.findByID(comment.getTargetID()));
@@ -97,7 +97,7 @@ public class CommentController {
         User user1 = userService.getUserByNickName(user.getName());
         comment.setSender(user1);
         commentService.insertOrUpdate(comment);
-        if(comment.getIsCommentOfComment() != -1){
+        if(comment.getIsCommentOfComment() != -0){
             Comment parent = commentService.findByID(comment.getParentID());
             parent.getChildren().add(comment);
             commentService.insertOrUpdate(parent);
