@@ -95,6 +95,7 @@ public class DiscussionController {
             comment.setJsonSender(comment.getSender());
             if (comment.getTarget() != null){
                 comment.setJsonTarget(comment.getTarget());
+                comment.setTargetName(comment.getTarget().getSender().getNickName());
             }
         }
         discussionService.beenViewed(discussion);

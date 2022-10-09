@@ -89,6 +89,10 @@ public class Comment {
     @Transient
     private int targetID;
 
+
+    @Transient
+    private String targetName;
+
     @Transient
     private int parentID;
 
