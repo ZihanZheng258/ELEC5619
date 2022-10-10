@@ -84,7 +84,7 @@ const Comment =(props) =>{
                                                                     <button
                                                                         onClick={()=>{
                                                                             setTarget(
-                                                                                {...target, targetID: child.jsonSender.id,
+                                                                                {...target, targetID: child.id,
                                                                                     targetName:child.jsonSender.nickName});
                                                                             setParent({...parent, parentID:index.id})
                                                                         }

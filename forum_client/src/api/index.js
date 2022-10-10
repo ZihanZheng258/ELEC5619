@@ -87,7 +87,13 @@ export default {
             {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
         );
     },
-
+    // verify bought note
+    getBoughtList: (userID)=>{
+        return axios.get(
+            'http://localhost:8090/note/buyer/' + userID,
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+        );
+    },
 }
 
 
