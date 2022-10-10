@@ -18,17 +18,20 @@ const Comment =(props) =>{
     useEffect(()=>{
         api.getComments(discussionID)
             .then((response)=>{
-                console.log(response.data.data.comments)
                 setComments(response.data.data.comments)
             })
         },[])
 
     const handleSubmit = event => {
         event.preventDefault();
+        console.log('parent:'+parent.parentID, 'target: '+target.targetID)
         api.postComment(discussionID,target.targetID,parent.parentID,1,replyMessage)
             .then(()=>{
                 message.success("message posted!")
-                console.log('target: '+target.targetID , 'parent: '+ parent.parentID)
+                api.getComments(discussionID)
+                    .then((response)=>{
+                        setComments(response.data.data.comments)
+                    });
                 setReplyMessage('');
             }).catch(function (error) {
             message.error("something wrong, please try again!")
@@ -61,7 +64,7 @@ const Comment =(props) =>{
                                             <button
                                                 onClick={()=>{
                                                     setTarget(
-                                                        {...target, targetID: index.jsonSender.id,
+                                                        {...target, targetID: index.id,
                                                             targetName:index.jsonSender.nickName});
                                                     setParent({...parent, parentID:index.id})
                                                 }
