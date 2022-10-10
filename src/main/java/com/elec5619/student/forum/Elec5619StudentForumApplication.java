@@ -3,6 +3,7 @@ package com.elec5619.student.forum;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
 @SpringBootApplication
 public class Elec5619StudentForumApplication {
 

@@ -119,5 +119,7 @@ public class User {
     @Transient
     private List<Comment_Note> JsonSendedNoteComments;
 
+    private String getNickName = nickName;
 
+    private String getPassword = password;
 }

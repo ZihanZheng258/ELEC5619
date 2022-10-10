@@ -7,7 +7,6 @@ import Announcement from "./Announcement";
 import './index.less'
 import '../../config/config.js';
 import {useEffect, useState} from "react";
-import axios from 'axios';
 
 const Home = () =>{
     // const {title, description} = props

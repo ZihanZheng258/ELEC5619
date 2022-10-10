@@ -8,6 +8,8 @@ import Home from "../pages/Home";
 import User from "../pages/User";
 import Note from "../pages/Note";
 import Search from "../pages/Search";
+import TestD from "../pages/TestD";
+import NoteDetailPage from "../pages/NoteDetailPage";
 import Register from "../pages/Register/index";
 import FourZeroFour from "../pages/ErrorPage/page_404";
 import FourZeroThree from "../pages/ErrorPage/page_403";
@@ -75,6 +77,30 @@ const AppRouter = () => {
                     }
                 ></Route>
                 <Route path="/login" element={<Login />}></Route>
+
+                <Route
+                    path="/TestDpage"
+                    element={
+                        <RouteGuard>
+                            <TestD />
+                        </RouteGuard>
+                    }
+                ></Route>
+
+                <Route
+                    path="/NoteDetailPage"
+                    element={
+                        <RouteGuard>
+                            <NoteDetailPage />
+                        </RouteGuard>
+                    }
+                ></Route>
+
+
+
+
+
+
                 <Route
                     path="/register"
                     element={
