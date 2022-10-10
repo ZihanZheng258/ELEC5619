@@ -65,6 +65,15 @@ public class CommentService {
         return true;
     }
 
+    public boolean addLike(Comment comment,int number){
+        User user = comment.getSender();
+        commentDao.addLike(number,comment.getId());
+        if(number > 0){
+            userDao.addCredit(5*number,user.getId());
+        }
+        return true;
+    }
+
     public List<Comment> findCommentByDiscussion(int discussionID){
         Discussion discussion = discussionDao.findById(discussionID).get();
         return discussion.getComments();

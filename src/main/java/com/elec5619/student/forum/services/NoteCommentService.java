@@ -52,6 +52,12 @@ public class NoteCommentService {
         return true;
     }
 
+    public boolean addLikeNumber(int ID,int num){
+        noteCommentDao.updateLikeNumberBy(num,ID);
+
+        return true;
+    }
+
     public List<Comment_Note> findCommentByNote(int ID){
         Note note = noteDao.findById(ID).get();
         return note.getComments();
