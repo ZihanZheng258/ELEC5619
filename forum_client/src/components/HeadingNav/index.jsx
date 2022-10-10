@@ -12,6 +12,7 @@ const HeadingNav = () => {
     const [user, setUser] = useState('');
     const [type, setType] = useState("discussion");
     const [searchContent, setContent] = useState('');
+    const [page, setPage] = useState(0);
     const { Option } = Select;
 
     useEffect( () => {
@@ -22,15 +23,7 @@ const HeadingNav = () => {
     }, []);
 
 
-    const handleSubmit = event => {
-        event.preventDefault();
-        if (type === "note"){
 
-        } else{
-
-        }
-        console.log('form submitted ✅');
-    };
 
     return (
         <div className="navheader">
@@ -45,7 +38,7 @@ const HeadingNav = () => {
                 <div className="searchIcon">
                     <img src={require("./assets/search.png")} alt="search" width="23px" />
                 </div>
-                <form onSubmit={handleSubmit}>
+                <form action={"/search/"+type+"/"+searchContent+"/"+page}>
                     <Select
                         defaultValue="discussion" style={{ width: 120 }}
                         onChange={event => setType(event)}>

@@ -48,7 +48,7 @@ const AppRouter = () => {
                         < User />
                     </RouteGuard>}></Route>
 
-                <Route path="/search" element={
+                <Route path="/search/:type/:searchContent/:page" element={
                     <RouteGuard>
                     < Search />
                     </RouteGuard>

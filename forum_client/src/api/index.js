@@ -109,4 +109,19 @@ export default {
             headers: { Authorization: `Bearer ` + localStorage.getItem('token') },
         })
     },
+    // search method by discussions
+    searchByDiscussions: (searchContent, page)=>{
+        return axios.get(
+            'http://localhost:8090/discussion/search/' + searchContent+"/"+page,
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+        );
+    },
+    // search method by notes
+    searchByNotes: (searchContent, page)=>{
+        return axios.get(
+            'http://localhost:8090/note/search/' + searchContent+"/"+page,
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+        );
+    }
+
 }
