@@ -26,7 +26,6 @@ const DiscussionList = ({handleClick})=>{
     useEffect(()=>{
         api.getDiscussionByPage(page-1)
             .then((response)=>{
-                console.log(response)
                 setDiscussion(response.data.data.discussion.content);
                 setTotalPage(response.data.data.discussion.totalPages)
         })
@@ -36,23 +35,27 @@ const DiscussionList = ({handleClick})=>{
         })
     },[])
     const disLikeDiscussion = (dislikeID)=>{
+        api.getCancelLikeDiscussion(dislikeID)
+            .then((response)=>{
+                api.getDiscussionByPage(page-1)
+                    .then((response)=>{
+                        setDiscussion(response.data.data.discussion.content);
+                    })
+            });
     }
     const likeDiscussion = (likeID)=>{
         api.getLikeDiscussion(likeID)
             .then((response)=>{
-                api.getDiscussionByPage(page)
+                api.getDiscussionByPage(page-1)
                     .then((response)=>{
-                        console.log(response)
                         setDiscussion(response.data.data.discussion.content);
                     })
             });
     }
     const pageChange = (event,value)=>{
             setPage(value);
-            console.log(value)
         api.getDiscussionByPage(value-1)
             .then((response)=>{
-                console.log(response)
                 setDiscussion(response.data.data.discussion.content);
             })
         };

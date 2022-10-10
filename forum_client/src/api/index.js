@@ -41,10 +41,17 @@ export default {
             {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
         );
     },
-    // get all discussion list  by page - /discussion/page/:pageNum
+    // like discussion by id
     getLikeDiscussion: (discussionID)=>{
         return axios.get(
             'http://localhost:8090/discussion/like/' + discussionID,
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+        );
+    },
+    // cancel like of discussion by id
+    getCancelLikeDiscussion: (discussionID)=>{
+        return axios.get(
+            'http://localhost:8090/discussion/cancelLike/' + discussionID,
             {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
         );
     },
