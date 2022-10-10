@@ -100,7 +100,7 @@ public class CommentController {
         User user1 = userService.getUserByNickName(user.getName());
         comment.setSender(user1);
         commentService.insertOrUpdate(comment);
-        if(comment.getIsCommentOfComment() != -0){
+        if(comment.getIsCommentOfComment() != 0){
             Comment parent = commentService.findByID(comment.getParentID());
             parent.getChildren().add(comment);
             commentService.insertOrUpdate(parent);
