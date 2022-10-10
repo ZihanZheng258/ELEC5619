@@ -19,10 +19,10 @@ const Login = () => {
 
     const onFinish = async ({ username, password }) => {
         setLoading(true);
-        api.signIn(username,password)
-            .then((response)=>{
+        api.signIn(username, password)
+            .then((response) => {
                 console.log(response)
-                if (response.status === 200){
+                if (response.status === 200) {
                     // remove current user info
                     localStorage.removeItem('token');
 
@@ -39,15 +39,15 @@ const Login = () => {
                         setLoading(false);
                     }, 500)
 
-                }else {
+                } else {
                     setLoading(false);
                     message.error("please check your account or password!")
                 }
             })
             .catch(function (error) {
-            setLoading(false);
-            message.error("please check your account or password!")
-        });
+                setLoading(false);
+                message.error("please check your account or password!")
+            });
 
     };
 
@@ -69,18 +69,18 @@ const Login = () => {
                     <Form
                         form={form}
                         name="basic"
-                        labelCol={{ span: 5 }}
-                        initialValues={{ remember: true }}
-                        onFinish={onFinish}
-                        onFinishFailed={onFinishFailed}
-                        size="large"
+                        size="default"
                         autoComplete="off"
+                        onFinish={onFinish}
+                        labelCol={{ span: 5 }}
+                        onFinishFailed={onFinishFailed}
+                        initialValues={{ remember: true }}
                     >
                         <Form.Item name="username" rules={[{ required: true, message: "please enter username" }]}>
-                            <Input placeholder="UserName：admin" prefix={<UserOutlined />} />
+                            <Input placeholder="please enter username" prefix={<UserOutlined />} />
                         </Form.Item>
                         <Form.Item name="password" rules={[{ required: true, message: "please enter password" }]}>
-                            <Input.Password autoComplete="new-password" placeholder="PassWords：123456" prefix={<LockOutlined />} />
+                            <Input.Password autoComplete="new-password" placeholder="please enter password" prefix={<LockOutlined />} />
                         </Form.Item>
                         <Form.Item className="login-btn">
                             <Button
