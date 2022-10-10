@@ -41,6 +41,15 @@ export default {
             {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
         );
     },
+    // get all discussion list  by page - /discussion/page/:pageNum
+    getLikeDiscussion: (discussionID)=>{
+        return axios.get(
+            'http://localhost:8090/discussion/like/' + discussionID,
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+        );
+    },
+
+
     // get announcement
     getAnnouncement: () =>{
         return axios.get(

@@ -1,39 +1,17 @@
-// import React from 'react';
-// import { Route, Navigate } from 'react-router-dom';
-//
-// const RouteGuard = ({ component: Component, ...rest }) => {
-//
-//     function hasJWT() {
-//         let flag = false;
-//
-//         //check user has JWT token
-//         localStorage.getItem("token") ? flag=true : flag=false
-//
-//         return flag
-//     }
-//
-//     return (
-//         <Route {...rest}
-//                render={props => (
-//                    hasJWT() ?
-//                        <Component {...props} />
-//                        :
-//                        <Navigate to= '/login'  />
-//                )}
-//         />
-//     );
-// };
-//
-// export default RouteGuard;
-
 import { Navigate, useLocation } from "react-router";
+import moment from "moment";
 
 const RouteGuard: React.FC<{ children: JSX.Element }> = ({ children }) => {
     function hasJWT() {
         let flag = false;
-
-        //check user has JWT token
+        moment.suppressDeprecationWarnings = true;
         localStorage.getItem("token") ? flag = true : flag = false
+        const current = moment();
+        if (current.isAfter(localStorage.getItem('expire'))){
+            localStorage.removeItem("token")
+            return false
+        }
+        //check user has JWT token
 
         return flag
     }

@@ -10,6 +10,7 @@ import setAuthToken from "./setAuthToken";
 
 // import api
 import api from "../../api"
+import moment from "moment";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -24,13 +25,13 @@ const Login = () => {
                 console.log(response)
                 if (response.status === 200) {
                     // remove current user info
-                    localStorage.removeItem('token');
 
                     //             //get token from response
                     const token = response.data.accessToken;
-
+                    const expire = moment().add(23,'hours');
                     //             //set JWT token to local
                     localStorage.setItem("token", token);
+                    localStorage.setItem("expire",expire)
 
                     message.success("login success!")
                     console.log(token);
