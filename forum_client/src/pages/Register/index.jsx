@@ -2,9 +2,10 @@ import React, { useState, useEffect } from "react";
 import "./index.less"
 import { useNavigate } from "react-router-dom";
 import { Button, Form, Input, message } from "antd";
-import { UserOutlined, LockOutlined, CloseCircleOutlined } from "@ant-design/icons";
+import { UserOutlined, LockOutlined, } from "@ant-design/icons";
 import logo from "../../assets/images/logo.png";
 import loginLeft from "../../assets/images/login_left2.png";
+import Interface from "../../api/index"
 
 const Register = () => {
     const navigate = useNavigate();
@@ -12,18 +13,27 @@ const Register = () => {
 
     const [loading, setLoading] = useState(false);
 
-    const onFinish = async ({ username, password }) => {
+    const onFinish = (useParams) => {
         setLoading(true);
-        message.success('Register success! ')
-        setTimeout(() => {
-            navigate('/login')
+        Interface.signUp(useParams).then(res => {
+            console.log(res)
             setLoading(false);
-        }, 3000)
+            if (res.flag) {
+                message.success(res.message || 'register success!');
+                setTimeout(() => {
+                    navigate && navigate('/login')
+                }, 1e3)
+            }
+        })
     };
 
     const onFinishFailed = (errorInfo) => {
         console.log("Failed:", errorInfo);
     };
+
+    useEffect(() => {
+        console.log('?12312S')
+    }, []);
 
     return (
         <div className="register-container">
@@ -44,7 +54,7 @@ const Register = () => {
                         initialValues={{ remember: true }}
                         onFinish={onFinish}
                         onFinishFailed={onFinishFailed}
-                        size="large"
+                        size="default"
                         autoComplete="off"
                     >
                         <Form.Item label="Username" name="username" rules={[{ required: true, message: "please enter username" }]}>
@@ -54,22 +64,21 @@ const Register = () => {
                             <Input.Password autoComplete="new-password" placeholder="please enter password" prefix={<LockOutlined />} />
                         </Form.Item>
 
-                        <Form.Item label="NickName" name="nickname" rules={[{ required: true, message: "please enter nickname" }]}>
-                            <Input placeholder="please enter nickname" prefix={<UserOutlined />} />
+                        <Form.Item label="NickName" name="nickName" rules={[{ required: true, message: "please enter nickname" }]}>
+                            <Input placeholder="please enter nickName" prefix={<UserOutlined />} />
                         </Form.Item>
 
-                        <Form.Item label="Phone No" name="phone" rules={[{ required: true, message: "please enter phone Number" }, {
+                        <Form.Item label="Phone No" name="phoneNumber" rules={[{ required: true, message: "please enter phone Number" }, {
                             pattern: /^(1[0-9])\d{9,15}$/,
-                            message: 'please enter the valid phone no.',
+                            message: 'please enter the valid phoneNumber',
                             trigger: 'change'
                         }]}>
                             <Input.Password placeholder="please enter phone Number" prefix={<LockOutlined />} />
                         </Form.Item>
 
                         <Form.Item label="Email" name="email" rules={[{ required: true, message: "please enter phone Email" }]}>
-                            <Input.Password placeholder="please enter  Email" prefix={<LockOutlined />} />
+                            <Input.Password placeholder="please enter email" prefix={<LockOutlined />} />
                         </Form.Item>
-
 
                         <Form.Item className="login-btn">
                             <Button

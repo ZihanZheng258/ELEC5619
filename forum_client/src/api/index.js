@@ -18,6 +18,15 @@ export default {
 		return axios.post('http://localhost:8090/auth/signin', { usernameOrEmail: username, password: password })
 	},
 
+	// sign up
+	signUp: (params = {}) => {
+		return axios.post(
+			'http://localhost:8090/auth/signup',
+			{ params },
+			{ headers: { Authorization: `Bearer ` + localStorage.getItem('token') } }
+		)
+	},
+
 	// get login user info - /getUser/Self
 	getSelf: () => {
 		return axios.get('http://localhost:8090/user/self', {
@@ -83,6 +92,13 @@ export default {
 	// verify bought note
 	getBoughtList: (userID) => {
 		return axios.get('http://localhost:8090/note/buyer/' + userID, {
+			headers: { Authorization: `Bearer ` + localStorage.getItem('token') },
+		})
+	},
+
+	// query UserInfo
+	queryUserInfo: (userID) => {
+		return axios.get(`http://localhost:8090/user/${userID}`, {
 			headers: { Authorization: `Bearer ` + localStorage.getItem('token') },
 		})
 	},

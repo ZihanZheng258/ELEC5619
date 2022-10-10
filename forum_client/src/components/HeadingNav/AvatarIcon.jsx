@@ -1,15 +1,18 @@
-import {React, useRef} from "react";
+import { React, useRef, useState, useEffect } from "react";
 import { Avatar, Modal, Menu, Dropdown, message } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import PasswordModal from "./PasswordModal";
 import InfoModal from "./InfoModal";
 import avatar from "./assets/user.png";
+import Interface from "../../api/index"
 
 const AvatarIcon = () => {
     const navigate = useNavigate();
     const passRef = useRef(null);
     const infoRef = useRef(null);
+    const [userInfo, setUserInfo] = useState([]);
+
     const logout = () => {
         Modal.confirm({
             title: "Tips",
@@ -24,6 +27,24 @@ const AvatarIcon = () => {
             },
         });
     };
+
+    const getUserInfo = (userId) => {
+        Interface.queryUserInfo(userId).then(res => {
+            if (res.flag) {
+                setUserInfo((newInfo) => {
+                    userInfo = newInfo;
+                    return userInfo;
+                })
+            }
+        })
+    }
+
+    useEffect(() => {
+        const userId = "admin"
+        getUserInfo(userId);
+        console.log('?InfoModal')
+    }, []);
+
 
     const menu = (
         <Menu
@@ -57,14 +78,14 @@ const AvatarIcon = () => {
             ]}
         ></Menu>
     );
+
     return (
         <>
             <Dropdown overlay={menu} placement="bottom" arrow trigger={["click"]}>
                 <Avatar size="large" src={avatar}></Avatar>
             </Dropdown>
-            <InfoModal innerRef={infoRef}></InfoModal>
+            <InfoModal userInfo={userInfo} innerRef={infoRef}></InfoModal>
             <PasswordModal innerRef={passRef}></PasswordModal>
-
         </>
     );
 };
