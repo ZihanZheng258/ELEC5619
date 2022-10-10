@@ -35,16 +35,29 @@
       margin-left:20px;
       padding-right: 20px;
     }
-
-    .bar{
+    form{
+      display: flex;
       flex:1;
-      border:none !important;
-      margin-right: 25px;
-      height: 40px;
+      justify-content: center;
+      align-items: center;
+      .ant-select-selector{
+        border:none !important;
+        background-color: rgba(195, 216, 255, 0.25) !important;
+        .ant-select-selection-item{
+          font-weight: bold !important;
+        }
+      }
+      .bar{
+        flex:1;
+        border:none !important;
+        margin-right: 25px;
+        margin-left: 10px;
+        height: 40px;
 
-    }
-    .bar:focus-visible{
-      outline: none;
+      }
+      .bar:focus-visible{
+        outline: none;
+      }
     }
   }
   .profile{

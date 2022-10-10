@@ -1,18 +1,30 @@
 .searchList{
+  margin: 0 20% 15% 20%;
+
   .searchResults{
 
-    ul > li{
+    ul > a > li{
       margin-top:30px;
       .title{
         font-size: 2em;
       }
       .content{
         line-height: 30px;
+        color:black;
       }
       .date{
         margin-top:10px;
         line-height: 30px;
+        span:not(:first-child){
+          margin: 0 10px
+        }
+        span{
+          color: #898888;
+        }
       }
+    }
+    ul>li:hover{
+      cursor: pointer;
     }
   }
 
