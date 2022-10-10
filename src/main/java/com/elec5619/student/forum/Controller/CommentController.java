@@ -44,6 +44,22 @@ public class CommentController {
         return jsonReturnType;
     }
 
+    @GetMapping("/cancelLike/{id}")
+    @ResponseBody
+    public JsonReturnType cancelLikeComment(@PathVariable int id,Principal user){
+        Comment comment = commentService.findByID(id);
+        commentService.addLike(comment,-1);
+        User user1 = userService.getUserByNickName(user.getName());
+        user1.getLikedComment().remove(comment);
+        comment.getLiker().remove(user1);
+        commentService.insertOrUpdate(comment);
+        userService.insert(user1);
+        JsonReturnType jsonReturnType = new JsonReturnType();
+        jsonReturnType.getData().put("comment",comment);
+        jsonReturnType.flag = true;
+        return jsonReturnType;
+    }
+
     @GetMapping("/user/{id}")
     @ResponseBody
     public JsonReturnType findCommentsByUserId(@PathVariable int id){

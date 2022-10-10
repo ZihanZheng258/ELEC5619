@@ -49,6 +49,17 @@ public class DiscussionController {
         return jsonReturnType;
     }
 
+    @GetMapping("/cancelLike/{id}")
+    @ResponseBody
+    public JsonReturnType cancelLikeDiscussion(@PathVariable int id,Principal user){
+        Discussion discussion = discussionService.findById(id);
+        User user1 = userService.getUserByNickName(user.getName());
+        discussionService.cancelLiked(discussion,user1.getId());
+        JsonReturnType jsonReturnType = new JsonReturnType();
+        jsonReturnType.getData().put("discussion",discussion);
+        jsonReturnType.flag = true;
+        return jsonReturnType;
+    }
     @PostMapping("/")
     @ResponseBody
     public JsonReturnType AddDiscussion(@RequestBody Discussion discussion,Principal user){
