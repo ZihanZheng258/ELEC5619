@@ -26,7 +26,6 @@ const NoteDetailPage = () =>{
                     </div>
 
                 </div>
-
             </div>
         </>
     )
