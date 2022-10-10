@@ -9,11 +9,14 @@ import './index.less'
 import Button from "react-bootstrap/Button";
 import {message} from 'antd'
 import {forEach} from "react-bootstrap/ElementChildren";
+import Stack from "@mui/material/Stack";
+import Pagination from "@mui/material/Pagination";
 
 const NoteList = () =>{
     const [notesList, setNotesList] = useState([]);
-    const [userSelf, setUser] = useState("");
     const [boughtList, setBoughtList] = useState([]);
+    const [page, setPage] = useState(1);
+    const [totalPage, setTotalPage] = useState(1);
 
     useEffect(()=>{
         api.getNotesByPage(0)
@@ -22,7 +25,6 @@ const NoteList = () =>{
             });
         api.getSelf()
             .then((response)=>{
-                setUser(response.data.data.user.id)
                 api.getBoughtList(response.data.data.user.id)
                     .then((response)=>{
                         const arr = [response.data.data.notes]
@@ -34,11 +36,9 @@ const NoteList = () =>{
 
         // verify note bought
 
-    },[])
+    },[]);
+
     const saveNote = (noteID)=>{
-
-
-
         api.saveNote(noteID)
             .then((response)=>{
                 message.success('Note saved successfully', 5)
@@ -49,6 +49,7 @@ const NoteList = () =>{
 
             })
     }
+
     const buyNote = (noteID)=>{
         console.log(boughtList)
         if (boughtList.indexOf(noteID)>-1){
@@ -59,20 +60,26 @@ const NoteList = () =>{
                 .then((response)=>{
                     if (!response.data.flag){
                         message.error('Sorry, your '+ response.data.message, 5)
-
                     } else {
                         message.success('Note '+ response.data.data.note.name + ' bought successfully', 5)
                         setBoughtList(prevState => [...prevState, response.data.data.note.id])
-
                     }
-                    console.log(response)
                 })
                 .catch((err)=>{
                     message.error('Sorry, something went wrong, please try again',10)
                 })
         }
-
     }
+
+    const pageChange = (event,value)=>{
+        setPage(value);
+        console.log(value)
+        api.getNotesByPage(value-1)
+            .then((response)=>{
+                setNotesList(response.data.data.notes.content)
+            })
+    };
+
     return(
         <>
             {notesList.map((index)=>{
@@ -122,6 +129,17 @@ const NoteList = () =>{
                     </div>
                 </div>
             })}
+            <div style={{margin:"20px auto"}}>
+                <Stack spacing={10}>
+                    <Pagination
+                        siblingCount={4}
+                        count={totalPage}
+                        showFirstButton
+                        showLastButton
+                        onChange={pageChange}
+                    />
+                </Stack>
+            </div>
         </>
     )
 }
