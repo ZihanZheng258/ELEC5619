@@ -49,7 +49,7 @@ const MyPosts = () => {
                 })}
             </div>
             <div className="posts_footer">
-                <Pagination defaultCurrent={6} total={500} />
+                <Pagination defaultCurrent={1} total={500} />
             </div>
         </div>
     );
