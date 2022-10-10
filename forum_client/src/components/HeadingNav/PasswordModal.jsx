@@ -1,9 +1,13 @@
 import { useState, useImperativeHandle } from 'react'
+import { useNavigate } from "react-router-dom";
 import { Modal, message } from 'antd'
-import { Button, Checkbox, Form, Input } from 'antd'
+import { Form, Input } from 'antd'
+import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 const PasswordModal = (props) => {
+
     const [isModalVisible, setIsModalVisible] = useState(false)
+    const navigate = useNavigate();
 
     useImperativeHandle(props.innerRef, () => ({
         showModal,
@@ -15,8 +19,36 @@ const PasswordModal = (props) => {
     }
 
     const handleOk = () => {
-        setIsModalVisible(false)
-        message.success('Password Modification Succeeded!')
+        Modal.confirm({
+            title: "Tips",
+            icon: <ExclamationCircleOutlined />,
+            content: "Are you sure you want to change password?",
+            okText: "ok",
+            cancelText: "cancel",
+            onOk: () => {
+                setIsModalVisible(false)
+                message.success('Password Modification Succeeded!')
+                setTimeout(() => {
+                    navigate("/login");
+                }, 0.5e3)
+
+                // Interface.changePassWord({
+                //     oldPassWord: "oldPass",
+                //     newPassWord: "newPass"
+                // }).then(res => {
+                //     if (res.flag) {
+                //         setIsModalVisible(false)
+                //         message.success('Password Modification Succeeded!')
+                //         setTimeout(() => {
+                //             navigate("/login");
+                //         }, 0.5e3)
+                //     }
+                // })
+            },
+            onCancel: () => {
+                console.log('cancel');
+            }
+        });
     }
 
     const handleCancel = () => {
@@ -26,11 +58,11 @@ const PasswordModal = (props) => {
     return (
         <>
             <Modal
-                title='Change Password'
                 onOk={handleOk}
                 destroyOnClose={true}
-                onCancel={handleCancel}
+                title='Change Password'
                 open={isModalVisible}
+                onCancel={handleCancel}
             >
                 <Form
                     name='basic'

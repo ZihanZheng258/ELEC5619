@@ -96,7 +96,7 @@ export default {
 		})
 	},
 
-	// query UserInfo
+	// queryUserInfo
 	queryUserInfo: (userID) => {
 		return axios.get(`http://localhost:8090/user/${userID}`, {
 			headers: { Authorization: `Bearer ` + localStorage.getItem('token') },
