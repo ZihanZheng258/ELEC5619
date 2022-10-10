@@ -17,8 +17,8 @@ import commentImg from "../Comment/assets/comment.svg";
 
 const DiscussionList = ({handleClick})=>{
     const [discussion,setDiscussion] = useState([]);
-    const [isCommentActivate, setIsCommentActivate] = useState(false);
-
+    const [user, setUser] = useState('');
+    const [likers, setLikers] = useState([]);
 
     useEffect(()=>{
         api.getDiscussionByPage(0)
@@ -26,22 +26,58 @@ const DiscussionList = ({handleClick})=>{
                 console.log(response)
                 setDiscussion(response.data.data.discussion.content);
         })
+        api.getSelf()
+            .then((response)=>{
+            setUser(response.data.data.user.id)
+        })
     },[])
-
-
-    const [isChecked, setIsChecked] = useState(false);
-    const toggleCheck = () => {
-        setIsChecked(!isChecked);
-        handleClick()
+    const disLikeDiscussion = (dislikeID)=>{
     }
+    const likeDiscussion = (likeID)=>{
+        api.getLikeDiscussion(likeID)
+            .then((response)=>{
+                api.getDiscussionByPage(0)
+                    .then((response)=>{
+                        console.log(response)
+                        setDiscussion(response.data.data.discussion.content);
+                    })
+            });
+    }
+
+
 
     return(
         <div className="discussion-list">
             {discussion.map((index)=>{
                 return <div className="discussion-card" key={index.id}>
                 <div className="likes-column">
-                    {/*<img onClick={(e)=>setLikeClick(!likeClick)} src= {likeClick ? likes: nlikes} alt=""/>*/}
-                    <img src= {likes} alt=""/>
+
+                    { index.jsonLiker.map((liker)=>{
+                        return <>
+                        {
+                            liker.id===user &&
+                            <img
+                                src= {likes}
+                                alt=""
+                                onClick={()=>disLikeDiscussion(index.id)}
+                            />
+
+                        }
+
+                        </>
+
+                    })
+                    }
+                    {
+                        index.jsonLiker.length === 0 &&
+                        <img
+                            src= {nlikes}
+                            alt=""
+                            onClick={()=>likeDiscussion(index.id)}
+                        />
+
+
+                    }
                     <div className="likeNumber">
                         {index.likeNumber}
                     </div>
