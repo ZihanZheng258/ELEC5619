@@ -2,6 +2,7 @@ import {React, useEffect, useState} from "react";
 import './index.less'
 import { SearchOutlined } from '@ant-design/icons'
 import {Link, useNavigate} from "react-router-dom";
+import {message, Select} from 'antd';
 import api from "../../api";
 import AvatarIcon from "./AvatarIcon"
 
@@ -9,6 +10,9 @@ import AvatarIcon from "./AvatarIcon"
 const HeadingNav = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState('');
+    const [type, setType] = useState("discussion");
+    const [searchContent, setContent] = useState('');
+    const { Option } = Select;
 
     useEffect( () => {
         api.getSelf().
@@ -16,6 +20,18 @@ const HeadingNav = () => {
             setUser(response.data.data.user.nickName)
         })
     }, []);
+
+
+    const handleSubmit = event => {
+        event.preventDefault();
+        if (type === "note"){
+
+        } else{
+
+        }
+        console.log('form submitted ✅');
+    };
+
     return (
         <div className="navheader">
             <div className="title_logo">
@@ -29,7 +45,24 @@ const HeadingNav = () => {
                 <div className="searchIcon">
                     <img src={require("./assets/search.png")} alt="search" width="23px" />
                 </div>
-                <input className="bar" type="search" placeholder="Search" />
+                <form onSubmit={handleSubmit}>
+                    <Select
+                        defaultValue="discussion" style={{ width: 120 }}
+                        onChange={event => setType(event)}>
+                        <Option value="discussion">discussion</Option>
+                        <Option value="note">note</Option>
+                    </Select>
+                    <input
+                        className="bar"
+                        type="search"
+                        placeholder={"Search by " + type}
+                        value = {searchContent}
+                        onChange={event => setContent(event.target.value)}
+                    />
+                    <button type="submit"></button>
+                </form>
+
+
 
             </div>
             <div className="profile">
