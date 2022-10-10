@@ -1,7 +1,10 @@
-import { useState, useImperativeHandle } from "react";
+import { useState, useImperativeHandle, useEffect } from "react";
 import { Modal, message, Col, Row, Switch } from "antd";
 
 const InfoModal = (props) => {
+
+    const { userInfo } = props;
+
     const [modalVisible, setModalVisible] = useState(false);
 
     useImperativeHandle(props.innerRef, () => ({
@@ -21,21 +24,26 @@ const InfoModal = (props) => {
     const handleCancel = () => {
         setModalVisible(false);
     };
+
+    useEffect(() => {
+        console.log('?InfoModal')
+    }, []);
+
     return (
         <Modal
-            title="Personal Information"
-            onOk={handleOk}
-            destroyOnClose={true}
-            open={modalVisible}
-            onCancel={handleCancel}
             footer={null}
+            onOk={handleOk}
+            open={modalVisible}
+            destroyOnClose={true}
+            title="Personal Information"
+            onCancel={handleCancel}
         >
             <Row align="middle">
                 <Col span={4}>
                     <span>NickName:</span>
                 </Col>
                 <Col span={20} gutter={{ xs: 8, sm: 16, md: 24 }}>
-                    <span>9527-test</span>
+                    <span>{userInfo.nickName}</span>
                 </Col>
             </Row>
             <Row align="middle">
@@ -45,9 +53,9 @@ const InfoModal = (props) => {
                 <Col span={20} gutter={{ xs: 8, sm: 16, md: 24 }}>
                     <Switch
                         size="small"
-                        checkedChildren="online"
-                        unCheckedChildren="off"
                         defaultChecked
+                        checkedChildren={userInfo.status === 1 ? "online" : "off"}
+                        unCheckedChildren={userInfo.status === 1 ? "online" : "off"}
                     />
                 </Col>
             </Row>
@@ -56,7 +64,7 @@ const InfoModal = (props) => {
                     <span>User Score:</span>
                 </Col>
                 <Col span={20} gutter={{ xs: 8, sm: 16, md: 24 }}>
-                    <span>100</span>
+                    <span>{userInfo.credit}</span>
                 </Col>
             </Row>
         </Modal>

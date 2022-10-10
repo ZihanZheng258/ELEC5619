@@ -1,29 +1,38 @@
-import axios from "axios";
+import axios from 'axios'
 
 /**
  * path address
  */
 
-const client = axios.create({baseURL:'http://localhost:8090'},{headers:{"Authorization":`Bearer `+localStorage.getItem("token")}});
+const client = axios.create(
+	{ baseURL: 'http://localhost:8090' },
+	{ headers: { Authorization: `Bearer ` + localStorage.getItem('token') } }
+)
 
 /**
  * request method
  */
 export default {
-    // sign in
-    signIn: (username, password) =>{
-        return axios.post('http://localhost:8090/auth/signin',
-            {usernameOrEmail:username, password:password }
-        );
-    },
+	// sign in
+	signIn: (username, password) => {
+		return axios.post('http://localhost:8090/auth/signin', { usernameOrEmail: username, password: password })
+	},
 
-    // get login user info - /getUser/Self
-    getSelf:  () => {
-        return axios.get(
-            'http://localhost:8090/user/self',
-            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
-        );
-    },
+	// sign up
+	signUp: (params = {}) => {
+		return axios.post(
+			'http://localhost:8090/auth/signup',
+			{ params },
+			{ headers: { Authorization: `Bearer ` + localStorage.getItem('token') } }
+		)
+	},
+
+	// get login user info - /getUser/Self
+	getSelf: () => {
+		return axios.get('http://localhost:8090/user/self', {
+			headers: { Authorization: `Bearer ` + localStorage.getItem('token') },
+		})
+	},
 
     // get all discussion list  by page - /discussion/page/:pageNum
     getDiscussionByPage: (page)=>{
@@ -94,8 +103,10 @@ export default {
             {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
         );
     },
-
+    // queryUserInfo
+    queryUserInfo: (userID) => {
+        return axios.get(`http://localhost:8090/user/${userID}`, {
+            headers: { Authorization: `Bearer ` + localStorage.getItem('token') },
+        })
+    },
 }
-
-
-
