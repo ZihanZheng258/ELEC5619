@@ -108,7 +108,6 @@ const NoteList = () =>{
                         </div>
                         <div className="noteDescription">
                             {index.description}
-
                         </div>
                         <div className="noteTag">
                             <strong> by {index.jsonOwner.nickName}
@@ -130,15 +129,18 @@ const NoteList = () =>{
                 </div>
             })}
             <div style={{margin:"20px auto"}}>
-                <Stack spacing={10}>
-                    <Pagination
-                        siblingCount={4}
-                        count={totalPage}
-                        showFirstButton
-                        showLastButton
-                        onChange={pageChange}
-                    />
-                </Stack>
+                {totalPage>0 &&
+                    <Stack spacing={10}>
+                        <Pagination
+                            siblingCount={4}
+                            count={totalPage}
+                            showFirstButton
+                            showLastButton
+                            onChange={pageChange}
+                        />
+                    </Stack>
+
+                }
             </div>
         </>
     )

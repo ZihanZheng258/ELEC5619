@@ -1,4 +1,5 @@
 import React, { useState, useEffect} from "react";
+import {Link} from "react-router-dom";
 import api from "../../../api"
 import './index.less'
 
@@ -21,7 +22,8 @@ const Annoucement = ()=>{
             <div className="announcement-card">
                 {announcement.map((index)=>{
                     // div class loop
-                    return <div className="card" key={index.id}>
+                    return <Link to={"/discussion/"+index.id} key={"announcement"+index.id.toString()}>
+                    <div className="card">
                         <div className="card-title">
                             {index.title}
                         </div>
@@ -29,6 +31,8 @@ const Annoucement = ()=>{
                             {index.content}
                         </div>
                     </div>
+                    </Link>
+
                 })}
             </div>
 

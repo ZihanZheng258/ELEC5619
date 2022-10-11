@@ -1,0 +1,113 @@
+.discussionDetail{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto 50px auto;
+  .discussion-title{
+    font-size: 2.5em;
+  }
+  .discussionCategory:before{
+    width: 9px;
+    height: 9px;
+    display: inline-block;
+    background-color: red;
+    content:"";
+    margin: 1px 5px;
+  }
+    .discussionCategory{
+  }
+  .discussion-content{
+    .creator{
+      display: flex;
+      flex-direction: row;
+      .avatar{
+        .creator-name{
+          display: inline;
+          margin: 10px;
+        }
+      }
+      .create-date{
+        align-self: center;
+        flex: 0 0 auto;
+
+
+      }
+    }
+    .contents-block{
+      margin: 30px;
+      .infoBar{
+        display: flex;
+        flex-direction: row;
+        justify-content: start;
+        align-items: center;
+        box-shadow: 10px 2px 5px #d2d2d2;
+        margin: 30px 0;
+        line-height: 3;
+        .post{
+          .poster-name{
+            margin-left: 10px;
+          }
+        }
+        .created{
+          .poster-date{
+            margin-left: 10px;
+          }
+        }
+      }
+      .infoBar > div{
+        margin: 8px 25px;
+      }
+      .comment-box{
+        display: flex;
+        flex-direction: column;
+        .reply-box{
+          display: flex;
+          flex-direction: row;
+          form{
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            .reply-editor{
+              //box-shadow: 10px 2px 2px #d2d2d2;
+              border: none;
+              border-bottom: 1px solid #d0d0d0;
+              line-height: 3;
+              margin-left: 20px;
+              padding: 0 10px ;
+              width: 100%;
+            }
+            .reply-editor:focus-visible{
+              outline: none;
+              border-bottom: 1px solid #000000;
+
+            }
+            button{
+              margin-left: -55px;
+              padding-right: 30px;
+              border:none;
+              background-color: rgba(255, 255, 255, 0);
+              color: #1a73ff;
+              font-weight: bold;
+            }
+          }
+
+        }
+      }
+
+    }
+
+  }
+}
+.avatar{
+  flex: 1 1 auto;
+  vertical-align: middle;
+  width: 50px;
+  height: 50px;
+  object-fit:cover;
+  border-radius: 50%;
+  cursor: pointer;
+  display: inline;
+}
+.commentBlock{
+  width: 80% !important;
+}

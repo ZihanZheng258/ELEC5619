@@ -26,7 +26,7 @@ const InfoModal = (props) => {
     };
 
     useEffect(() => {
-        console.log('?InfoModal')
+        // console.log('?InfoModal')
     }, []);
 
     return (

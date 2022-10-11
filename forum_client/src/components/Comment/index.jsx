@@ -13,7 +13,9 @@ const Comment =(props) =>{
     const [replyMessage, setReplyMessage] = useState([]);
     const [target, setTarget] = useState({});
     const [parent, setParent] = useState({});
+    const [receiver, setReceiver] = useState(-1)
     const discussionID = useParams().id;
+
 
     useEffect(()=>{
         api.getComments(discussionID)
@@ -28,6 +30,7 @@ const Comment =(props) =>{
         api.postComment(discussionID,target.targetID,parent.parentID,1,replyMessage)
             .then(()=>{
                 message.success("message posted!")
+
                 api.getComments(discussionID)
                     .then((response)=>{
                         setComments(response.data.data.comments)
@@ -50,7 +53,7 @@ const Comment =(props) =>{
                     <div className="comment">
                         <div className="mainCommenter">
                             {comments.map((index)=>{
-                                return <div key={index.id}>
+                                return <div key={"main"+index.id}>
                                     <div className="commenterInfo">
                                         <img className="avatar" src={avatar} alt=""/>
                                         <span className="commentUserName">{index.jsonSender.nickName}</span>
@@ -66,15 +69,16 @@ const Comment =(props) =>{
                                                     setTarget(
                                                         {...target, targetID: index.id,
                                                             targetName:index.jsonSender.nickName});
-                                                    setParent({...parent, parentID:index.id})
+                                                    setParent({...parent, parentID:index.id});
+                                                    setReceiver(index.jsonSender.id);
                                                 }
                                                 }>
                                                 reply
                                             </button>
                                         </div>
                                         {index.jsonChildren.map((child)=>{
-                                            return <>
-                                                <div className="subCommenter" key={child.id}>
+                                            return <div key={"sub"+child.id}>
+                                                <div className="subCommenter" >
                                                     <div className="subCommenterContent">
                                                         <div>
                                                             <img className="avatar" src={avatar} alt=""/>
@@ -90,6 +94,7 @@ const Comment =(props) =>{
                                                                                 {...target, targetID: child.id,
                                                                                     targetName:child.jsonSender.nickName});
                                                                             setParent({...parent, parentID:index.id})
+                                                                            setReceiver(child.jsonSender.id);
                                                                         }
                                                                         }>
                                                                         reply
@@ -99,7 +104,7 @@ const Comment =(props) =>{
                                                     </div>
 
                                                 </div>
-                                            </>
+                                            </div>
                                         })
                                         }
 

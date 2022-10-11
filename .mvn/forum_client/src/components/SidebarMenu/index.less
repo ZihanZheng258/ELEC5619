@@ -1,0 +1,76 @@
+@font-face {
+  font-family: "BPtypewrite";
+  src: local("bptypewrite.damaged-italic"),
+  url("../../fonts/bptypewrite.damaged-italic.otf") format("opentype");
+  //font-weight: bold;
+}
+
+.sideBar{
+  height: 100%;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  padding-right: 12px;
+  //border-right: 1px solid #dedede;
+
+  .navList{
+    overflow-y:auto;
+    overflow-x:hidden;
+
+  }
+  li {
+    list-style: none;
+    font-size: 1.4em;
+    font-family: "Ubuntu Mono", serif;
+    margin: 5px 0 20px 0;
+  }
+
+  ul{
+    padding: 0;
+  }
+  .navList > ul > li {
+    //padding: 20px 0;
+    //border: 0px solid black;
+    border-radius: 20px;
+    text-align: start;
+    text-indent: 40px;
+  }
+  .active,.navList > ul > li:hover{
+    background-color: rgba(47,130,255,255);
+    color: white;
+    cursor: pointer;
+    transition-duration: 0.3s;
+    transform: scale(1.06);
+  }
+
+  .navList > ul > ul > li{
+    padding: 0px 15px;
+    //border: 0px solid black;
+    border-radius: 20px;
+    text-align: start;
+    margin-left: 2em;
+  }
+  //.lifeContent{
+  //  display: flex;
+  //  flex-direction: column;
+  //}
+
+  .active, .navList > ul > ul > li:hover{
+    background-color: rgba(47,130,255,255);
+    cursor: pointer;
+    transition-duration: 0.3s;
+    transform: scale(1.06);
+    color: white !important;
+
+  }
+
+  a{
+    //background-color: yellow;
+    display: block;
+    padding: 20px 0;
+    color: black;
+  }
+  a:hover{
+    color:white;
+  }
+}

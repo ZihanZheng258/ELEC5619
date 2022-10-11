@@ -1,0 +1,75 @@
+.discussion-list{
+  height: auto;
+  width: 90%;
+  margin: 50px auto;
+  background-color: rgba(218, 245, 241, 0.18);
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  flex-basis: 100%;
+
+  .discussion-card{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+    margin: 5px 0;
+    border: 1px solid lightgrey;
+    background-color: white;
+    .likes-column{
+      background-color: rgba(227, 227, 227, 0.34);
+      //border-right: 1px solid black;
+      img{
+        width: 30px;
+        margin: 10px;
+      }
+      img:hover{
+        cursor: pointer;
+      }
+      .likeNumber{
+        margin: auto;
+        text-align: center;
+      }
+    }
+    .discussion-col{
+      margin-left: 20px;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+
+
+      button{
+        margin:10px
+      }
+      a{
+       text-decoration: none;
+      }
+      .discussion-title{
+        font-size: 30px;
+        padding: 20px;
+        cursor: pointer;
+        color: black;
+      }
+      .discussion-description{
+        padding: 20px;
+        cursor: pointer;
+        color: black;
+      }
+      .discussion-actionbar{
+        //border-top: 1px solid #d0d0d0;
+        flex-basis: 100%;
+        .comment-action{
+          width: fit-content;
+          margin:20px;
+          cursor: pointer;
+          color: black;
+          img{
+            width: 20px;
+            margin-right:10px;
+          }
+        }
+
+      }
+    }
+  }
+}

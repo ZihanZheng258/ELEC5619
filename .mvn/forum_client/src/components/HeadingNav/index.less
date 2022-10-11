@@ -1,0 +1,86 @@
+.navheader{
+  //right: 0;
+  //left:372px;
+  top:0;
+  border-bottom: 1px solid #dedede ;
+  display: flex;
+  height: 118px;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  .title_logo{
+    padding: 30px 20px;
+    a{
+      text-decoration: none;
+      color:black;
+    }
+    //border-bottom: 1px solid black;
+    span{
+      font-family: BPtypewrite, serif;
+      font-size: 48px;
+    }
+  }
+  .search{
+    flex:1;
+    display: flex;
+    //background-color: yellow;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    border: 1px solid #dedede;
+    margin-left: 50px;
+    margin-right: 50px;
+    border-radius: 20px;
+    .searchIcon{
+      margin-left:20px;
+      padding-right: 20px;
+    }
+    form{
+      display: flex;
+      flex:1;
+      justify-content: center;
+      align-items: center;
+      .ant-select-selector{
+        border:none !important;
+        background-color: rgba(195, 216, 255, 0.25) !important;
+        .ant-select-selection-item{
+          font-weight: bold !important;
+        }
+      }
+      .bar{
+        flex:1;
+        border:none !important;
+        margin-right: 25px;
+        margin-left: 10px;
+        height: 40px;
+
+      }
+      .bar:focus-visible{
+        outline: none;
+      }
+    }
+  }
+  .profile{
+    flex:0.2;
+    display: flex;
+    justify-content: center;
+    .profileImage{
+      margin: 10px;
+    }
+    .signInText{
+      margin:auto 10px;
+      text-align: center;
+    }
+  }
+  .profile:hover{
+    cursor:pointer;
+  }
+}
+img{
+  user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}

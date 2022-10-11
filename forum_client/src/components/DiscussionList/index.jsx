@@ -1,6 +1,6 @@
 import React from "react";
 import {useState, useEffect} from "react";
-import {Link} from "react-router-dom";
+import {Link, useParams} from "react-router-dom";
 
 import './index.less'
 import Button from 'react-bootstrap/Button';
@@ -17,39 +17,74 @@ import api from "../../api"
 import moment from "moment";
 import commentImg from "../Comment/assets/comment.svg";
 
-const DiscussionList = ({handleClick})=>{
+const DiscussionList = (props)=>{
     const [discussion,setDiscussion] = useState([]);
     const [user, setUser] = useState('');
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(1);
+    const params = props.category;
 
     useEffect(()=>{
-        api.getDiscussionByPage(page-1)
-            .then((response)=>{
-                setDiscussion(response.data.data.discussion.content);
-                setTotalPage(response.data.data.discussion.totalPages)
-        })
+        try {
+            if (!(params.category.length === 0)){
+                api.getDiscussionbyCategoryPage(params.category,page-1)
+                    .then((response)=>{
+                        setDiscussion(response.data.data.discussions.content);
+                        setTotalPage(response.data.data.discussions.totalPages)
+                    })
+            }
+        } catch (err){
+            api.getDiscussionByPage(page-1)
+                .then((response)=>{
+                    setDiscussion(response.data.data.discussion.content);
+                    setTotalPage(response.data.data.discussion.totalPages)
+                })
+        }
+
         api.getSelf()
             .then((response)=>{
             setUser(response.data.data.user.id)
         })
-    },[])
+    },[params])
     const disLikeDiscussion = (dislikeID)=>{
         api.getCancelLikeDiscussion(dislikeID)
             .then((response)=>{
-                api.getDiscussionByPage(page-1)
-                    .then((response)=>{
-                        setDiscussion(response.data.data.discussion.content);
-                    })
+                try {
+                    if (!(params.category.length === 0)){
+                        api.getDiscussionbyCategoryPage(params.category,page-1)
+                            .then((response)=>{
+                                setDiscussion(response.data.data.discussions.content);
+                                setTotalPage(response.data.data.discussions.totalPages)
+                            })
+                    }
+                } catch (err){
+                    api.getDiscussionByPage(page-1)
+                        .then((response)=>{
+                            setDiscussion(response.data.data.discussion.content);
+                            setTotalPage(response.data.data.discussion.totalPages)
+                        })
+                }
+
             });
     }
     const likeDiscussion = (likeID)=>{
         api.getLikeDiscussion(likeID)
             .then((response)=>{
-                api.getDiscussionByPage(page-1)
-                    .then((response)=>{
-                        setDiscussion(response.data.data.discussion.content);
-                    })
+                try {
+                    if (!(params.category.length === 0)){
+                        api.getDiscussionbyCategoryPage(params.category,page-1)
+                            .then((response)=>{
+                                setDiscussion(response.data.data.discussions.content);
+                                setTotalPage(response.data.data.discussions.totalPages)
+                            })
+                    }
+                } catch (err){
+                    api.getDiscussionByPage(page-1)
+                        .then((response)=>{
+                            setDiscussion(response.data.data.discussion.content);
+                            setTotalPage(response.data.data.discussion.totalPages)
+                        })
+                }
             });
     }
     const pageChange = (event,value)=>{
@@ -61,13 +96,14 @@ const DiscussionList = ({handleClick})=>{
         };
 
     return(
-        <div className="discussion-list">
+        <div className="discussion-list" >
             {discussion.map((index)=>{
-                return <div className="discussion-card" key={index.id}>
-                <div className="likes-column">
+                return <div key={"discussion"+index.id.toString()}>
+                <div className="discussion-card" key={"discussion-card"+index.id.toString()}>
+                <div className="likes-column" key={"likes-column"+index.id.toString()}>
 
                     { index.jsonLiker.map((liker)=>{
-                        return <>
+                        return <div key={"likeBtn"+index.id}>
                         {
                             liker.id===user &&
                             <img
@@ -78,7 +114,7 @@ const DiscussionList = ({handleClick})=>{
 
                         }
 
-                        </>
+                        </div>
 
                     })
                     }
@@ -97,13 +133,13 @@ const DiscussionList = ({handleClick})=>{
                     </div>
 
                 </div>
-                <div className="discussion-col">
+                <div className="discussion-col" key={"discussion-col"+index.id.toString()} >
                     <div className="discussion-info">
-                        <Button variant="outline-primary" size="sm">{index.jsonCategory.content}</Button>{' '}
-                        <Button variant="outline-primary" size="sm">{index.jsonUser.nickName}</Button>{' '}
-                        <Button variant="outline-primary" size="sm">{moment(index.createDate).fromNow()}</Button>{' '}
+                        <Button variant="outline-primary" size="sm" key={"buttonCate"+index.id.toString()}>{index.jsonCategory.content}</Button>{' '}
+                        <Button variant="outline-primary" size="sm" key={"buttonName"+index.id.toString()}>{index.jsonUser.nickName}</Button>{' '}
+                        <Button variant="outline-primary" size="sm" key={"buttonTime"+index.id.toString()}>{moment(index.createDate).fromNow()}</Button>{' '}
                     </div>
-                    <Link to={"/discussion/"+index.id}>
+                    <Link to={"/discussion/"+index.id} key={"discussionLink"+index.id.toString()}>
                         <div className="discussion-title">
                                 {index.title}
                         </div>
@@ -115,25 +151,28 @@ const DiscussionList = ({handleClick})=>{
                         <div className="comment-action" onClick={()=>{}}>
                             <img src= {commentImg} alt=""/> <span>{index.commentNumber} Comments</span>
                         </div>
-                        {/*<Comment/>*/}
                     </div>
                     </Link>
 
                 </div>
 
             </div>
+                </div>
             })}
-            <div style={{margin:"10px auto"}}>
-                <Stack spacing={2}>
-                    <Pagination
-                        siblingCount={4}
-                        count={totalPage}
-                        showFirstButton
-                        showLastButton
-                        onChange={pageChange}
-                    />
-                </Stack>
+
+                <div style={{margin:"10px auto"}} key={"PageDiv"}>
+                    <Stack spacing={4}>
+                        <Pagination
+                            siblingCount={4}
+                            count={totalPage}
+                            showFirstButton
+                            showLastButton
+                            onChange={pageChange}
+                        />
+                    </Stack>
+
             </div>
+
         </div>
     )
 }
