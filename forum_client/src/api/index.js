@@ -181,6 +181,12 @@ export default {
             {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
         );
 
+    },
+    downloadNote: (noteID)=>{
+            return axios.get(
+                '        http://localhost:8090/note/downloadNote/'+noteID ,
+                {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+            );
     }
 
 }

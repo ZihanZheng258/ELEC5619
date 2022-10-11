@@ -9,15 +9,29 @@ import '../../config/config.js';
 import {useEffect, useState} from "react";
 import api from "../../api/index"
 import setAuthToken from "../Login/setAuthToken";
-
 const Home = () =>{
 
+    const downloadFile = ()=>{
+        fetch('http://localhost:8090/note/downloadNote/177',{headers:{"Authorization":`Bearer `+localStorage.getItem("token")}})
+            .then(response => {
+                console.log(response.headers.get('Content-Disposition'))
+                const filename =  response.headers.get('Content-Disposition').split('filename=')[1];
+                response.blob().then(blob => {
+                    let url = window.URL.createObjectURL(blob);
+                    let a = document.createElement('a');
+                    a.href = url;
+                    a.download = filename;
+                    a.click();
+                });})}
 
     return(
         <>
             <div className="homeContent">
-
-                    <div className="layout-header">
+                <div className="App-intro">
+                    <h3>Download a random file</h3>
+                    <button onClick={downloadFile}>Download</button>
+                </div>
+                <div className="layout-header">
                         <HeadingNav />
                     </div>
                     <div className="layout-row">

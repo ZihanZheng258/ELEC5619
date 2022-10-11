@@ -225,6 +225,7 @@ public class NoteController {
 
     @GetMapping("/downloadNote/{id}")
     @ResponseBody
+    @CrossOrigin(value = {"*"}, exposedHeaders = {"Content-Disposition"})
     public ResponseEntity<byte[]> downloadNote(HttpSession session,@PathVariable int id) throws IOException {
         Note note = noteService.findById(id);
         String name = note.getPath();
