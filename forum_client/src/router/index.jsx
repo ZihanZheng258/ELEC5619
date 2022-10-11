@@ -127,12 +127,6 @@ const AppRouter = () => {
                         <Register />
                     </RouteGuard>
                 }></Route>
-                {/*<Route path="/myPosts" element={*/}
-                {/*        <RouteGuard>*/}
-                {/*            <MyPosts />*/}
-                {/*        </RouteGuard>*/}
-                {/*    }*/}
-                {/*></Route>*/}
 
                 {/*<Route path="/discussion:id" element={<DiscussionDetail />}></Route>*/}
                 <Route path='/page_404' element={<FourZeroFour />}></Route>

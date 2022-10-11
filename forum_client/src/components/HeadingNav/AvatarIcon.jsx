@@ -42,7 +42,7 @@ const AvatarIcon = () => {
     useEffect(() => {
         // const userId = "admin"
         // getUserInfo(userId);
-        console.log('?InfoModal')
+        // console.log('?InfoModal')
     }, []);
 
 

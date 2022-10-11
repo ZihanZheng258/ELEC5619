@@ -1,9 +1,20 @@
-import './user.less'
+import './index.less'
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Menu } from 'antd'
-import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons'
+import {
+    AppstoreOutlined,
+    MailOutlined,
+    SettingOutlined,
+    RollbackOutlined,
+    BookOutlined,
+    SendOutlined,
+    LikeOutlined,
+    PushpinOutlined
+
+} from '@ant-design/icons'
 import { Outlet } from "react-router-dom"
+import HeadingNav from "../../components/HeadingNav"
 
 const User = () => {
 
@@ -12,11 +23,16 @@ const User = () => {
     const navigate = useNavigate()
     const items =
         [
+            {key: "sub0",
+                label: <span className="dropdown-item">Back Home</span>,
+                onClick: () => navigate("/"),
+                icon: <RollbackOutlined />,
+
+            },
             {
                 key: "sub1",
                 label: <span className="dropdown-item">Note</span>,
-                icon: <SettingOutlined />,
-
+                icon: <BookOutlined />,
                 children: [
                     {
                         key: "1",
@@ -35,7 +51,7 @@ const User = () => {
                         key: "3",
                         label: <span className="dropdown-item">notes i have</span>,
                         onClick: () => navigate("/user/notehave"),
-                        icon: <SettingOutlined />,
+                        icon: <PushpinOutlined />,
 
                     },
                     {
@@ -46,10 +62,11 @@ const User = () => {
 
                     },
                 ]
+
             },
             {
                 key: "sub2",
-                icon: <SettingOutlined />,
+                icon: <SendOutlined />,
                 label: <span className="dropdown-item">Post</span>,
                 children: [
                     {
@@ -62,7 +79,7 @@ const User = () => {
                         key: "6",
                         label: <span className="dropdown-item">posts i like</span>,
                         onClick: () => navigate("/user/postlike"),
-                        icon: <SettingOutlined />,
+                        icon: <LikeOutlined />,
                     },
                 ]
             },
@@ -111,20 +128,26 @@ const User = () => {
 
     return (
         <div className='user_container'>
-            <div className='left'>
-                <Menu
-                    mode='inline'
-                    openKeys={openKeys}
-                    style={{
-                        width: 220,
-                    }}
-                    items={items}
-                    onOpenChange={onOpenChange}
-                />
+            <div>
+                <HeadingNav/>
             </div>
-            <div className='right'>
-                <Outlet></Outlet>
+            <div className="userProfile">
+                <div className='left'>
+                    <Menu
+                        mode='inline'
+                        openKeys={openKeys}
+                        style={{
+                            width: 270,
+                        }}
+                        items={items}
+                        onOpenChange={onOpenChange}
+                    />
+                </div>
+                <div className='right'>
+                    <Outlet></Outlet>
+                </div>
             </div>
+
         </div>
     )
 }
