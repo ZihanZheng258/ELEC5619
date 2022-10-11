@@ -40,8 +40,8 @@ const AvatarIcon = () => {
     }
 
     useEffect(() => {
-        const userId = "admin"
-        getUserInfo(userId);
+        // const userId = "admin"
+        // getUserInfo(userId);
         console.log('?InfoModal')
     }, []);
 
@@ -60,16 +60,17 @@ const AvatarIcon = () => {
                 {
                     key: "2",
                     label: <span className="dropdown-item">Personal information</span>,
-                    onClick: () => infoRef.current.showModal({ name: 11 }),
+                    // onClick: () => infoRef.current.showModal({ name: 11 }),
+                    onClick: () => navigate("/user"),
                 },
-                {
-                    key: "3",
-                    label: <span className="dropdown-item">Change Password</span>,
-                    onClick: () => passRef.current.showModal({ name: 11 }),
-                },
-                {
-                    type: "divider",
-                },
+                // {
+                //     key: "3",
+                //     label: <span className="dropdown-item">Change Password</span>,
+                //     onClick: () => passRef.current.showModal({ name: 11 }),
+                // },
+                // {
+                //     type: "divider",
+                // },
                 {
                     key: "4",
                     label: <span className="dropdown-item">Log Out</span>,
