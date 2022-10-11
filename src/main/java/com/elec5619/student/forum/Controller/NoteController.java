@@ -214,12 +214,12 @@ public class NoteController {
         ClassPathResource classPathResource = new ClassPathResource("Notes");
         JsonReturnType jsonReturnType = new JsonReturnType();
         int rint = random.nextInt();
-        String path = classPathResource.getFile().getAbsoluteFile() + File.separator + rint;
+        String path = classPathResource.getFile().getAbsoluteFile() + File.separator + rint + multipartFile.getOriginalFilename();
         System.out.println(path);
         System.out.println(classPathResource.exists());
         File file = new File(path);
         multipartFile.transferTo(file.getAbsoluteFile());
-        jsonReturnType.setMessage(""+rint);
+        jsonReturnType.setMessage(rint + multipartFile.getOriginalFilename());
         return jsonReturnType;
     }
 
