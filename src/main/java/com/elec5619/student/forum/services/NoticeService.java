@@ -4,6 +4,7 @@ import com.elec5619.student.forum.daos.NoticeDao;
 import com.elec5619.student.forum.daos.UserDao;
 import com.elec5619.student.forum.pojos.Note;
 import com.elec5619.student.forum.pojos.Notice;
+import com.elec5619.student.forum.pojos.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +34,14 @@ public class NoticeService {
 
     public void insertOrUpdate(Notice notice){
         noticeDao.save(notice);
+    }
+
+    public void insertNewNotice(User sender,User receiver,String content){
+        Notice notice = new Notice();
+        notice.setSender(sender);
+        notice.setReceiver(receiver);
+        notice.setContent(content);
+        insertOrUpdate(notice);
     }
 
 }

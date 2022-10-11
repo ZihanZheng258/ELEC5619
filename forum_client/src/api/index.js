@@ -41,6 +41,24 @@ export default {
             {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
         );
     },
+
+    // like discussion by id
+    getLikeDiscussion: (discussionID)=>{
+        return axios.get(
+            'http://localhost:8090/discussion/like/' + discussionID,
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+        );
+    },
+    // cancel like of discussion by id
+    getCancelLikeDiscussion: (discussionID)=>{
+        return axios.get(
+            'http://localhost:8090/discussion/cancelLike/' + discussionID,
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+        );
+    },
+
+
+
     // get announcement
     getAnnouncement: () =>{
         return axios.get(
@@ -122,6 +140,7 @@ export default {
             'http://localhost:8090/note/search/' + searchContent+"/"+page,
             {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
         );
+
     },
     // note detail
     getNoteDetail:(noteID) =>{
@@ -143,6 +162,7 @@ export default {
             },
             {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
         );
+
     }
 
 }

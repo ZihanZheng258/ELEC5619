@@ -70,7 +70,7 @@ public class Comment_Note {
 
 
     @Transient
-    private User JsonUser;
+    private User JsonSender;
 
     @Transient
     private Note JsonNote;
@@ -99,6 +99,10 @@ public class Comment_Note {
     @Transient
     private List<User> JsonLiker;
 
+    @Transient
+    private String targetName;
+
+    /*
     public void loadSenderForList(List<Comment_Note> comments){
         for (Comment_Note comment: comments) {
             comment.setJsonUser(comment.getUser());
@@ -120,6 +124,10 @@ public class Comment_Note {
         List<Comment_Note> comments = Pages.getContent();
         loadLikerForList(comments);
     }
+
+     */
+
+
 
 
 }

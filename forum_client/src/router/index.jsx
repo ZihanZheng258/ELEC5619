@@ -1,6 +1,9 @@
-import React from "react";
+import {React, useState, useEffect} from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+<<<<<<< HEAD
 import {useEffect} from "react";
+=======
+>>>>>>> 24b753dfe9e373d93b34ffcade6f09fa261e5979
 
 // pages
 import Login from "../pages/Login/index";
@@ -18,11 +21,22 @@ import MyPosts from "../pages/MyPosts";
 // router guard
 import RouteGuard from "../components/RouteGuard";
 import setAuthToken from "../pages/Login/setAuthToken";
+import api from "../api"
 
 const AppRouter = () => {
 //check jwt token
+<<<<<<< HEAD
 
     useEffect(() => {
+=======
+    const [authOK, setAuthOK] = useState(false);
+    useEffect(() => {
+        api.getSelf()
+            .then((response)=>{
+                setAuthOK(response.data.flag)
+            })
+
+>>>>>>> 24b753dfe9e373d93b34ffcade6f09fa261e5979
         const token = localStorage.getItem("token");
         if (token) {
             setAuthToken(token);
@@ -61,12 +75,15 @@ const AppRouter = () => {
                     </RouteGuard>
                 }></Route>
 
+<<<<<<< HEAD
                 <Route path="/note/:id" element={
                     <RouteGuard>
                     < NoteDetailPage />
                     </RouteGuard>
                 }></Route>
 
+=======
+>>>>>>> 24b753dfe9e373d93b34ffcade6f09fa261e5979
                 <Route path="/discussion/:id" element={
                     <RouteGuard>
                     <DiscussionDetail />

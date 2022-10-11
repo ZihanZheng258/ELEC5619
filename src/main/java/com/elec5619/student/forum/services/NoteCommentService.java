@@ -9,6 +9,7 @@ import com.elec5619.student.forum.pojos.Comment_Note;
 import com.elec5619.student.forum.pojos.Note;
 import com.elec5619.student.forum.pojos.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,6 +52,12 @@ public class NoteCommentService {
         return true;
     }
 
+    public boolean addLikeNumber(int ID,int num){
+        noteCommentDao.updateLikeNumberBy(num,ID);
+
+        return true;
+    }
+
     public List<Comment_Note> findCommentByNote(int ID){
         Note note = noteDao.findById(ID).get();
         return note.getComments();
@@ -69,6 +76,28 @@ public class NoteCommentService {
 
     public List<Comment_Note> findCommentByParent(int ID){
         return findByid(ID).getChildren();
+    }
+
+    public void loadSenderForList(List<Comment_Note> comments){
+        for (Comment_Note comment: comments) {
+            comment.setJsonSender(comment.getUser());
+        }
+    }
+
+    public void LoadSenderForPage(Page<Comment_Note> Pages){
+        List<Comment_Note> comments = Pages.getContent();
+        loadSenderForList(comments);
+    }
+
+    public void loadLikerForList(List<Comment_Note> comments){
+        for (Comment_Note comment: comments) {
+            comment.setJsonLiker(comment.getLiker());
+        }
+    }
+
+    public void loadLikerForPage(Page<Comment_Note> Pages){
+        List<Comment_Note> comments = Pages.getContent();
+        loadLikerForList(comments);
     }
 
 }

@@ -88,7 +88,7 @@ public class User {
     @JsonIgnore
     private List<Comment> likedComment = new ArrayList<Comment>();
 
-    @ManyToMany(targetEntity = Comment.class,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @ManyToMany(targetEntity = Comment_Note.class,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinTable(name = "user_liked_noteComment",joinColumns = @JoinColumn(name = "userID"),
             inverseJoinColumns = @JoinColumn(name = "noteCommentID"))
     @JsonIgnore

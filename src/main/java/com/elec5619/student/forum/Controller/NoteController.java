@@ -2,11 +2,9 @@ package com.elec5619.student.forum.Controller;
 
 import com.elec5619.student.forum.pojos.Discussion;
 import com.elec5619.student.forum.pojos.Note;
+import com.elec5619.student.forum.pojos.Notice;
 import com.elec5619.student.forum.pojos.User;
-import com.elec5619.student.forum.services.NoteCategoryService;
-import com.elec5619.student.forum.services.NoteCommentService;
-import com.elec5619.student.forum.services.NoteService;
-import com.elec5619.student.forum.services.UserService;
+import com.elec5619.student.forum.services.*;
 import com.elec5619.student.forum.util.FileUploadUtil;
 import com.elec5619.student.forum.util.JsonReturnType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +47,9 @@ public class NoteController {
     @Autowired
     NoteCategoryService noteCategoryService;
 
+    @Autowired
+    NoticeService noticeService;
+
     @GetMapping("/wish/{id}")
     @ResponseBody
     public JsonReturnType wishNote(@PathVariable int id, Principal user){
@@ -69,6 +70,11 @@ public class NoteController {
         JsonReturnType jsonReturnType = new JsonReturnType();
         try{
             noteService.beenBuy(note,user1.getId());
+            Notice notice = new Notice();
+            notice.setReceiver(note.getOwner());
+            notice.setSender(user1);
+            notice.setContent(user1.getNickName() + " have bought your note " + note.getName());
+            noticeService.insertOrUpdate(notice);
             jsonReturnType.getData().put("note",note);
             jsonReturnType.flag = true;
         }

@@ -2,6 +2,7 @@ package com.elec5619.student.forum.Controller;
 
 import com.elec5619.student.forum.pojos.Comment;
 import com.elec5619.student.forum.pojos.Comment_Note;
+import com.elec5619.student.forum.pojos.Note;
 import com.elec5619.student.forum.pojos.User;
 import com.elec5619.student.forum.services.*;
 import com.elec5619.student.forum.util.JsonReturnType;
@@ -24,11 +25,33 @@ public class Comment_NoteController {
     @Autowired
     NoteService noteService;
 
+    @Autowired
+    NoticeService noticeService;
+
     @GetMapping("/like/{id}")
     @ResponseBody
-    public JsonReturnType likeComment(@PathVariable int id){
+    public JsonReturnType likeComment(@PathVariable int id,Principal user){
         Comment_Note comment = commentService.findByid(id);
         commentService.addLikeNumber(id);
+        User user1 = userService.getUserByNickName(user.getName());
+        user1.getLikedNoteComment().add(comment);
+        userService.insert(user1);
+        JsonReturnType jsonReturnType = new JsonReturnType();
+        jsonReturnType.getData().put("comment",comment);
+        jsonReturnType.flag = true;
+        return jsonReturnType;
+    }
+
+    @GetMapping("/cancelLike/{id}")
+    @ResponseBody
+    public JsonReturnType cancelLikeComment(@PathVariable int id,Principal user){
+        Comment_Note comment = commentService.findByid(id);
+        commentService.addLikeNumber(id,-1);
+        User user1 = userService.getUserByNickName(user.getName());
+        user1.getLikedNoteComment().remove(comment);
+        comment.getLiker().remove(user1);
+        commentService.insertOrUpdate(comment);
+        userService.insert(user1);
         JsonReturnType jsonReturnType = new JsonReturnType();
         jsonReturnType.getData().put("comment",comment);
         jsonReturnType.flag = true;
@@ -51,9 +74,12 @@ public class Comment_NoteController {
         List<Comment_Note> comments = commentService.findCommentByNoteMain(id);
         for (Comment_Note comment: comments) {
             comment.setJsonChildren(comment.getChildren());
+            comment.setJsonSender(comment.getUser());
             for (Comment_Note childComment:comment.getJsonChildren()) {
+                childComment.setJsonSender(childComment.getUser());
                 if(childComment.getTarget()!= null){
                     childComment.setTargetID(childComment.getTarget().getId());
+                    childComment.setTargetName(childComment.getTarget().getUser().getNickName());
                 }
             }
         }
@@ -67,7 +93,7 @@ public class Comment_NoteController {
     @ResponseBody
     public JsonReturnType findCommentByID(@PathVariable int id){
         Comment_Note comment = commentService.findByid(id);
-        comment.setJsonUser(comment.getUser());
+        comment.setJsonSender(comment.getUser());
         JsonReturnType jsonReturnType = new JsonReturnType();
         jsonReturnType.getData().put("comment",comment);
         jsonReturnType.flag = true;
@@ -77,8 +103,9 @@ public class Comment_NoteController {
     @PostMapping("/")
     @ResponseBody
     public JsonReturnType createComment(@RequestBody Comment_Note comment, Principal user){
-        comment.setNote(noteService.findById(comment.getNoteID()));
-        if(comment.getIsCommentOfComment() == 1){
+        Note note = noteService.findById(comment.getNoteID());
+        comment.setNote(note);
+        if(comment.getIsCommentOfComment() != 0){
             comment.setParent(commentService.findByid(comment.getParentID()));
             if(comment.getTargetID() != -1){
                 comment.setTarget(commentService.findByid(comment.getTargetID()));
@@ -87,6 +114,22 @@ public class Comment_NoteController {
         User user1 = userService.getUserByNickName(user.getName());
         comment.setUser(user1);
         commentService.insertOrUpdate(comment);
+        noticeService.insertNewNotice(user1,note.getOwner(),user1.getNickName()+" send comment to " +
+                "your note");
+        if(comment.getIsCommentOfComment() != 0){
+            Comment_Note parent = commentService.findByid(comment.getParentID());
+            parent.getChildren().add(comment);
+            commentService.insertOrUpdate(parent);
+            noticeService.insertNewNotice(user1, parent.getUser(), user1.getNickName()+" send comment to " +
+                    "your noteComment");
+            if(comment.getTargetID() != -1){
+                Comment_Note target = commentService.findByid(comment.getTargetID());
+                target.getBeenTarget().add(comment);
+                commentService.insertOrUpdate(target);
+                noticeService.insertNewNotice(user1, target.getUser(), user1.getNickName()+" send comment to " +
+                        "your noteComment");
+            }
+        }
         JsonReturnType jsonReturnType = JsonReturnType.successReturn();
         jsonReturnType.getData().put("comment",comment);
         return jsonReturnType;

@@ -62,6 +62,18 @@ public class DiscussionService {
         return true;
     }
 
+    public boolean cancelLiked(Discussion discussion,int userID){
+        discussionDao.addLike(-1,discussion.getId());
+        System.out.println("\n\n\n\n\n");
+        System.out.println("userID" + userID);
+        User user = userDao.findById(userID).get();
+        user.getLikedDiscussion().remove(discussion);
+        discussion.getLiker().remove(user);
+        discussionDao.save(discussion);
+        userDao.save(user);
+        return true;
+    }
+
     public List<Discussion> findByUser(int id){
         User user = userDao.findById(id).get();
         return user.getDiscussions();
