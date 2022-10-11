@@ -4,6 +4,8 @@ import {Link} from "react-router-dom";
 
 import './index.less'
 import Button from 'react-bootstrap/Button';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import likes from './assets/like-red.svg'
 import nlikes from './assets/like-grey.svg'
@@ -18,13 +20,14 @@ import commentImg from "../Comment/assets/comment.svg";
 const DiscussionList = ({handleClick})=>{
     const [discussion,setDiscussion] = useState([]);
     const [user, setUser] = useState('');
-    const [likers, setLikers] = useState([]);
+    const [page, setPage] = useState(1);
+    const [totalPage, setTotalPage] = useState(1);
 
     useEffect(()=>{
-        api.getDiscussionByPage(0)
+        api.getDiscussionByPage(page-1)
             .then((response)=>{
-                console.log(response)
                 setDiscussion(response.data.data.discussion.content);
+                setTotalPage(response.data.data.discussion.totalPages)
         })
         api.getSelf()
             .then((response)=>{
@@ -32,19 +35,30 @@ const DiscussionList = ({handleClick})=>{
         })
     },[])
     const disLikeDiscussion = (dislikeID)=>{
-    }
-    const likeDiscussion = (likeID)=>{
-        api.getLikeDiscussion(likeID)
+        api.getCancelLikeDiscussion(dislikeID)
             .then((response)=>{
-                api.getDiscussionByPage(0)
+                api.getDiscussionByPage(page-1)
                     .then((response)=>{
-                        console.log(response)
                         setDiscussion(response.data.data.discussion.content);
                     })
             });
     }
-
-
+    const likeDiscussion = (likeID)=>{
+        api.getLikeDiscussion(likeID)
+            .then((response)=>{
+                api.getDiscussionByPage(page-1)
+                    .then((response)=>{
+                        setDiscussion(response.data.data.discussion.content);
+                    })
+            });
+    }
+    const pageChange = (event,value)=>{
+            setPage(value);
+        api.getDiscussionByPage(value-1)
+            .then((response)=>{
+                setDiscussion(response.data.data.discussion.content);
+            })
+        };
 
     return(
         <div className="discussion-list">
@@ -109,7 +123,17 @@ const DiscussionList = ({handleClick})=>{
 
             </div>
             })}
-
+            <div style={{margin:"10px auto"}}>
+                <Stack spacing={2}>
+                    <Pagination
+                        siblingCount={4}
+                        count={totalPage}
+                        showFirstButton
+                        showLastButton
+                        onChange={pageChange}
+                    />
+                </Stack>
+            </div>
         </div>
     )
 }
