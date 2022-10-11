@@ -3,17 +3,20 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // pages
 import Login from "../pages/Login/index";
+import Register from "../pages/Register/index";
+
 import Home from "../pages/Home";
+import Search from "../pages/Search";
 import User from "../pages/User";
 import Note from "../pages/Note";
-import Search from "../pages/Search";
-import Register from "../pages/Register/index";
+import Discussion from "../pages/Discussion";
+import DiscussionDetail from "../pages/DiscussionDetailPage";
+
 import FourZeroFour from "../pages/ErrorPage/page_404";
 import FourZeroThree from "../pages/ErrorPage/page_403";
 import FiveZeroZero from "../pages/ErrorPage/page_500";
-import DiscussionDetail from "../pages/DiscussionDetailPage";
 import MyPosts from "../pages/MyPosts";
-// router guard
+// router guard authentication
 import RouteGuard from "../components/RouteGuard";
 import setAuthToken from "../pages/Login/setAuthToken";
 import api from "../api"
@@ -70,6 +73,13 @@ const AppRouter = () => {
                     <DiscussionDetail />
                     </RouteGuard>
                 }></Route>
+
+                <Route path="/discussion/category/:category" element={
+                    <RouteGuard>
+                    <Discussion />
+                    </RouteGuard>
+                }></Route>
+
                 <Route path="/login" element={
                     <Login />
                 }></Route>

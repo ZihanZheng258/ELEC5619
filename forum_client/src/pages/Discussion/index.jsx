@@ -1,4 +1,5 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
+import {useParams} from "react-router-dom";
 import HeadingNav from "../../components/HeadingNav";
 import SidebarMenu from "../../components/SidebarMenu";
 import Announcement from "../Home/Announcement";
@@ -6,9 +7,13 @@ import DiscussionList from "../../components/DiscussionList";
 import BottomNav from "../../components/BottomNav";
 
 const Discussion = () =>{
+    const params = useParams()
+    useEffect(() => {
+    }, [params]);
+
+
     return (
             <>
-
                 <div className="homeContent">
 
                     <div className="layout-header">
@@ -22,7 +27,7 @@ const Discussion = () =>{
                             <div className="layout-content">
                                 <Announcement/>
                             </div>
-                            <DiscussionList />
+                            <DiscussionList category={params}/>
 
                             <div className="layout-footer">
                                 <BottomNav/>

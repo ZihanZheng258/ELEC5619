@@ -16,14 +16,14 @@ const SidebarMenu = ()=>{
                 <ul>
                     {/*Announcement*/}
                     <li>
-                        <Link to="/">
+                        <Link to={"/discussion/category/announcement"}>
                             Announcement
                         </Link>
                     </li>
 
                     {/*Life*/}
-                    <li onClick={(e)=> {setLifeIsActive(!isLifeActive)} }>
-                        <Link to="/">
+                    <li>
+                        <Link to={"/discussion/category/life"}>
                             Life
                         </Link>
                     </li>
@@ -36,8 +36,8 @@ const SidebarMenu = ()=>{
                     {/*)}*/}
 
                     {/*Entertainment*/}
-                    <li onClick={(e)=>setEntertainmentIsActive(!isEntertainmentActive)}>
-                        <Link to="/">
+                    <li>
+                        <Link to={{pathname:"/discussion/category/entertainment",state:{category: "entertainment"}}}>
                             Entertainment
                         </Link>
                     </li>
@@ -113,8 +113,8 @@ const SidebarMenu = ()=>{
 
 
                     {/*Our Uni*/}
-                    <li onClick={(e)=>setUniIsActive(!isUniActive)}>
-                        <Link to="/discussion">
+                    <li>
+                        <Link to={"/discussion/category/uni"}>
                             Our Uni
                         </Link>
                     </li>

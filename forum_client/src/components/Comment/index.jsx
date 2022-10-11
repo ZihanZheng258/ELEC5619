@@ -13,7 +13,9 @@ const Comment =(props) =>{
     const [replyMessage, setReplyMessage] = useState([]);
     const [target, setTarget] = useState({});
     const [parent, setParent] = useState({});
+    const [receiver, setReceiver] = useState(-1)
     const discussionID = useParams().id;
+
 
     useEffect(()=>{
         api.getComments(discussionID)
@@ -28,6 +30,7 @@ const Comment =(props) =>{
         api.postComment(discussionID,target.targetID,parent.parentID,1,replyMessage)
             .then(()=>{
                 message.success("message posted!")
+
                 api.getComments(discussionID)
                     .then((response)=>{
                         setComments(response.data.data.comments)
@@ -66,7 +69,8 @@ const Comment =(props) =>{
                                                     setTarget(
                                                         {...target, targetID: index.id,
                                                             targetName:index.jsonSender.nickName});
-                                                    setParent({...parent, parentID:index.id})
+                                                    setParent({...parent, parentID:index.id});
+                                                    setReceiver(index.jsonSender.id);
                                                 }
                                                 }>
                                                 reply
@@ -90,6 +94,7 @@ const Comment =(props) =>{
                                                                                 {...target, targetID: child.id,
                                                                                     targetName:child.jsonSender.nickName});
                                                                             setParent({...parent, parentID:index.id})
+                                                                            setReceiver(child.jsonSender.id);
                                                                         }
                                                                         }>
                                                                         reply

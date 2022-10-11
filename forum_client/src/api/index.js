@@ -41,6 +41,13 @@ export default {
             {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
         );
     },
+    // get discussion by category name by page
+    getDiscussionbyCategoryPage: (category,page)=>{
+        return axios.get(
+            'http://localhost:8090/discussion/category/' + category+"/"+page,
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+        );
+    },
     // like discussion by id
     getLikeDiscussion: (discussionID)=>{
         return axios.get(
@@ -138,6 +145,18 @@ export default {
             'http://localhost:8090/note/search/' + searchContent+"/"+page,
             {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
         );
-    }
+    },
+    // send notice to others
+    sendNotice: (content, receiverID)=>{
+        return axios.post(
+            'http://localhost:8090/notice/' ,
+            {
+                content:content,
+                receiverID:receiverID
+            },
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+        );
+    },
+
 
 }
