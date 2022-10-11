@@ -5,37 +5,61 @@ import './index.less'
 import {message} from "antd"
 import api from "../../api";
 import moment from "moment";
+import Stack from "@mui/material/Stack";
+import Pagination from "@mui/material/Pagination";
 
 const SearchList = () =>{
-    const arr = [1,2,3,4];
     const [searchedList, setSearchedList] = useState([]);
+    const [totalPage, setTotalPage] = useState(0);
+    const [page, setPage] = useState(1);
     const target = useParams();
     useEffect(()=>{
             if (target.type === "note"){
-                api.searchByNotes(target.searchContent,target.page)
+                api.searchByNotes(target.searchContent,page-1)
                     .then((response)=>{
                         setSearchedList(response.data.data.notes.content)
+                        setTotalPage(response.data.data.notes.totalPages)
                     }).catch((err)=>{
                     message.error("something wrong, please try again")
                 })
 
             } else if(target.type ==="discussion"){
-                api.searchByDiscussions(target.searchContent,target.page)
+                api.searchByDiscussions(target.searchContent,page-1)
                     .then((response)=>{
                         setSearchedList(response.data.data.discussions.content)
+                        setTotalPage(response.data.data.discussions.totalPages)
+
                     }).catch((err)=>{
                         message.error("something wrong, please try again")
                 })
             }
  },[])
+    const pageChange = (event,value)=>{
+        setPage(value);
+        if (target.type === "note"){
+            api.searchByNotes(target.searchContent,value-1)
+                .then((response)=>{
+                    setSearchedList(response.data.data.notes.content)
+                }).catch((err)=>{
+                message.error("something wrong, please try again")
+            })
 
+        } else if(target.type ==="discussion"){
+            api.searchByDiscussions(target.searchContent,value-1)
+                .then((response)=>{
+                    setSearchedList(response.data.data.discussions.content)
+                }).catch((err)=>{
+                message.error("something wrong, please try again")
+            })
+        }
+    };
     return(
         <div className="searchList">
             <div className="searchResults">
                 <ul>
                     {target.type ==="discussion" && searchedList.map((index)=>{
-                        return <Link to={"/discussion/"+index.id} >
-                            <li key={index.id}>
+                        return <Link to={"/discussion/"+index.id} key={index.id}>
+                            <li >
                                 <h5 className="title">{index.title}</h5>
                                 <div className="content">
                                     {index.content}
@@ -52,8 +76,7 @@ const SearchList = () =>{
                     }
                     {target.type ==="note" && searchedList.map((index)=>{
                         return <Link to={
-                            // "/note/"+index.id
-                            ""
+                            "/note/"+index.id
                         } >
                         <li key={index.id}>
                             <h5 className="title">{index.name}</h5>
@@ -71,7 +94,20 @@ const SearchList = () =>{
                     }
                 </ul>
             </div>
+            <div style={{margin:"10px auto"}} key={"PageDiv"}>
+                <Stack spacing={4}>
+                    <Pagination
+                        siblingCount={4}
+                        count={totalPage}
+                        showFirstButton
+                        showLastButton
+                        onChange={pageChange}
+                    />
+                </Stack>
+
+            </div>
         </div>
+
     )
 }
 

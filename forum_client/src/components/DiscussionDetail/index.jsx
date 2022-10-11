@@ -111,7 +111,7 @@ const DiscussionDetail = () =>{
                             <button type="submit">Reply</button>
                             </form>
                         </div>
-                        <Comment numComment= {detail.commentNumber} />
+                        <Comment numComment= {detail.commentNumber} key={"detailComment"+detail.id} />
                     </div>
                 </div>
             </div>

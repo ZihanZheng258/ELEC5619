@@ -53,7 +53,7 @@ const Comment =(props) =>{
                     <div className="comment">
                         <div className="mainCommenter">
                             {comments.map((index)=>{
-                                return <div key={index.id}>
+                                return <div key={"main"+index.id}>
                                     <div className="commenterInfo">
                                         <img className="avatar" src={avatar} alt=""/>
                                         <span className="commentUserName">{index.jsonSender.nickName}</span>
@@ -77,8 +77,8 @@ const Comment =(props) =>{
                                             </button>
                                         </div>
                                         {index.jsonChildren.map((child)=>{
-                                            return <>
-                                                <div className="subCommenter" key={child.id}>
+                                            return <div key={"sub"+child.id}>
+                                                <div className="subCommenter" >
                                                     <div className="subCommenterContent">
                                                         <div>
                                                             <img className="avatar" src={avatar} alt=""/>
@@ -104,7 +104,7 @@ const Comment =(props) =>{
                                                     </div>
 
                                                 </div>
-                                            </>
+                                            </div>
                                         })
                                         }
 
