@@ -10,10 +10,7 @@ import setAuthToken from "./setAuthToken";
 
 // import api
 import api from "../../api"
-<<<<<<< HEAD
-=======
 import moment from "moment";
->>>>>>> 24b753dfe9e373d93b34ffcade6f09fa261e5979
 
 const Login = () => {
     const navigate = useNavigate();
@@ -28,18 +25,10 @@ const Login = () => {
                 console.log(response)
                 if (response.status === 200) {
                     // remove current user info
-<<<<<<< HEAD
-                    localStorage.removeItem('token');
-
-                    //             //get token from response
-                    const token = response.data.accessToken;
-
-=======
 
                     //             //get token from response
                     const token = response.data.accessToken;
                     const expire = moment().add(23,'hours');
->>>>>>> 24b753dfe9e373d93b34ffcade6f09fa261e5979
                     //             //set JWT token to local
                     localStorage.setItem("token", token);
                     localStorage.setItem("expire",expire)
