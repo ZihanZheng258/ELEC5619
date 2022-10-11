@@ -5,11 +5,14 @@ import com.elec5619.student.forum.daos.DiscussionDao;
 import com.elec5619.student.forum.daos.UserDao;
 import com.elec5619.student.forum.pojos.Comment;
 import com.elec5619.student.forum.pojos.Discussion;
+import com.elec5619.student.forum.pojos.Notice;
 import com.elec5619.student.forum.pojos.User;
 import com.elec5619.student.forum.services.CommentService;
 import com.elec5619.student.forum.services.DiscussionService;
+import com.elec5619.student.forum.services.NoticeService;
 import com.elec5619.student.forum.services.UserService;
 import com.elec5619.student.forum.util.JsonReturnType;
+import org.checkerframework.checker.units.qual.N;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +32,9 @@ public class CommentController {
 
     @Autowired
     DiscussionService discussionService;
+
+    @Autowired
+    NoticeService noticeService;
 
     @GetMapping("/like/{id}")
     @ResponseBody
@@ -106,7 +112,8 @@ public class CommentController {
     @PostMapping("/")
     @ResponseBody
     public JsonReturnType createComment(@RequestBody Comment comment, Principal user){
-        comment.setDiscussion(discussionService.findById(comment.getDiscussionID()));
+        Discussion discussion = discussionService.findById(comment.getDiscussionID());
+        comment.setDiscussion(discussion);
         if(comment.getIsCommentOfComment() != 0){
             comment.setParent(commentService.findByID(comment.getParentID()));
             if(comment.getTargetID() != -1){
@@ -116,14 +123,21 @@ public class CommentController {
         User user1 = userService.getUserByNickName(user.getName());
         comment.setSender(user1);
         commentService.insertOrUpdate(comment);
+        noticeService.insertNewNotice(user1,discussion.getUser(),user1.getNickName()+" send comment to " +
+                "your discussion");
+
         if(comment.getIsCommentOfComment() != 0){
             Comment parent = commentService.findByID(comment.getParentID());
             parent.getChildren().add(comment);
             commentService.insertOrUpdate(parent);
+            noticeService.insertNewNotice(user1,parent.getSender(),user1.getNickName()+" send comment to " +
+                    "your comment");
             if(comment.getTargetID() != -1){
                 Comment target = commentService.findByID(comment.getTargetID());
                 target.getBeenTarget().add(comment);
                 commentService.insertOrUpdate(target);
+                noticeService.insertNewNotice(user1,target.getSender(),user1.getNickName()+" send comment to " +
+                        "your comment");
             }
         }
         JsonReturnType jsonReturnType = JsonReturnType.successReturn();

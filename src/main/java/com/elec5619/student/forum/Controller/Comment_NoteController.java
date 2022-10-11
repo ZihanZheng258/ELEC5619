@@ -2,6 +2,7 @@ package com.elec5619.student.forum.Controller;
 
 import com.elec5619.student.forum.pojos.Comment;
 import com.elec5619.student.forum.pojos.Comment_Note;
+import com.elec5619.student.forum.pojos.Note;
 import com.elec5619.student.forum.pojos.User;
 import com.elec5619.student.forum.services.*;
 import com.elec5619.student.forum.util.JsonReturnType;
@@ -23,6 +24,9 @@ public class Comment_NoteController {
 
     @Autowired
     NoteService noteService;
+
+    @Autowired
+    NoticeService noticeService;
 
     @GetMapping("/like/{id}")
     @ResponseBody
@@ -99,7 +103,8 @@ public class Comment_NoteController {
     @PostMapping("/")
     @ResponseBody
     public JsonReturnType createComment(@RequestBody Comment_Note comment, Principal user){
-        comment.setNote(noteService.findById(comment.getNoteID()));
+        Note note = noteService.findById(comment.getNoteID());
+        comment.setNote(note);
         if(comment.getIsCommentOfComment() != 0){
             comment.setParent(commentService.findByid(comment.getParentID()));
             if(comment.getTargetID() != -1){
@@ -109,14 +114,20 @@ public class Comment_NoteController {
         User user1 = userService.getUserByNickName(user.getName());
         comment.setUser(user1);
         commentService.insertOrUpdate(comment);
+        noticeService.insertNewNotice(user1,note.getOwner(),user1.getNickName()+" send comment to " +
+                "your note");
         if(comment.getIsCommentOfComment() != 0){
             Comment_Note parent = commentService.findByid(comment.getParentID());
             parent.getChildren().add(comment);
             commentService.insertOrUpdate(parent);
+            noticeService.insertNewNotice(user1, parent.getUser(), user1.getNickName()+" send comment to " +
+                    "your noteComment");
             if(comment.getTargetID() != -1){
                 Comment_Note target = commentService.findByid(comment.getTargetID());
                 target.getBeenTarget().add(comment);
                 commentService.insertOrUpdate(target);
+                noticeService.insertNewNotice(user1, target.getUser(), user1.getNickName()+" send comment to " +
+                        "your noteComment");
             }
         }
         JsonReturnType jsonReturnType = JsonReturnType.successReturn();
