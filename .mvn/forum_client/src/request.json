@@ -1,0 +1,41 @@
+[
+  {
+    // discussion
+    "id": "",
+    "category_id 需要 category content": "announcement",
+    "user_id 需要 user nickname":"",
+    "create_date":"",
+    "title":"",
+    "content": "",
+    "comments_number": "",
+    "like_number": ""
+  },
+  {
+    // comments
+    "id": "",
+    "discussion_id": "",
+    "sender_id.name":"",
+    "target_comment_id.name":"",
+    "create_date":"",
+    "content":"",
+    "is_comment_of_comment": "main_comment_id"
+  },
+  {
+    // notes page
+    "id": "",
+    "price": "",
+    "numOfBuy": "",
+    "description": "",
+    "createDate": "",
+    "category content": ""
+  }
+
+]
+
+// 下面不用管
+arr.map((comments)=>{
+  comment_to_discussion_id,
+    loop(comment_main_comment == comment_to_discussion_id){
+      comment sender to comment target: contents}
+
+})

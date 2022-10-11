@@ -12,6 +12,7 @@ import Note from "../pages/Note";
 import Discussion from "../pages/Discussion";
 import DiscussionDetail from "../pages/DiscussionDetailPage";
 
+import NoteDetailPage from "../pages/NoteDetailPage";
 import FourZeroFour from "../pages/ErrorPage/page_404";
 import FourZeroThree from "../pages/ErrorPage/page_403";
 import FiveZeroZero from "../pages/ErrorPage/page_500";
@@ -67,6 +68,13 @@ const AppRouter = () => {
                     < Note />
                     </RouteGuard>
                 }></Route>
+
+                <Route path="/note/:id" element={
+                    <RouteGuard>
+                    < NoteDetailPage />
+                    </RouteGuard>
+                }></Route>
+
 
                 <Route path="/discussion/:id" element={
                     <RouteGuard>

@@ -16,7 +16,6 @@ import 'react-comments-section/dist/index.css'
 import api from "../../api"
 import moment from "moment";
 import commentImg from "../Comment/assets/comment.svg";
-import {useLocation} from "react-router";
 
 const DiscussionList = (props)=>{
     const [discussion,setDiscussion] = useState([]);
@@ -162,7 +161,7 @@ const DiscussionList = (props)=>{
             })}
 
                 <div style={{margin:"10px auto"}} key={"PageDiv"}>
-                    <Stack spacing={10}>
+                    <Stack spacing={4}>
                         <Pagination
                             siblingCount={4}
                             count={totalPage}

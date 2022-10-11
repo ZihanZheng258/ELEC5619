@@ -48,6 +48,7 @@ export default {
             {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
         );
     },
+
     // like discussion by id
     getLikeDiscussion: (discussionID)=>{
         return axios.get(
@@ -62,6 +63,7 @@ export default {
             {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
         );
     },
+
 
 
     // get announcement
@@ -158,5 +160,27 @@ export default {
         );
     },
 
+    // note detail
+    getNoteDetail:(noteID) =>{
+        return axios.get(
+            'http://localhost:8090/note/'+noteID ,
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+        );
+    },
+
+    postNoteComment: (noteID, targetID, parentID,isComment,message)=>{
+        return axios.post(
+            'http://localhost:8090/noteComment/' ,
+            {
+                noteID:noteID,
+                targetID: targetID, // user target id
+                parentID: parentID, // parent comment id
+                isCommentOfComment: isComment, // if it is comment under comment
+                content: message // content
+            },
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+        );
+
+    }
 
 }
