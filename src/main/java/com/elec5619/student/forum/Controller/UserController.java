@@ -6,10 +6,7 @@ import com.elec5619.student.forum.services.UserService;
 import com.elec5619.student.forum.util.JsonReturnType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -29,6 +26,19 @@ public class UserController {
         jsonReturnType.flag = true;
         return jsonReturnType;
     }
+
+    @PutMapping("/password")
+    @ResponseBody
+    public JsonReturnType modifyPassword(@RequestBody String password,Principal user){
+        User user1 = userService.getUserByNickName(user.getName());
+        user1.setPassword(password);
+        userService.encryptPassword(user1);
+        userService.insert(user1);
+        JsonReturnType jsonReturnType = JsonReturnType.successReturn();
+        jsonReturnType.getData().put("user",user1);
+        return jsonReturnType;
+    }
+    
 
     @GetMapping("/self")
     @ResponseBody

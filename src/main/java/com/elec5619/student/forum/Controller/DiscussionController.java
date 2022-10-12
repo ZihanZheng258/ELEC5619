@@ -73,6 +73,21 @@ public class DiscussionController {
         return jsonReturnType;
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseBody
+    public JsonReturnType jsonReturnType(@PathVariable int id,Principal user){
+        JsonReturnType jsonReturnType = new JsonReturnType();
+        jsonReturnType.setFlag(true);
+        User user1 = userService.getUserByNickName(user.getName());
+        Discussion discussion = discussionService.findById(id);
+        user1.getDiscussions().remove(discussion);
+        discussion.setUser(null);
+        discussion.getComments().clear();
+        discussionService.addNew(discussion);
+        userService.insert(user1);
+        return jsonReturnType;
+    }
+
     @GetMapping("/{id}/{page}")
     @ResponseBody
     public JsonReturnType getPageOfCategoryDiscussion(@PathVariable int id,@PathVariable int page){
