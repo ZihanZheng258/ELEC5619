@@ -13,6 +13,18 @@
 		align-items: center;
 		justify-content: flex-end;
 		padding: 0 50px;
+		.ant-input-affix-wrapper,
+		.ant-input-affix-wrapper-lg {
+			padding: 16px 11px !important;
+			border-radius: 6px !important;
+		}
+
+		.ant-btn,
+		.ant-btn-primary,
+		.ant-input-search-button {
+			height: 59.5px !important;
+			border-radius: 6px !important;
+		}
 	}
 
 	.posts_list {
@@ -23,10 +35,11 @@
 		.post_item {
 			display: flex;
 			align-items: center;
-			padding: 0.1rem 0.2rem;
+			padding: 10px 20px;
 			border-bottom: 1px solid #ddd;
-			margin: 0.8rem 1.2rem;
+			margin: 0.4rem 0.8rem;
 			background: #fff;
+			cursor: pointer;
 
 			.info-box {
 				flex: 1 1 auto;
@@ -37,8 +50,12 @@
 
 				.info-row,
 				.meta-row {
-					font-size: 0.8rem;
-					color: #b2bac2;
+					font-size: 14px;
+					color: #333;
+				}
+
+				.info-row.meta-row {
+					font-weight: 600;
 				}
 
 				.info-row,
@@ -46,6 +63,8 @@
 					white-space: nowrap;
 					overflow: hidden;
 					text-overflow: ellipsis;
+					color: #666;
+					font-size: 12px;
 				}
 
 				.info-row,
@@ -54,6 +73,8 @@
 					white-space: nowrap;
 					overflow: hidden;
 					text-overflow: ellipsis;
+					color: #666;
+					font-size: 12px;
 				}
 			}
 

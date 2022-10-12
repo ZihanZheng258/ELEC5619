@@ -1,8 +1,21 @@
 .set_container {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-around;
     padding: 12px;
-    .ant-result, .ant-result-info {
-        height: 30%;
-        border-bottom: 1px dashed #e0e0e0;
-        padding:0 0 20px 0 !important ;
+    height: 100%;
+
+    .ant-result,
+    .ant-result-info {
+        height: 50%;
+    }
+
+    .ant-result-icon {
+        margin: 0;
+    }
+
+    .ant-input-affix-wrapper,
+    .ant-input {
+        width: 240px !important;
     }
 }

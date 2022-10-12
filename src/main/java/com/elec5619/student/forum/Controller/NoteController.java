@@ -7,6 +7,7 @@ import com.elec5619.student.forum.pojos.User;
 import com.elec5619.student.forum.services.*;
 import com.elec5619.student.forum.util.FileUploadUtil;
 import com.elec5619.student.forum.util.JsonReturnType;
+import org.checkerframework.checker.units.qual.N;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.core.io.ClassPathResource;
@@ -27,6 +28,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
@@ -61,6 +63,34 @@ public class NoteController {
         jsonReturnType.flag = true;
         return jsonReturnType;
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseBody
+    public JsonReturnType deleteNote(@PathVariable int id, Principal user){
+        Note note = noteService.findById(id);
+        User user1 = userService.getUserByNickName(user.getName());
+        user1.getNotes().remove(note);
+        note.setOwner(null);
+        noteService.insertOrUpdate(note);
+        userService.insert(user1);
+        JsonReturnType jsonReturnType = JsonReturnType.successReturn();
+        jsonReturnType.getData().put("note",note);
+        return jsonReturnType;
+    }
+
+    @GetMapping("/have/{id}")
+    @ResponseBody
+    public JsonReturnType getHadNote(@PathVariable int id, Principal user){
+        User user1 = userService.getUserByID(id);
+        List<Note> hadNotes = new ArrayList<Note>();
+        hadNotes.addAll(noteService.getNoteByOwned(user1.getId()));
+        hadNotes.addAll(noteService.getNoteByBought(user1.getId()));
+        JsonReturnType jsonReturnType = JsonReturnType.successReturn();
+        jsonReturnType.getData().put("notes",hadNotes);
+        return jsonReturnType;
+    }
+
+
 
     @GetMapping("/buy/{id}")
     @ResponseBody
@@ -137,9 +167,20 @@ public class NoteController {
         return jsonReturnType;
     }
 
+    @PutMapping("/")
+    @ResponseBody
+    public JsonReturnType getNoteForOwner(@RequestBody Note note){
+        JsonReturnType jsonReturnType = new JsonReturnType();
+        noteService.insertOrUpdate(note);
+        jsonReturnType.getData().put("notes",note);
+        jsonReturnType.setFlag(true);
+        jsonReturnType.setMessage("");
+        return jsonReturnType;
+    }
+
     @PostMapping("/")
     @ResponseBody
-    public JsonReturnType AddNewNote(@RequestBody Note note,Principal user){
+    public JsonReturnType EditNote(@RequestBody Note note,Principal user){
         JsonReturnType jsonReturnType = new JsonReturnType();
         jsonReturnType.setFlag(true);
         User user1 = userService.getUserByNickName(user.getName());

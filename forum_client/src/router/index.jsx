@@ -1,4 +1,4 @@
-import {React, useState, useEffect} from "react";
+import { React, useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // pages
@@ -21,8 +21,8 @@ import api from '../api'
 
 import User from '../pages/User'
 import UserInfo from '../pages/User/userInfo/index'
-import Comment from '../pages/User/comment'
-import Notice from '../pages/User/notice'
+import Comment from '../pages/User/comment/index'
+import Notice from '../pages/User/notice/index'
 import Setting from '../pages/User/settings/index'
 //User Notes
 import OwnedNote from '../pages/User/note/owned'
@@ -35,7 +35,7 @@ import DiscussionLiked from "../pages/User/discussion/like";
 
 
 const AppRouter = () => {
-//check jwt token
+    //check jwt token
     const [authOK, setAuthOK] = useState(false);
     useEffect(() => {
         api.getSelf().then((response) => {
@@ -100,26 +100,26 @@ const AppRouter = () => {
 
                 <Route path="/notes" element={
                     <RouteGuard>
-                    < Note />
+                        < Note />
                     </RouteGuard>
                 }></Route>
 
                 <Route path="/note/:id" element={
                     <RouteGuard>
-                    < NoteDetailPage />
+                        < NoteDetailPage />
                     </RouteGuard>
                 }></Route>
 
 
                 <Route path="/discussion/:id" element={
                     <RouteGuard>
-                    <DiscussionDetail />
+                        <DiscussionDetail />
                     </RouteGuard>
                 }></Route>
 
                 <Route path="/discussion/category/:category" element={
                     <RouteGuard>
-                    <Discussion />
+                        <Discussion />
                     </RouteGuard>
                 }></Route>
 

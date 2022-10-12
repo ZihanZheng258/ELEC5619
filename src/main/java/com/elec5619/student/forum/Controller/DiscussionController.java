@@ -2,6 +2,7 @@ package com.elec5619.student.forum.Controller;
 
 import com.elec5619.student.forum.pojos.Comment;
 import com.elec5619.student.forum.pojos.Discussion;
+import com.elec5619.student.forum.pojos.Note;
 import com.elec5619.student.forum.pojos.User;
 import com.elec5619.student.forum.services.CategoryService;
 import com.elec5619.student.forum.services.CommentService;
@@ -73,6 +74,31 @@ public class DiscussionController {
         return jsonReturnType;
     }
 
+    @PutMapping("/")
+    @ResponseBody
+    public JsonReturnType EditDiscussion(@RequestBody Discussion discussion, Principal user){
+        JsonReturnType jsonReturnType = new JsonReturnType();
+        jsonReturnType.setFlag(true);
+        discussionService.addNew(discussion);
+        jsonReturnType.getData().put("discussion",discussion);
+        return jsonReturnType;
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseBody
+    public JsonReturnType jsonReturnType(@PathVariable int id,Principal user){
+        JsonReturnType jsonReturnType = new JsonReturnType();
+        jsonReturnType.setFlag(true);
+        User user1 = userService.getUserByNickName(user.getName());
+        Discussion discussion = discussionService.findById(id);
+        user1.getDiscussions().remove(discussion);
+        discussion.setUser(null);
+        discussion.getComments().clear();
+        discussionService.addNew(discussion);
+        userService.insert(user1);
+        return jsonReturnType;
+    }
+
     @GetMapping("/{id}/{page}")
     @ResponseBody
     public JsonReturnType getPageOfCategoryDiscussion(@PathVariable int id,@PathVariable int page){
@@ -86,7 +112,10 @@ public class DiscussionController {
     @ResponseBody
     public JsonReturnType getUserDiscussions(@PathVariable int id){
         JsonReturnType jsonReturnType = new JsonReturnType();
-        jsonReturnType.getData().put("discussions",discussionService.findByUser(id));
+        List<Discussion> discussions = discussionService.findByUser(id);
+        discussionService.loadCategoryDataForList(discussions);
+        discussionService.loadLikerForList(discussions);
+        jsonReturnType.getData().put("discussions",discussions);
         return jsonReturnType;
     }
 

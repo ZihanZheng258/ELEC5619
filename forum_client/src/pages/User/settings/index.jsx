@@ -1,13 +1,32 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Result, Form, Input } from 'antd'
+import { Button, Result, Form, Input, message } from 'antd'
 import './index.less'
+import { useNavigate } from 'react-router-dom'
 const Settings = () => {
+    const navigate = useNavigate()
+
+    const updataUserInfo = (params, changePassWord) => {
+        console.log(params)
+        // Interface.updateUserInfo(params).then(res => {
+        //     if (res.data.flag) {
+        //         message.success(res.data.message || 'success')
+        //         if (changePassWord === "changePassWord") {
+        //             navigate('/login');
+        //         }
+        //     }
+        // })
+    }
+
+    const onFinish = async (params) => {
+        console.log(params, 'params')
+    }
+
     useEffect(() => { }, [])
 
     return (
         <div className='set_container'>
+            {/* changePassWord */}
             <Result
-                title='Your operation has been executed'
                 status='warning'
                 extra={
                     <>
@@ -23,6 +42,7 @@ const Settings = () => {
                                 remember: false,
                             }}
                             autoComplete='off'
+                            onFinish={onFinish}
                         >
                             <Form.Item
                                 label='Old Password'
@@ -50,28 +70,28 @@ const Settings = () => {
                                 <Input.Password />
                             </Form.Item>
 
-                            <Form.Item
-                                label='New Password'
-                                name='password'
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: 'Please input your password!',
-                                    },
-                                ]}
-                            >
-                                <Input.Password />
-                            </Form.Item>
                         </Form>
-                        <Button type='primary' key='console'>
+                        <Button
+                            type='primary'
+                            htmlType='submit'
+                            onClick={() => {
+                                updataUserInfo(
+                                    {
+                                        oldPassWord: 'oldxxxx',
+                                        newPassWord: 'newxxxx',
+                                    },
+                                    'changePassWord'
+                                )
+                            }}
+                        >
                             Update Password
                         </Button>
                     </>
                 }
             />
+            {/* changeNickName */}
             <Result
                 status='warning'
-                title='Your operation has been executed'
                 extra={
                     <>
                         <Form
@@ -86,6 +106,7 @@ const Settings = () => {
                                 remember: false,
                             }}
                             autoComplete='off'
+                            onFinish={onFinish}
                         >
                             <Form.Item label='Current Nickname' name='oldnickname'>
                                 <Input disabled defaultValue='test001' />
@@ -101,10 +122,22 @@ const Settings = () => {
                                     },
                                 ]}
                             >
-                                <Input.Password />
+                                <Input />
                             </Form.Item>
                         </Form>
-                        <Button type='primary' key='console'>
+                        <Button
+                            type='primary'
+                            htmlType='submit'
+                            onClick={() => {
+                                updataUserInfo(
+                                    {
+                                        oldNikeName: 'oldxxxx',
+                                        newNikeName: 'newxxxx',
+                                    },
+                                    'changeNickName'
+                                )
+                            }}
+                        >
                             Update NikeName
                         </Button>
                     </>
