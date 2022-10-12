@@ -39,22 +39,29 @@ const DiscussionPost = () => {
     },
 
         {
-            accessorKey: 'name', //id is still required when using accessorFn instead of accessorKey
+            accessorKey: 'title', //id is still required when using accessorFn instead of accessorKey
             header: 'Title', enableClickToCopy: true, size: 300,
 
         }, {
-            accessorKey: 'description', //accessorKey used to define `data` column. `id` gets set to accessorKey automatically
+            accessorKey: 'content', //accessorKey used to define `data` column. `id` gets set to accessorKey automatically
             enableClickToCopy: true, header: 'Description', size: 300,
         },
 
         {
-
             accessorKey: 'jsonCategory.content', enableClickToCopy: true, header: 'Category', size: 200,
 
         }, {
-            accessorKey: 'numOfBuy', //hey a simple column for once
-            header: '#Buys', size: 50,
+            accessorKey: 'viewNumber', //hey a simple column for once
+            header: '#Views', size: 50,
         }, {
+            accessorKey: 'likeNumber', //hey a simple column for once
+            header: '#Likes', size: 50,
+        },{
+            accessorKey: 'commentNumber', //hey a simple column for once
+            header: '#Comments', size: 50,
+        },
+
+        {
             accessorFn: (row) => new Date(row.createDate), //convert to Date for sorting and filtering
             id: 'createDate',
             header: 'Create Date',
@@ -83,7 +90,7 @@ const DiscussionPost = () => {
             .then((response)=>{
                 api.getDiscussionByUser(8)
                     .then((res) => {
-
+                        setData(res.data.data.discussions)
                     })
             })
 
