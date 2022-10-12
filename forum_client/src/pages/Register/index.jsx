@@ -38,15 +38,14 @@ const Register = () => {
     return (
         <div className="register-container">
             <div className="login-box">
-                <div className="login-left">
+                {/* <div className="login-left">
                     <img src={loginLeft} alt="login" />
-                </div>
+                </div> */}
                 <div className="login-form">
-
-                    <div className="login-logo">
+                    {/* <div className="login-logo">
                         <img className="login-icon" src={logo} alt="logo" />
                         <span className="logo-text">Register Page</span>
-                    </div>
+                    </div> */}
                     <Form
                         form={form}
                         name="basic"
@@ -57,15 +56,13 @@ const Register = () => {
                         size="default"
                         autoComplete="off"
                     >
-                        <Form.Item label="Username" name="username" rules={[{ required: true, message: "please enter username" }]}>
-                            <Input placeholder="please enter username" prefix={<UserOutlined />} />
-                        </Form.Item>
-                        <Form.Item label="Password" name="password" rules={[{ required: true, message: "please enter password" }]}>
-                            <Input.Password autoComplete="new-password" placeholder="please enter password" prefix={<LockOutlined />} />
-                        </Form.Item>
 
                         <Form.Item label="NickName" name="nickName" rules={[{ required: true, message: "please enter nickname" }]}>
                             <Input placeholder="please enter nickName" prefix={<UserOutlined />} />
+                        </Form.Item>
+
+                        <Form.Item label="Password" name="password" rules={[{ required: true, message: "please enter password" }]}>
+                            <Input.Password autoComplete="new-password" placeholder="please enter password" prefix={<LockOutlined />} />
                         </Form.Item>
 
                         <Form.Item label="Phone No" name="phoneNumber" rules={[{ required: true, message: "please enter phone Number" }, {
@@ -73,24 +70,31 @@ const Register = () => {
                             message: 'please enter the valid phoneNumber',
                             trigger: 'change'
                         }]}>
-                            <Input.Password placeholder="please enter phone Number" prefix={<LockOutlined />} />
+                            <Input placeholder="please enter phone Number" prefix={<LockOutlined />} />
                         </Form.Item>
 
                         <Form.Item label="Email" name="email" rules={[{ required: true, message: "please enter phone Email" }]}>
-                            <Input.Password placeholder="please enter email" prefix={<LockOutlined />} />
+                            <Input placeholder="please enter email" prefix={<LockOutlined />} />
                         </Form.Item>
 
                         <Form.Item className="login-btn">
-                            <Button
+                            {/* <Button
                                 loading={loading}
                                 onClick={() => {
                                     form.resetFields();
                                 }}
                             >
                                 Reset
-                            </Button>
-                            <Button type="primary" htmlType="submit" loading={loading} >
-                                Register
+                            </Button> */}
+                            <Button type="primary" htmlType="submit" loading={loading}
+                                style={{
+                                    width: '100%',
+                                    background: '#2da44e',
+                                    borderColor: '#2da44e',
+                                    fontWeight: '500',
+                                }}
+                            >
+                                Sign Up
                             </Button>
                         </Form.Item>
                     </Form>
