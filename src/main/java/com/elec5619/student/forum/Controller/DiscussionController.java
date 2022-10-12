@@ -112,7 +112,10 @@ public class DiscussionController {
     @ResponseBody
     public JsonReturnType getUserDiscussions(@PathVariable int id){
         JsonReturnType jsonReturnType = new JsonReturnType();
-        jsonReturnType.getData().put("discussions",discussionService.findByUser(id));
+        List<Discussion> discussions = discussionService.findByUser(id);
+        discussionService.loadCategoryDataForList(discussions);
+        discussionService.loadLikerForList(discussions);
+        jsonReturnType.getData().put("discussions",discussions);
         return jsonReturnType;
     }
 
