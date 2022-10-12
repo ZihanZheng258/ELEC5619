@@ -98,7 +98,12 @@ const Register = () => {
                             </Button>
                         </Form.Item>
                     </Form>
-
+                    <p className='login-callout'>
+                        Already have an account ?
+                        <span href="" style={{ color: '#40a9ff', cursor: 'pointer' }} onClick={() => navigate('/login')}>
+                            {' Sign in → '}
+                        </span>
+                    </p>
                 </div>
             </div>
         </div>
