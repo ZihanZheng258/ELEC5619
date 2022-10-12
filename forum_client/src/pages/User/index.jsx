@@ -10,12 +10,17 @@ import {
     BookOutlined,
     SendOutlined,
     LikeOutlined,
-    PushpinOutlined
+    PushpinOutlined,
+    HeartOutlined,
+    NotificationOutlined,
+    UserOutlined
 
 } from '@ant-design/icons'
 import { Outlet } from "react-router-dom"
 import HeadingNav from "../../components/HeadingNav"
-
+import PublishOutlinedIcon from '@mui/icons-material/PublishOutlined';
+import ListOutlinedIcon from '@mui/icons-material/ListOutlined';
+import TextsmsOutlinedIcon from '@mui/icons-material/TextsmsOutlined';
 const User = () => {
 
     const rootSubmenuKeys = ['sub1', 'sub2']
@@ -36,29 +41,22 @@ const User = () => {
                 children: [
                     {
                         key: "1",
-                        label: <span className="dropdown-item">notes i sent</span>,
-                        onClick: () => navigate("/user/notesent"),
-                        icon: <SettingOutlined />,
+                        label: <span className="dropdown-item">notes published</span>,
+                        onClick: () => navigate("/user/publishedNotes"),
+                        icon: <PublishOutlinedIcon />,
                     },
                     {
                         key: "2",
-                        label: <span className="dropdown-item">notes i bought</span>,
-                        onClick: () => navigate("/user/notebuy"),
-                        icon: <SettingOutlined />,
-
-                    },
-                    {
-                        key: "3",
-                        label: <span className="dropdown-item">notes i have</span>,
-                        onClick: () => navigate("/user/notehave"),
-                        icon: <PushpinOutlined />,
+                        label: <span className="dropdown-item">notes owned</span>,
+                        onClick: () => navigate("/user/myNotes"),
+                        icon: <ListOutlinedIcon />,
 
                     },
                     {
                         key: "4",
-                        label: <span className="dropdown-item">notes i like</span>,
-                        onClick: () => navigate("/user/notelike"),
-                        icon: <SettingOutlined />,
+                        label: <span className="dropdown-item">notes wishlist</span>,
+                        onClick: () => navigate("/user/notesWishlist"),
+                        icon: <HeartOutlined />,
 
                     },
                 ]
@@ -67,18 +65,18 @@ const User = () => {
             {
                 key: "sub2",
                 icon: <SendOutlined />,
-                label: <span className="dropdown-item">Post</span>,
+                label: <span className="dropdown-item">Discussion</span>,
                 children: [
                     {
                         key: "5",
-                        label: <span className="dropdown-item">posts i sent</span>,
-                        onClick: () => navigate("/user/postsent"),
-                        icon: <SettingOutlined />,
+                        label: <span className="dropdown-item">discussions post</span>,
+                        onClick: () => navigate("/user/discussionPost"),
+                        icon: <PublishOutlinedIcon />,
                     },
                     {
                         key: "6",
-                        label: <span className="dropdown-item">posts i like</span>,
-                        onClick: () => navigate("/user/postlike"),
+                        label: <span className="dropdown-item">discussions liked</span>,
+                        onClick: () => navigate("/user/discussionLiked"),
                         icon: <LikeOutlined />,
                     },
                 ]
@@ -87,20 +85,20 @@ const User = () => {
                 key: "7",
                 label: <span className="dropdown-item">comment</span>,
                 onClick: () => navigate("/user/comment"),
-                icon: <SettingOutlined />,
+                icon: <TextsmsOutlinedIcon />,
 
             },
             {
                 key: "8",
                 label: <span className="dropdown-item">notice</span>,
                 onClick: () => navigate("/user/notice"),
-                icon: <SettingOutlined />,
+                icon: <NotificationOutlined />,
             },
             {
                 key: "9",
-                label: <span className="dropdown-item">userInfo</span>,
-                onClick: () => navigate("/user/userinfo"),
-                icon: <SettingOutlined />,
+                label: <span className="dropdown-item">profile</span>,
+                onClick: () => navigate("/user/myProfile"),
+                icon:<UserOutlined />,
 
             },
             {

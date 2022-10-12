@@ -25,7 +25,7 @@ const NoteList = () =>{
             });
         api.getSelf()
             .then((response)=>{
-                api.getBoughtList(response.data.data.user.id)
+                api.getBoughtNotes(response.data.data.user.id)
                     .then((response)=>{
                         const arr = [response.data.data.notes]
                         arr[0].forEach((element)=>{

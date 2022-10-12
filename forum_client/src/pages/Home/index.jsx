@@ -27,10 +27,6 @@ const Home = () =>{
     return(
         <>
             <div className="homeContent">
-                <div className="App-intro">
-                    <h3>Download a random file</h3>
-                    <button onClick={downloadFile}>Download</button>
-                </div>
                 <div className="layout-header">
                         <HeadingNav />
                     </div>

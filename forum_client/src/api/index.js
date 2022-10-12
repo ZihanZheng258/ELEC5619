@@ -87,7 +87,7 @@ export default {
             {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
         );
     },
-    // post new comment
+    // post.jsx new comment
     postComment: (discussionID, targetID, parentID,isComment,message)=>{
         return axios.post(
             'http://localhost:8090/comment/' ,
@@ -122,7 +122,7 @@ export default {
         );
     },
     // verify bought note
-    getBoughtList: (userID)=>{
+    getBoughtNotes: (userID)=>{
         return axios.get(
             'http://localhost:8090/note/buyer/' + userID,
             {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
@@ -183,10 +183,37 @@ export default {
 
     },
     downloadNote: (noteID)=>{
-            return axios.get(
-                '        http://localhost:8090/note/downloadNote/'+noteID ,
-                {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
-            );
+        return axios.get(
+            'http://localhost:8090/note/downloadNote/'+noteID ,
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}, responseType:'blob'}
+        ).then((response)=>{
+            const filename =  response.headers["content-disposition"].split('filename=')[1];
+                let url = window.URL.createObjectURL(response.data);
+                let a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                a.click();
+        });
+    },
+    // get published notes
+    getPublishedNotes: (ownerID) =>{
+        return axios.get(
+            'http://localhost:8090/note/owner/'+ownerID ,
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+        );
+    },
+    // get wished notes
+    getWishedNotes: (userID)=>{
+        return axios.get(
+            'http://localhost:8090/note/wisher/'+userID ,
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+        );
+    },
+    // get discussion by user
+    getDiscussionByUser: (userID)=>{
+        return axios.get(
+            'http://localhost:8090/discussion/user/'+userID ,
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+        );
     }
-
 }
