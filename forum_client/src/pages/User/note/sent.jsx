@@ -10,6 +10,8 @@ const Sent = () => {
         console.log(keyWords)
     }
 
+    const [mySentNote, setMysentNote] = useState([])
+
     useEffect(() => {
     }, [])
 
@@ -25,7 +27,7 @@ const Sent = () => {
                 />
             </div>
             <div className='posts_list'>
-                {(postsList || []).map((item) => {
+                {(mySentNote || []).map((item) => {
                     return (
                         <div className='post_item' key={item} >
                             <div className='info-box'>
