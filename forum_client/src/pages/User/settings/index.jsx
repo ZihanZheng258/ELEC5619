@@ -6,8 +6,8 @@ const Settings = () => {
 
     return (
         <div className='set_container'>
+            {/* changePassWord */}
             <Result
-                title='Your operation has been executed'
                 status='warning'
                 extra={
                     <>
@@ -69,9 +69,9 @@ const Settings = () => {
                     </>
                 }
             />
+            {/* changeNickName */}
             <Result
                 status='warning'
-                title='Your operation has been executed'
                 extra={
                     <>
                         <Form
@@ -101,7 +101,7 @@ const Settings = () => {
                                     },
                                 ]}
                             >
-                                <Input.Password />
+                                <Input />
                             </Form.Item>
                         </Form>
                         <Button type='primary' key='console'>

@@ -1,65 +1,35 @@
 import './index.less'
 import React, { useState, useEffect } from 'react'
-import { Button, Form, Input, message, Pagination } from 'antd'
-const { Search } = Input
-
+import { Input, message, Pagination } from 'antd'
+import Interface from "../../../api/index"
 const Like = () => {
+
+    const { Search } = Input
+
     const onSearch = (keyWords) => {
         console.log(keyWords)
-        getPostList(keyWords)
     }
 
-    const [postsList, setPostsList] = useState([1, 2,])
+    const [wishedNoteList, setWishedNoteList] = useState([])
 
-    const deletePosts = (id) => {
-
-        console.log(id, '???')
-        // Modal.confirm({
-        //     title: 'Tips',
-        //     icon: <ExclamationCircleOutlined />,
-        //     content: 'Are you sure you want to delete this post?',
-        //     okText: 'ok',
-        //     cancelText: 'cancel',
-        //     onOk: () => {
-        //         Interface.deletePostById({
-        //             id: id,
-        //         }).then((res) => {
-        //             if (res.flag) {
-        //                 message.success('Delete Succeeded!')
-        //                 getPostList("");
-        //             }
-        //         })
-        //     },
-        //     onCancel: () => {
-        //         console.log('cancel')
-        //     },
-        // })
-    }
-
-    const getPostList = (params) => {
-        // Interface.getPostList({
-        //     page: 1,
-        //     pageSize: 20,
-        //     keyWords: keyWords
-        // }).then(res => {
-        //     if (res.flag) {
-        //         setPostsList((value) => {
-        //             value = res.data || []
-        //             return value
-        //         })
-        //     }
-        // })
+    const getNoteByWished = () => {
+        Interface.getUserSelf().then((response) => {
+            Interface.getNoteByWished(response.data.data.user.id).then((res) => {
+                const data = res.data.data && res.data.data.notes ? res.data.data.notes : []
+                setWishedNoteList(data)
+            })
+        })
     }
 
     useEffect(() => {
-        getPostList()
+        getNoteByWished()
     }, [])
 
     return (
         <div className='my_note_container'>
             <div className='search_container'>
                 <Search
-                    placeholder='input search text'
+                    placeholder='Search My Wished Notes'
                     allowClear
                     enterButton='Search'
                     size='large'
@@ -67,22 +37,17 @@ const Like = () => {
                 />
             </div>
             <div className='posts_list'>
-                {(postsList || []).map((item) => {
+                {(wishedNoteList || []).map((item) => {
                     return (
-                        <div className='post_item' key={item} onClick={deletePosts(item)}>
+                        <div className='post_item' key={item}>
                             <div className='info-box'>
-                                <div className='info-row meta-row'>this is note i like</div>
-                                <div className='info-row title-row'>
-                                    this is content this is content this is content this is content this is content this
-                                    is content
+                                <div className='info-row meta-row'>
+                                    {item.description}
                                 </div>
-                                <div className='info-row abstract-row'>
-                                    this is content this is content this is content this is content this is content this
-                                    is content
-                                </div>
+                                <div className='info-row title-row'>{`Price：$ ${item.price} `}</div>
+                                <div className='info-row abstract-row'>{`NumOfBuy：${item.numOfBuy || 0}`}</div>
                                 <div className='info-row action-row'>
-                                    this is content this is content this is content this is content this is content this
-                                    is content
+                                    {`CreateDate：${item.createDate}`}
                                 </div>
                             </div>
                             <img

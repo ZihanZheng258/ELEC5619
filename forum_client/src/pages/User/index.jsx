@@ -23,7 +23,8 @@ const User = () => {
     const navigate = useNavigate()
     const items =
         [
-            {key: "sub0",
+            {
+                key: "sub0",
                 label: <span className="dropdown-item">Back Home</span>,
                 onClick: () => navigate("/"),
                 icon: <RollbackOutlined />,
@@ -85,27 +86,27 @@ const User = () => {
             },
             {
                 key: "7",
-                label: <span className="dropdown-item">comment</span>,
+                label: <span className="dropdown-item">Comment</span>,
                 onClick: () => navigate("/user/comment"),
                 icon: <SettingOutlined />,
 
             },
             {
                 key: "8",
-                label: <span className="dropdown-item">notice</span>,
+                label: <span className="dropdown-item">Notice</span>,
                 onClick: () => navigate("/user/notice"),
                 icon: <SettingOutlined />,
             },
             {
                 key: "9",
-                label: <span className="dropdown-item">userInfo</span>,
+                label: <span className="dropdown-item">UserInfo</span>,
                 onClick: () => navigate("/user/userinfo"),
                 icon: <SettingOutlined />,
 
             },
             {
                 key: "10",
-                label: <span className="dropdown-item">setting</span>,
+                label: <span className="dropdown-item">Settings</span>,
                 onClick: () => navigate("/user/setting"),
                 icon: <SettingOutlined />,
             },
@@ -129,7 +130,7 @@ const User = () => {
     return (
         <div className='user_container'>
             <div>
-                <HeadingNav/>
+                <HeadingNav />
             </div>
             <div className="userProfile">
                 <div className='left'>

@@ -1,58 +1,16 @@
 import './index.less'
 import React, { useState, useEffect } from 'react'
-import { Button, Form, Input, message, Pagination } from 'antd'
-const { Search } = Input
+import { Input, message, Pagination } from 'antd'
 
 const Sent = () => {
+
+    const { Search } = Input
+
     const onSearch = (keyWords) => {
         console.log(keyWords)
-        getPostList(keyWords)
-    }
-
-    const [postsList, setPostsList] = useState([1, 2,])
-
-    const deletePosts = (id) => {
-
-        console.log(id, '???')
-        // Modal.confirm({
-        //     title: 'Tips',
-        //     icon: <ExclamationCircleOutlined />,
-        //     content: 'Are you sure you want to delete this post?',
-        //     okText: 'ok',
-        //     cancelText: 'cancel',
-        //     onOk: () => {
-        //         Interface.deletePostById({
-        //             id: id,
-        //         }).then((res) => {
-        //             if (res.flag) {
-        //                 message.success('Delete Succeeded!')
-        //                 getPostList("");
-        //             }
-        //         })
-        //     },
-        //     onCancel: () => {
-        //         console.log('cancel')
-        //     },
-        // })
-    }
-
-    const getPostList = (params) => {
-        // Interface.getPostList({
-        //     page: 1,
-        //     pageSize: 20,
-        //     keyWords: keyWords
-        // }).then(res => {
-        //     if (res.flag) {
-        //         setPostsList((value) => {
-        //             value = res.data || []
-        //             return value
-        //         })
-        //     }
-        // })
     }
 
     useEffect(() => {
-        getPostList()
     }, [])
 
     return (
@@ -69,7 +27,7 @@ const Sent = () => {
             <div className='posts_list'>
                 {(postsList || []).map((item) => {
                     return (
-                        <div className='post_item' key={item} onClick={deletePosts(item)}>
+                        <div className='post_item' key={item} >
                             <div className='info-box'>
                                 <div className='info-row meta-row'>this is note i sent</div>
                                 <div className='info-row title-row'>

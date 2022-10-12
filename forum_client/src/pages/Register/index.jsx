@@ -16,10 +16,9 @@ const Register = () => {
     const onFinish = (useParams) => {
         setLoading(true);
         Interface.signUp(useParams).then(res => {
-            console.log(res)
             setLoading(false);
-            if (res.flag) {
-                message.success(res.message || 'register success!');
+            if (res.data.flag) {
+                message.success(res.data.message || 'register success!');
                 setTimeout(() => {
                     navigate && navigate('/login')
                 }, 1e3)

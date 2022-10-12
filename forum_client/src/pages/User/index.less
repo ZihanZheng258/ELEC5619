@@ -4,8 +4,7 @@
     height: 100%;
     .userProfile{
         display: flex;
-        height: 90%;
-
+        height: calc(100% - 118px);
         .left {
             width: 270px;
             float: left;
@@ -17,10 +16,10 @@
         }
         .right {
             width: calc(100% - 270px);
-            left:270px;
             height: 100%;
             background: #fefefe;
             box-sizing: border-box;
+            overflow-y: auto;
         }
     }
 }
