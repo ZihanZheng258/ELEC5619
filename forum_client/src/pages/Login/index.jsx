@@ -113,7 +113,7 @@ const Login = () => {
                         </Form.Item>
                     </Form>
                     <p className='login-callout'>
-                        New to GitHub ?
+                        No Account ?
                         <span
                             href=''
                             style={{ color: '#40a9ff', cursor: 'pointer' }}
