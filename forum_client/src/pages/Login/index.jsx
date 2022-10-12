@@ -98,8 +98,8 @@ const Login = () => {
                             <Button
                                 style={{
                                     width: '100%',
-                                    background: '#2da44e',
-                                    borderColor: '#2da44e',
+                                    background: '#40a9ff',
+                                    borderColor: '#40a9ff',
                                     fontWeight: '500',
                                     height: '56px',
                                     borderRadius: '6px',
