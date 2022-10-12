@@ -1,12 +1,21 @@
-import React from "react";
+import React, {useEffect} from "react";
 import HeadingNav from "../../components/HeadingNav";
 import SidebarMenu from "../../components/SidebarMenu";
 import BottomNav from "../../components/BottomNav";
 import './index.less'
 import '../../config/config.js';
 import SearchList from "../../components/SearchList";
+import {useParams} from "react-router-dom";
 
 const Search = () =>{
+    const params = useParams();
+    useEffect(() => {
+        console.log(params.type)
+
+
+    }, [params]);
+
+
     return(
         <>
 

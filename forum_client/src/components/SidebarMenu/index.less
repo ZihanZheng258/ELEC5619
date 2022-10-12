@@ -10,6 +10,7 @@
   width: 350px;
   display: flex;
   flex-direction: column;
+  bottom: 0;
   padding-right: 12px;
   //border-right: 1px solid #dedede;
 
@@ -39,9 +40,12 @@
     background-color: rgba(47,130,255,255);
     color: white;
     cursor: pointer;
+    margin: 0;
+
     transition-duration: 0.3s;
     transform: scale(1.06);
   }
+
 
   .navList > ul > ul > li{
     padding: 0px 15px;
@@ -49,6 +53,62 @@
     border-radius: 20px;
     text-align: start;
     margin-left: 2em;
+  }
+
+  .navList > ul > li:first-child{
+    //border: 0px solid black;
+    border-radius: 0px;
+    text-align: start;
+    margin: 0px 0px 10% 1.5em;
+    border-bottom: 1px solid #d4d4d4;
+
+  }
+  .navList > ul > li:first-child:hover,  .navList > ul > li:first-child > a:hover{
+    background-color: rgba(255, 255, 255, 0);
+    color: black;
+    cursor: pointer;
+    transition-duration: 0.3s;
+    transform: scale(1.06);
+  }
+  .navList > ul > li:nth-child(5){
+    //border: 0px solid black;
+    border-radius: 0px;
+    text-align: start;
+    text-indent: 10px;
+    margin: 0px 0px 10% 1.5em;
+    border-bottom: 1px solid #d4d4d4;
+  }
+  .navList > ul > li:nth-child(5):hover,  .navList > ul > li:nth-child(5) > a:hover{
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 0;
+    text-indent: 40px;
+    transition-duration: 0.3s;
+    transform: scale(1.06);
+  }
+  .navList > ul > li:last-child{
+    //border: 0px solid black;
+    border-radius: 0px;
+    text-align: start;
+    margin: 360px 0px 20px 1.5em;
+    border-bottom: 1px solid #d4d4d4;
+  }
+  .navList > ul > li:last-child:hover,  .navList > ul > li:last-child > a:hover{
+    background-color: rgba(255, 255, 255, 0);
+    color: black;
+    cursor: pointer;
+    transition-duration: 0.3s;
+    transform: scale(1.06);
+  }
+  .accountSettingBtn{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    span{
+      margin: 0 0 0 10px;
+      text-indent:0;
+    }
   }
   //.lifeContent{
   //  display: flex;

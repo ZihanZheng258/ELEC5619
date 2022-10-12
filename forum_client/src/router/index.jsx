@@ -1,4 +1,4 @@
-import {React, useState, useEffect} from "react";
+import { React, useState, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // pages
@@ -20,22 +20,22 @@ import setAuthToken from '../pages/Login/setAuthToken'
 import api from '../api'
 
 import User from '../pages/User'
-import PostLike from './../pages/User/posts/like'
-import PostSent from './../pages/User/posts/sent'
 import UserInfo from '../pages/User/userInfo/index'
-import Comment from '../pages/User/comment'
-import Notice from '../pages/User/notice'
+import Comment from '../pages/User/comment/index'
+import Notice from '../pages/User/notice/index'
 import Setting from '../pages/User/settings/index'
-import NoteLike from './../pages/User/note/like'
-import NoteSent from './../pages/User/note/sent'
-import NoteBuy from './../pages/User/note/buy'
-import NoteHave from './../pages/User/note/hava'
-
+//User Notes
+import OwnedNote from '../pages/User/note/owned'
+import WishlistNote from '../pages/User/note/wishlist'
+import PublishedNote from '../pages/User/note/published'
+//User Discussions
+import DiscussionPost from "../pages/User/discussion/post";
+import DiscussionLiked from "../pages/User/discussion/like";
 
 
 
 const AppRouter = () => {
-//check jwt token
+    //check jwt token
     const [authOK, setAuthOK] = useState(false);
     useEffect(() => {
         api.getSelf().then((response) => {
@@ -72,14 +72,18 @@ const AppRouter = () => {
                         </RouteGuard>
                     }
                 >
-                    <Route exact path='notelike' element={<NoteLike />} />
-                    <Route path='notesent' element={<NoteSent />} />
-                    <Route path='notebuy' element={<NoteBuy />} />
-                    <Route path='notehave' element={<NoteHave />} />
-                    <Route exact path='postlike' element={<PostLike />} />
-                    <Route path='postsent' element={<PostSent />} />
-                    <Route path='*' element={<PostLike />} />
-                    <Route path='userinfo' element={<UserInfo />} />
+                    {/*Note*/}
+                    <Route path={"publishedNotes"} element={<PublishedNote/>}/>
+                    <Route path={"myNotes"} element={<OwnedNote/>}/>
+                    <Route path={"notesWishlist"} element={<WishlistNote/>}/>
+
+                    {/*Discussion*/}
+                    <Route path={"discussionPost"} element={<DiscussionPost/>}/>
+                    <Route path={"discussionLiked"} element={<DiscussionLiked/>}/>
+
+
+
+                    <Route path='myProfile' element={<UserInfo />} />
                     <Route path='comment' element={<Comment />} />
                     <Route path='notice' element={<Notice />} />
                     <Route path='setting' element={<Setting />} />
@@ -96,26 +100,26 @@ const AppRouter = () => {
 
                 <Route path="/notes" element={
                     <RouteGuard>
-                    < Note />
+                        < Note />
                     </RouteGuard>
                 }></Route>
 
                 <Route path="/note/:id" element={
                     <RouteGuard>
-                    < NoteDetailPage />
+                        < NoteDetailPage />
                     </RouteGuard>
                 }></Route>
 
 
                 <Route path="/discussion/:id" element={
                     <RouteGuard>
-                    <DiscussionDetail />
+                        <DiscussionDetail />
                     </RouteGuard>
                 }></Route>
 
                 <Route path="/discussion/category/:category" element={
                     <RouteGuard>
-                    <Discussion />
+                        <Discussion />
                     </RouteGuard>
                 }></Route>
 

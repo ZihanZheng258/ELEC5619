@@ -62,7 +62,7 @@ export default {
             {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
         );
     },
-    // post new comment
+    // post.jsx new comment
     postComment: (discussionID, targetID, parentID,isComment,message)=>{
         return axios.post(
             'http://localhost:8090/comment/' ,

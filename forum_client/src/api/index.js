@@ -122,7 +122,7 @@ export default {
         );
     },
     // verify bought note
-    getBoughtList: (userID)=>{
+    getBoughtNotes: (userID)=>{
         return axios.get(
             'http://localhost:8090/note/buyer/' + userID,
             {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
@@ -160,14 +160,39 @@ export default {
         );
     },
 
-    // note detail
-    getNoteDetail:(noteID) =>{
-        return axios.get(
-            'http://localhost:8090/note/'+noteID ,
-            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
-        );
-    },
+	// verify bought note
+	getBoughtList: (userID) => {
+		return axios.get('http://localhost:8090/note/buyer/' + userID, {
+			headers: { Authorization: `Bearer ` + localStorage.getItem('token') },
+		})
+	},
 
+	// note detail
+	getNoteDetail: (noteID) => {
+		return axios.get('http://localhost:8090/note/' + noteID, {
+			headers: { Authorization: `Bearer ` + localStorage.getItem('token') },
+		})
+	},
+
+	// getUserSelf
+	getUserSelf: () => {
+		return axios.get('http://localhost:8090/user/self', {
+			headers: { Authorization: `Bearer ` + localStorage.getItem('token') },
+		})
+	},
+
+	// note
+	getBoughtNote: (id) => {
+		return axios.get(`http://localhost:8090/note/buyer/${id}`, {
+			headers: { Authorization: `Bearer ` + localStorage.getItem('token') },
+		})
+	},
+
+	getOwnedNote: (id) => {
+		return axios.get(`http://localhost:8090/note/owner/${id}`, {
+			headers: { Authorization: `Bearer ` + localStorage.getItem('token') },
+		})
+	},
     postNoteComment: (noteID, targetID, parentID,isComment,message)=>{
         return axios.post(
             'http://localhost:8090/noteComment/' ,
@@ -183,16 +208,44 @@ export default {
 
     },
     downloadNote: (noteID)=>{
-            return axios.get(
-                '        http://localhost:8090/note/downloadNote/'+noteID ,
-                {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
-            );
+        return axios.get(
+            'http://localhost:8090/note/downloadNote/'+noteID ,
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}, responseType:'blob'}
+        ).then((response)=>{
+            const filename =  response.headers["content-disposition"].split('filename=')[1];
+                let url = window.URL.createObjectURL(response.data);
+                let a = document.createElement('a');
+                a.href = url;
+                a.download = filename;
+                a.click();
+        });
+    },
+    // get published notes
+    getPublishedNotes: (ownerID) =>{
+        return axios.get(
+            'http://localhost:8090/note/owner/'+ownerID ,
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+        );
+    },
+    // get wished notes
+    getWishedNotes: (userID)=>{
+        return axios.get(
+            'http://localhost:8090/note/wisher/'+userID ,
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+        );
+    },
+    // get discussion by user
+    getDiscussionByUser: (userID)=>{
+        return axios.get(
+            'http://localhost:8090/discussion/user/'+userID ,
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+        );
     },
     getNoteComments: (noteID)=>{
-            return axios.get(
-                'http://localhost:8090/noteComment/note/'+noteID ,
-                {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
-            );
-    }
+                return axios.get(
+                    'http://localhost:8090/noteComment/note/'+noteID ,
+                    {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+                );
+        }
 
 }

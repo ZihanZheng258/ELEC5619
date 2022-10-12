@@ -3,6 +3,8 @@ import {useState, useEffect} from "react";
 import {Link} from "react-router-dom";
 import './index.less'
 import '../../fonts/bptypewrite.damaged-italic.otf'
+import {SettingOutlined} from "@ant-design/icons";
+import CampaignOutlinedIcon from '@mui/icons-material/CampaignOutlined';
 
 const SidebarMenu = ()=>{
     const [isLifeActive, setLifeIsActive] = useState(false);
@@ -17,7 +19,12 @@ const SidebarMenu = ()=>{
                     {/*Announcement*/}
                     <li>
                         <Link to={"/discussion/category/announcement"}>
-                            Announcement
+                            <div className={"accountSettingBtn"}>
+                            <CampaignOutlinedIcon/>
+                            <span>
+                                Announcement
+                            </span>
+                            </div>
                         </Link>
                     </li>
 
@@ -131,6 +138,15 @@ const SidebarMenu = ()=>{
                     {/*        <li>Music</li>*/}
                     {/*    </ul>*/}
                     {/*)}*/}
+                    <li>
+                        <Link to={"/user/myProfile"}>
+                            <div className={"accountSettingBtn"}>
+                                    <SettingOutlined/>
+                                    <span>Settings</span>
+                            </div>
+
+                        </Link>
+                    </li>
                 </ul>
             </div>
         </div>
