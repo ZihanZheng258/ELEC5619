@@ -38,7 +38,7 @@ public class UserController {
         jsonReturnType.getData().put("user",user1);
         return jsonReturnType;
     }
-    
+
 
     @GetMapping("/self")
     @ResponseBody

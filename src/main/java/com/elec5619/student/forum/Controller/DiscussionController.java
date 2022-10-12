@@ -2,6 +2,7 @@ package com.elec5619.student.forum.Controller;
 
 import com.elec5619.student.forum.pojos.Comment;
 import com.elec5619.student.forum.pojos.Discussion;
+import com.elec5619.student.forum.pojos.Note;
 import com.elec5619.student.forum.pojos.User;
 import com.elec5619.student.forum.services.CategoryService;
 import com.elec5619.student.forum.services.CommentService;
@@ -68,6 +69,16 @@ public class DiscussionController {
         discussion.setCategory(categoryService.getByID(discussion.getCategoryID()));
         User user1 = userService.getUserByNickName(user.getName());
         discussion.setUser(user1);
+        discussionService.addNew(discussion);
+        jsonReturnType.getData().put("discussion",discussion);
+        return jsonReturnType;
+    }
+
+    @PutMapping("/")
+    @ResponseBody
+    public JsonReturnType EditDiscussion(@RequestBody Discussion discussion, Principal user){
+        JsonReturnType jsonReturnType = new JsonReturnType();
+        jsonReturnType.setFlag(true);
         discussionService.addNew(discussion);
         jsonReturnType.getData().put("discussion",discussion);
         return jsonReturnType;

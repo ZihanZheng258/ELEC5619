@@ -167,9 +167,20 @@ public class NoteController {
         return jsonReturnType;
     }
 
+    @PutMapping("/")
+    @ResponseBody
+    public JsonReturnType getNoteForOwner(@RequestBody Note note){
+        JsonReturnType jsonReturnType = new JsonReturnType();
+        noteService.insertOrUpdate(note);
+        jsonReturnType.getData().put("notes",note);
+        jsonReturnType.setFlag(true);
+        jsonReturnType.setMessage("");
+        return jsonReturnType;
+    }
+
     @PostMapping("/")
     @ResponseBody
-    public JsonReturnType AddNewNote(@RequestBody Note note,Principal user){
+    public JsonReturnType EditNote(@RequestBody Note note,Principal user){
         JsonReturnType jsonReturnType = new JsonReturnType();
         jsonReturnType.setFlag(true);
         User user1 = userService.getUserByNickName(user.getName());
