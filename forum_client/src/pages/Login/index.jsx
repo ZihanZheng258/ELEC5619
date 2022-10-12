@@ -101,6 +101,8 @@ const Login = () => {
                                     background: '#2da44e',
                                     borderColor: '#2da44e',
                                     fontWeight: '500',
+                                    height: '56px',
+                                    borderRadius: '6px',
                                 }}
                                 type='primary'
                                 htmlType='submit'
@@ -112,7 +114,11 @@ const Login = () => {
                     </Form>
                     <p className='login-callout'>
                         New to GitHub ?
-                        <span href="" style={{ color: '#40a9ff', cursor: 'pointer' }} onClick={() => navigate('/register')}>
+                        <span
+                            href=''
+                            style={{ color: '#40a9ff', cursor: 'pointer' }}
+                            onClick={() => navigate('/register')}
+                        >
                             {' Create an account '}
                         </span>
                     </p>

@@ -92,6 +92,8 @@ const Register = () => {
                                     background: '#2da44e',
                                     borderColor: '#2da44e',
                                     fontWeight: '500',
+                                    height: '56px',
+                                    borderRadius: '6px',
                                 }}
                             >
                                 Sign Up

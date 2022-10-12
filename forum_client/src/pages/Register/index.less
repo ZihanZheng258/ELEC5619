@@ -10,7 +10,7 @@
 	background-position: 50%;
 	background-size: 100% 100%;
 	background-size: cover;
-	
+
 	.login-box {
 		box-sizing: border-box;
 		display: flex;
@@ -21,15 +21,15 @@
 		padding: 0 4% 0 20px;
 		overflow: hidden;
 		border-radius: 10px;
-		.login-left {
-			width: 750px;
-			img {
-				width: 100%;
-				height: 100%;
-			}
-		}
+		// .login-left {
+		// 	width: 750px;
+		// 	img {
+		// 		width: 100%;
+		// 		height: 100%;
+		// 	}
+		// }
 		.login-form {
-			padding: 52px 26px;
+			padding: 52px 26px 42px 26px;
 			background: #f6f8fa;
 			border-radius: 6px;
 			border: 1px solid #d8dee4;
@@ -48,17 +48,22 @@
 					font-size: 48px;
 					font-weight: bold;
 					white-space: nowrap;
-					font-family: "BPtypewrite";
+					font-family: 'BPtypewrite';
 				}
 			}
 			.ant-form-item {
-				height: 55px;
+				height: 78px;
 				margin-bottom: 0;
+
+				.ant-row,
+				.ant-form-item-row {
+					align-items: center;
+				}
 				.ant-input-prefix {
 					margin-right: 10px;
 				}
 				.ant-input-affix-wrapper-lg {
-					padding: 8.3px 11px;
+					padding: 8px 11px;
 				}
 				.ant-input-affix-wrapper,
 				.ant-input-lg {
@@ -66,7 +71,7 @@
 				}
 				.ant-input-affix-wrapper {
 					color: #bfbfbf;
-					padding: 5px 12px;
+					padding: 14px 12px;
 					font-size: 14px;
 					line-height: 20px;
 					color: var(--color-fg-default);
@@ -81,7 +86,7 @@
 			}
 			.login-btn {
 				width: 100%;
-				margin-top: 10px;
+				margin-top: 30px;
 				white-space: nowrap;
 				.ant-form-item-control-input-content {
 					display: flex;
@@ -99,9 +104,9 @@
 }
 
 .login-callout {
-    padding: 16px 16px;
-    text-align: center;
-    border: 1px solid #d0d7de;
-    border-radius: 6px;
+	padding: 16px 16px;
+	text-align: center;
+	border: 1px solid #d0d7de;
+	border-radius: 6px;
 	margin-bottom: 10px;
 }
