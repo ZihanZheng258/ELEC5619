@@ -53,5 +53,9 @@ public class NoteCategoryService {
        return noteCategoryDao.findById(id).get();
     }
 
+    public Category_Note getByContent(String content){
+        return noteCategoryDao.findByContent(content);
+    }
+
 
 }

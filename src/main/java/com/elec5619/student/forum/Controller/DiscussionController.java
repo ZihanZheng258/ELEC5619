@@ -99,7 +99,10 @@ public class DiscussionController {
     public JsonReturnType EditDiscussion(@RequestBody Discussion discussion, Principal user){
         JsonReturnType jsonReturnType = new JsonReturnType();
         jsonReturnType.setFlag(true);
-        discussionService.addNew(discussion);
+        Discussion discussion1 = discussionService.findById(discussion.getId());
+        discussion1.setContent(discussion.getContent());
+        discussion1.setTitle(discussion.getTitle());
+        discussionService.addNew(discussion1);
         jsonReturnType.getData().put("discussion",discussion);
         return jsonReturnType;
     }

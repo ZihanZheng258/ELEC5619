@@ -82,7 +82,10 @@ public class Note {
     private List<Comment_Note> JsonComments = new ArrayList<>();
 
     @Transient
-    private int CategoryId;
+    private int categoryId =-1;
+
+    @Transient
+    private String categoryName;
 
 
 
