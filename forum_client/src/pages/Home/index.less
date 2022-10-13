@@ -2,15 +2,23 @@
   .layout-header{
     height: 120px;
     background-color: white;
+    position: fixed;
+    top:0;
+    width: 100%;
+    z-index: 1;
 
   }
   .layout-row{
     display: flex;
+    margin-top:118px;
+
     flex-direction: row;
     .layout-sidebar{
-
+      position: fixed;
+      z-index: 1;
     }
     .layout-col{
+      margin-left: 338px;
       border-left: 1px solid #dedede;
       flex:1;
       display: flex;

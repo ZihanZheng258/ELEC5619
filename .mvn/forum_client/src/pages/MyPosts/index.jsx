@@ -18,7 +18,7 @@ const MyPosts = () => {
         // Modal.confirm({
         //     title: 'Tips',
         //     icon: <ExclamationCircleOutlined />,
-        //     content: 'Are you sure you want to delete this post?',
+        //     content: 'Are you sure you want to delete this post.jsx?',
         //     okText: 'ok',
         //     cancelText: 'cancel',
         //     onOk: () => {

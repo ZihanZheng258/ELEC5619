@@ -11,12 +11,15 @@ import {message} from 'antd'
 import {forEach} from "react-bootstrap/ElementChildren";
 import Stack from "@mui/material/Stack";
 import Pagination from "@mui/material/Pagination";
+import { useNavigate } from "react-router-dom";
+
 
 const NoteList = () =>{
     const [notesList, setNotesList] = useState([]);
     const [boughtList, setBoughtList] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(1);
+    const navigate = useNavigate();
 
     useEffect(()=>{
         api.getNotesByPage(0)
@@ -25,7 +28,7 @@ const NoteList = () =>{
             });
         api.getSelf()
             .then((response)=>{
-                api.getBoughtList(response.data.data.user.id)
+                api.getBoughtNotes(response.data.data.user.id)
                     .then((response)=>{
                         const arr = [response.data.data.notes]
                         arr[0].forEach((element)=>{
@@ -117,7 +120,7 @@ const NoteList = () =>{
 
 
                     <div className="noteCardActionBar">
-                        <Button variant="outline-info">View</Button>{' '}
+                        <Button variant="outline-info" onClick={()=>navigate('/note/'+ index.id)}>View</Button>{' '}
                         <Button variant="outline-info"
                                 onClick={()=>saveNote(index.id)
                         }>Save</Button>{' '}

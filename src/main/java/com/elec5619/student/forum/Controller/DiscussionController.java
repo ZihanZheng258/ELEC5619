@@ -183,19 +183,6 @@ public class DiscussionController {
         return jsonReturnType;
     }
 
-    @GetMapping("/user/liked/{nickName}")
-    @ResponseBody
-    public JsonReturnType getUserLikedDiscussions(@PathVariable String nickName){
-        User user = userService.getUserByNickName(nickName);
-        List<Discussion> discussions = user.getLikedDiscussion();
-        JsonReturnType jsonReturnType = JsonReturnType.successReturn();
-        discussionService.loadLikerForList(discussions);
-        discussionService.loadUserDataForList(discussions);
-        discussionService.loadCategoryDataForList(discussions);
-        jsonReturnType.getData().put("discussions", discussions);
-        return jsonReturnType;
-    }
-
     @GetMapping("/search/{content}/{page}")
     @ResponseBody
     public JsonReturnType getSearchDiscussions(@PathVariable String content,@PathVariable int page){
