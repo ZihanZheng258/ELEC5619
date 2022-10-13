@@ -271,6 +271,16 @@ export default {
             {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
         );
     },
+    editDiscussion: (id, title, content) =>{
+        return axios.put(
+            'http://localhost:8090/discussion/', {
+                id:id,
+                title: title,
+                content: content,
+            },
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+        );
+    },
     uploadFile: (formData)=>{
         return axios.postForm(
             "http://localhost:8090/note/uploadNote/",

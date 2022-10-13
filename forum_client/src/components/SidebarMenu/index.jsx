@@ -15,63 +15,42 @@ const SidebarMenu = ()=>{
         <div className="sideBar">
 
             <div className="navList">
-                <ul>
-                    {/*Announcement*/}
-                    <li>
-                        <Link to={"/discussion/category/announcement"}>
-                            <div className={"accountSettingBtn"}>
+                <div className="announcement">
+                    <Link to={"/discussion/category/announcement"}>
+                        <div className={"accountSettingBtn"}>
                             <CampaignOutlinedIcon/>
                             <span>
                                 Announcement
                             </span>
-                            </div>
-                        </Link>
-                    </li>
+                        </div>
+                    </Link>
+                </div>
+                <div className="Category">
+                    <ul>
+                        <li>
+                            <Link to={"/"}>
+                                All
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to={"/discussion/category/life"}>
+                                Life
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to={{pathname:"/discussion/category/entertainment",state:{category: "entertainment"}}}>
+                                Entertainment
+                            </Link>
+                        </li>
 
-                    {/*Life*/}
-                    <li>
-                        <Link to={"/"}>
-                            All
-                        </Link>
-                    </li>
-                    <li>
-                        <Link to={"/discussion/category/life"}>
-                            Life
-                        </Link>
-                    </li>
-                    {/*{isLifeActive && (*/}
-                    {/*<ul className="lifeContent">*/}
-                    {/*        <li>Recent</li>*/}
-                    {/*        <li>Food</li>*/}
-                    {/*        <li>Other</li>*/}
-                    {/*</ul>*/}
-                    {/*)}*/}
+                        {/*Notes*/}
+                        <li onClick={(e)=>setNotesIsActive(!isNotesActive)}>
+                            <Link to="">
+                                Notes
+                            </Link>
+                        </li>
 
-                    {/*Entertainment*/}
-                    <li>
-                        <Link to={{pathname:"/discussion/category/entertainment",state:{category: "entertainment"}}}>
-                            Entertainment
-                        </Link>
-                    </li>
-                    {/*{isEntertainmentActive && (*/}
-                    {/*<ul className="entertainmentContent">*/}
-                    {/*    <li>Games</li>*/}
-                    {/*    <li>Sports</li>*/}
-                    {/*    <li>Music</li>*/}
-                    {/*    <li>Televisions</li>*/}
-                    {/*    <li>Others</li>*/}
-                    {/*</ul>*/}
-                    {/*)}*/}
-
-
-                    {/*Notes*/}
-                    <li onClick={(e)=>setNotesIsActive(!isNotesActive)}>
-                        <Link to="">
-                            Notes
-                        </Link>
-                    </li>
-
-                    {isNotesActive && (
+                        {isNotesActive && (
                             <ul>
                                 <li>
                                     <Link to="/notes">
@@ -124,35 +103,25 @@ const SidebarMenu = ()=>{
                         )}
 
 
-                    {/*Our Uni*/}
-                    <li>
-                        <Link to={"/discussion/category/uni"}>
-                            Our Uni
-                        </Link>
-                    </li>
-                    {/*{isUniActive && (*/}
-                    {/*    <ul>*/}
-                    {/*        <li>All</li>*/}
-                    {/*        <li>Art and social sciences</li>*/}
-                    {/*        <li>Engineering</li>*/}
-                    {/*        <li>Medicine and health</li>*/}
-                    {/*        <li>Science</li>*/}
-                    {/*        <li>Architecture, design and planning</li>*/}
-                    {/*        <li>Business</li>*/}
-                    {/*        <li>Law</li>*/}
-                    {/*        <li>Music</li>*/}
-                    {/*    </ul>*/}
-                    {/*)}*/}
-                    <li>
-                        <Link to={"/user/myProfile"}>
-                            <div className={"accountSettingBtn"}>
-                                    <SettingOutlined/>
-                                    <span>Settings</span>
-                            </div>
+                        {/*Our Uni*/}
+                        <li>
+                            <Link to={"/discussion/category/uni"}>
+                                Our Uni
+                            </Link>
+                        </li>
+                    </ul>
+                </div>
 
-                        </Link>
-                    </li>
-                </ul>
+
+            </div>
+            <div className="setting">
+                <Link to={"/user/myProfile"}>
+                    <div className={"accountSettingBtn"}>
+                        <SettingOutlined/>
+                        <span>Settings</span>
+                    </div>
+
+                </Link>
             </div>
         </div>
     )

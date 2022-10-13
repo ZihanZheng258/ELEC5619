@@ -8,7 +8,6 @@ import api from "../../api"
 import './index.less'
 import Button from "react-bootstrap/Button";
 import {message} from 'antd'
-import {forEach} from "react-bootstrap/ElementChildren";
 import Stack from "@mui/material/Stack";
 import Pagination from "@mui/material/Pagination";
 import { useNavigate } from "react-router-dom";
@@ -74,7 +73,12 @@ const NoteList = () =>{
                 })
         }
     }
+    const downloadNote = (noteID)=>{
+        api.downloadNote(noteID)
+            .then((res)=>{
 
+            })
+    }
     const pageChange = (event,value)=>{
         setPage(value);
         console.log(value)
@@ -125,9 +129,20 @@ const NoteList = () =>{
                         <Button variant="outline-info"
                                 onClick={()=>saveNote(index.id)
                         }>Save</Button>{' '}
-                        <Button variant="outline-info"
-                                onClick={()=>buyNote(index.id)
-                        }>Buy</Button>{' '}
+                        {
+                            !(boughtList.indexOf(index.id)>-1) &&
+                            <Button variant="outline-info"
+                                    onClick={()=>buyNote(index.id)
+                                    }>Buy
+                            </Button>
+                        }
+                        {
+                            boughtList.indexOf(index.id)>-1 &&
+                            <Button variant="outline-info"
+                                    onClick={()=>downloadNote(index.id)
+                                    }>Download
+                            </Button>
+                        }
 
                     </div>
                 </div>

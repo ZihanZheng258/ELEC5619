@@ -127,7 +127,7 @@ const NotePost = ()=>{
                 </Form.Item>
                 <Form.Item style={{marginLeft:"15%"}}>
                     <Upload {...props}>
-                        <Button icon={<UploadOutlined />}>Select File</Button>
+                        <Button icon={<UploadOutlined />}>Select Note</Button>
                     </Upload>
                 </Form.Item>
                 <Form.Item {...tailLayout}>
