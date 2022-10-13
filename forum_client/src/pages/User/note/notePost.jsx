@@ -102,13 +102,13 @@ const NotePost = ()=>{
                     name="category"
                     label="Category">
                     <Select>
-                        <Select.Option value={53}>Art and Social Sciences</Select.Option>
-                        <Select.Option value={54}>Business</Select.Option>
-                        <Select.Option value={55}>Engineering</Select.Option>
-                        <Select.Option value={56}>Law</Select.Option>
-                        <Select.Option value={57}>Medicine and health</Select.Option>
-                        <Select.Option value={58}>Music</Select.Option>
-                        <Select.Option value={59}>Science</Select.Option>
+                        <Select.Option value={"Art and Social Sciences"}>Art and Social Sciences</Select.Option>
+                        <Select.Option value={"Business"}>Business</Select.Option>
+                        <Select.Option value={"Engineering"}>Engineering</Select.Option>
+                        <Select.Option value={"Law"}>Law</Select.Option>
+                        <Select.Option value={"Medicine and health"}>Medicine and health</Select.Option>
+                        <Select.Option value={"Music"}>Music</Select.Option>
+                        <Select.Option value={"Science"}>Science</Select.Option>
                     </Select>
                 </Form.Item>
 

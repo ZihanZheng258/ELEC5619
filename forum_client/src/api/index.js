@@ -261,12 +261,12 @@ export default {
             {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
         );
     },
-    createDiscussion: (title, content, categoryID) =>{
+    createDiscussion: (title, content, categoryName) =>{
         return axios.post(
             'http://localhost:8090/discussion/', {
                 title: title,
                 content: content,
-                categoryID : categoryID
+                categoryName : categoryName
             },
             {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
         );
@@ -288,16 +288,29 @@ export default {
             {headers:{"Authorization":`Bearer `+localStorage.getItem("token"), 'content-type': 'multipart/form-data'}}
         )
     },
-    uploadFileToDatabase: (path,price,description,categoryID,name)=>{
+    uploadFileToDatabase: (path,price,description,categoryName,name)=>{
         return axios.post(
             "http://localhost:8090/note/",
             {
                 path :path,
                 price : price,
                 description: description,
-                categoryId : categoryID,
+                categoryName : categoryName,
                 content: "",
                 name : name
+            },
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}
+            }
+        )
+    },
+    editFileToDatabase: (id,name,price,description,)=>{
+        return axios.put(
+            "http://localhost:8090/note/",
+            {
+                id: id,
+                name : name,
+                price : price,
+                description: description,
             },
             {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}
             }

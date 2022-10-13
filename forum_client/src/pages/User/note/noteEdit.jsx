@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 
 import "../discussion/discussionPost.less"
 import { Button, Form, Input, Select,message,Upload } from 'antd';
@@ -24,35 +24,28 @@ const tailLayout = {
 const NoteEdit = ()=>{
     const [form] = Form.useForm();
     const [fileList, setFileList] = useState([]);
-    const [uploading, setUploading] = useState(false);
     const navigate = useNavigate();
+    const { state } = useLocation();
     const onFinish = (values) => {
 
         let formData = new FormData();
         formData.append('file', fileList[0]);
 
         console.log([...formData])
-        // setUploading(true); // You can use any AJAX library you like
-        // axios api upload to database
-        api.uploadFile(formData)
-            .then((res)=>{
-                console.log(res)
-                api.uploadFileToDatabase(
-                    res.data.message,
-                    values.cost,
-                    values.description,
-                    values.category,
-                    values.name).then( (uploadres)=>{
-                    // console.log(uploadres)
-                    message.success("Your note has been posted Successfully");
-                    navigate("/user/publishedNotes")
-                }).catch(err=>{
-                    console.log(err)
-                })
+        // axios api edit upload to database
 
-            })
-            .catch(err=>{console.log(err)})
-
+        api.editFileToDatabase(
+            state.id,
+            values.name,
+            values.cost,
+            values.description,
+            ).then( (uploadres)=>{
+            // console.log(uploadres)
+            message.success("Your note has been update Successfully");
+            navigate("/user/publishedNotes")
+        }).catch(err=>{
+            console.log(err)
+        })
 
     };
 
@@ -71,11 +64,12 @@ const NoteEdit = ()=>{
     };
     return(
         <div className={"newForm"}>
-            <h1>Create New Note</h1>
+            <h1>Edit My Note</h1>
             <Form {...layout} form={form} name="control-hooks" onFinish={onFinish}>
                 <Form.Item
                     name="name"
                     label="Title"
+                    initialValue={state.name}
                     rules={[
                         {
                             required: true,
@@ -87,6 +81,8 @@ const NoteEdit = ()=>{
                 <Form.Item
                     name="cost"
                     label="Cost"
+                    initialValue={state.cost}
+
                     rules={[
                         {
                             required: true,
@@ -100,22 +96,23 @@ const NoteEdit = ()=>{
 
                 <Form.Item
                     name="category"
-                    label="Category">
-                    <Select>
-                        <Select.Option value={53}>Art and Social Sciences</Select.Option>
-                        <Select.Option value={54}>Business</Select.Option>
-                        <Select.Option value={55}>Engineering</Select.Option>
-                        <Select.Option value={56}>Law</Select.Option>
-                        <Select.Option value={57}>Medicine and health</Select.Option>
-                        <Select.Option value={58}>Music</Select.Option>
-                        <Select.Option value={59}>Science</Select.Option>
-                    </Select>
-                </Form.Item>
+                    label="Category"
+                    initialValue={state.category}
 
+                    rules={[
+                        {
+                            required: true,
+                        },
+                    ]}
+                >
+                    <Input disabled={true}/>
+                </Form.Item>
 
                 <Form.Item
                     name="description"
                     label="Description"
+                    initialValue={state.description}
+
                     rules={[
                         {
                             required: true,
@@ -125,19 +122,17 @@ const NoteEdit = ()=>{
                 >
                     <Input.TextArea />
                 </Form.Item>
-                <Form.Item style={{marginLeft:"15%"}}>
-                    <Upload {...props}>
-                        <Button icon={<UploadOutlined />}>Select Note</Button>
-                    </Upload>
-                </Form.Item>
+                {/*<Form.Item style={{marginLeft:"15%"}}>*/}
+                {/*    <Upload {...props}>*/}
+                {/*        <Button icon={<UploadOutlined />}>Select Note</Button>*/}
+                {/*    </Upload>*/}
+                {/*</Form.Item>*/}
                 <Form.Item {...tailLayout}>
                     <Button
                         type="primary"
                         htmlType="submit"
-                        disabled={fileList.length === 0}
-                        loading={uploading}
                     >
-                        {uploading ? 'Uploading' : 'Start Upload'}
+                        {'Update'}
                     </Button>
 
                 </Form.Item>

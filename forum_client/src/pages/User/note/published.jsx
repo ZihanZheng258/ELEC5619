@@ -35,9 +35,15 @@ const PublishedNote = () => {
 
         {
             accessorKey: 'name', //id is still required when using accessorFn instead of accessorKey
-            header: 'Title', enableClickToCopy: true, size: 300,
+            header: 'Title', enableClickToCopy: true, size: 100,
 
-        }, {
+        },
+        {
+            accessorKey: 'price', //id is still required when using accessorFn instead of accessorKey
+            header: 'Price', size: 50,
+
+        },
+        {
             accessorKey: 'description', //accessorKey used to define `data` column. `id` gets set to accessorKey automatically
             enableClickToCopy: true, header: 'Description', size: 300,
         },
@@ -137,8 +143,9 @@ const PublishedNote = () => {
                             {
                                 state: {
                                     id: row.original.id,
-                                    title: row.original.title,
-                                    content:row.original.content,
+                                    name: row.original.name,
+                                    cost: row.original.price,
+                                    description:row.original.description,
                                     category:row.original.jsonCategory.content
                                 }})
                         closeMenu();

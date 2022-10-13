@@ -32,6 +32,7 @@ const DiscussionPost = ()=>{
                 api.createDiscussion(values.title,values.content,response.data.data.Category.id)
                     .then((res)=>{
                         message.success("New discussion posted");
+                        navigate("/user/myDiscussions")
                     }).catch((err)=>{
                     message.error("Something wrong, please try again");
                 })

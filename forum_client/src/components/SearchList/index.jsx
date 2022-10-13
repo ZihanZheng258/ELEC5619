@@ -149,7 +149,6 @@ const SearchList = () =>{
                                     { index.jsonLiker.map((liker)=>{
                                         return <div key={"likeBtn"+index.id}>
                                             {
-                                                liker.id===user &&
                                                 <img
                                                     src= {likes}
                                                     alt=""
