@@ -1,9 +1,6 @@
 package com.elec5619.student.forum.Controller;
 
-import com.elec5619.student.forum.pojos.Discussion;
-import com.elec5619.student.forum.pojos.Note;
-import com.elec5619.student.forum.pojos.Notice;
-import com.elec5619.student.forum.pojos.User;
+import com.elec5619.student.forum.pojos.*;
 import com.elec5619.student.forum.services.*;
 import com.elec5619.student.forum.util.FileUploadUtil;
 import com.elec5619.student.forum.util.JsonReturnType;
@@ -169,9 +166,13 @@ public class NoteController {
 
     @PutMapping("/")
     @ResponseBody
-    public JsonReturnType getNoteForOwner(@RequestBody Note note){
+    public JsonReturnType modifyNote(@RequestBody Note note){
         JsonReturnType jsonReturnType = new JsonReturnType();
-        noteService.insertOrUpdate(note);
+        Note note1 = noteService.findById(note.getId());
+        note1.setName(note.getName());
+        note1.setDescription(note.getDescription());
+        note1.setPrice(note.getPrice());
+        noteService.insertOrUpdate(note1);
         jsonReturnType.getData().put("notes",note);
         jsonReturnType.setFlag(true);
         jsonReturnType.setMessage("");
@@ -180,11 +181,34 @@ public class NoteController {
 
     @PostMapping("/")
     @ResponseBody
-    public JsonReturnType EditNote(@RequestBody Note note,Principal user){
+    public JsonReturnType AddNote(@RequestBody Note note,Principal user){
         JsonReturnType jsonReturnType = new JsonReturnType();
         jsonReturnType.setFlag(true);
         User user1 = userService.getUserByNickName(user.getName());
-        note.setCategory(noteCategoryService.getCategoryByID(note.getCategoryId()));
+        Category_Note category;
+        if(note.getCategoryId() != -1){
+            category = noteCategoryService.getCategoryByID(note.getCategoryId());
+        }
+        else{
+            try {
+                category = noteCategoryService.getByContent(note.getCategoryName());
+                if(category == null){
+                    Category_Note category1 = new Category_Note();
+                    category1.setContent(note.getCategoryName());
+                    noteCategoryService.insertCategory(category1);
+                    category = noteCategoryService.getByContent(note.getCategoryName());
+                }
+                System.out.println("\n\n\n\n\n\ntrying get ca");
+            }
+            catch(Exception e){
+                Category_Note category1 = new Category_Note();
+                category1.setContent(note.getCategoryName());
+                noteCategoryService.insertCategory(category1);
+                category = noteCategoryService.getByContent(note.getCategoryName());
+            }
+
+        }
+        note.setCategory(category);
         note.setOwner(user1);
         noteService.insertOrUpdate(note);
         jsonReturnType.getData().put("note",note);
