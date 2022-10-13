@@ -62,4 +62,44 @@
           border-radius: 20px;
         }
       }
-  }
+}
+.commentBlock{
+  width: 80% !important;
+}
+
+.comment-box{
+        display: flex;
+        flex-direction: column;
+        .reply-box{
+          display: flex;
+          flex-direction: row;
+          form{
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            .reply-editor{
+              //box-shadow: 10px 2px 2px #d2d2d2;
+              border: none;
+              border-bottom: 1px solid #d0d0d0;
+              line-height: 3;
+              margin-left: 20px;
+              padding: 0 10px ;
+              width: 100%;
+            }
+            .reply-editor:focus-visible{
+              outline: none;
+              border-bottom: 1px solid #000000;
+
+            }
+            button{
+              margin-left: -55px;
+              padding-right: 30px;
+              border:none;
+              background-color: rgba(255, 255, 255, 0);
+              color: #1a73ff;
+              font-weight: bold;
+            }
+          }
+
+        }
+      }

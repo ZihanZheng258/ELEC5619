@@ -63,7 +63,9 @@ public class Discussion {
     @Transient
     private Category JsonCategory;
     @Transient
-    private int categoryID;
+    private int categoryID = -1;
+    @Transient
+    private String categoryName;
     @Transient
     private int userID;
     @Transient

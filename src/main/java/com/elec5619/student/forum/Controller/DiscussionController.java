@@ -1,9 +1,6 @@
 package com.elec5619.student.forum.Controller;
 
-import com.elec5619.student.forum.pojos.Comment;
-import com.elec5619.student.forum.pojos.Discussion;
-import com.elec5619.student.forum.pojos.Note;
-import com.elec5619.student.forum.pojos.User;
+import com.elec5619.student.forum.pojos.*;
 import com.elec5619.student.forum.services.CategoryService;
 import com.elec5619.student.forum.services.CommentService;
 import com.elec5619.student.forum.services.DiscussionService;
@@ -66,7 +63,30 @@ public class DiscussionController {
     public JsonReturnType AddDiscussion(@RequestBody Discussion discussion,Principal user){
         JsonReturnType jsonReturnType = new JsonReturnType();
         jsonReturnType.setFlag(true);
-        discussion.setCategory(categoryService.getByID(discussion.getCategoryID()));
+        Category category;
+        if(discussion.getCategoryID() != -1){
+            category = categoryService.getByID(discussion.getCategoryID());
+        }
+        else{
+            try {
+                category = categoryService.getByContent(discussion.getCategoryName());
+                if(category == null){
+                    Category category1 = new Category();
+                    category1.setContent(discussion.getCategoryName());
+                    categoryService.insertOrUpdateCategory(category1);
+                    category = categoryService.getByContent(discussion.getCategoryName());
+                }
+                System.out.println("\n\n\n\n\n\ntrying get ca");
+            }
+            catch(Exception e){
+                Category category1 = new Category();
+                category1.setContent(discussion.getCategoryName());
+                categoryService.insertOrUpdateCategory(category1);
+                category = categoryService.getByContent(discussion.getCategoryName());
+            }
+
+        }
+        discussion.setCategory(category);
         User user1 = userService.getUserByNickName(user.getName());
         discussion.setUser(user1);
         discussionService.addNew(discussion);
