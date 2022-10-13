@@ -5,12 +5,50 @@ import './index.less'
 import '../../fonts/bptypewrite.damaged-italic.otf'
 import {SettingOutlined} from "@ant-design/icons";
 import CampaignOutlinedIcon from '@mui/icons-material/CampaignOutlined';
+import  api from "../../api"
+import Geolocation from 'ol/Geolocation';
+import View from "ol/View"
+import Feature from 'ol/Feature';
+import Map from 'ol/Map';
+import Point from 'ol/geom/Point';
+import {Circle as CircleStyle, Fill, Stroke, Style} from 'ol/style';
+import {OSM, Vector as VectorSource} from 'ol/source';
+import {Tile as TileLayer, Vector as VectorLayer} from 'ol/layer';
+import axios from "axios";
+
 
 const SidebarMenu = ()=>{
-    const [isLifeActive, setLifeIsActive] = useState(false);
-    const [isEntertainmentActive, setEntertainmentIsActive] = useState(false);
     const [isNotesActive, setNotesIsActive] = useState(false);
-    const [isUniActive, setUniIsActive] = useState(false);
+    const [weather, setWeather] = useState('')
+    const [location, setLocation] = useState('')
+    const axios = require("axios");
+
+    const options = {
+        method: 'GET',
+        url: 'https://ip-geolocation-ipwhois-io.p.rapidapi.com/json/',
+        headers: {
+            'X-RapidAPI-Key': 'b794479549mshca26bdcf7583ae1p1ea069jsn56c6c989077b',
+            'X-RapidAPI-Host': 'ip-geolocation-ipwhois-io.p.rapidapi.com'
+        }
+    };
+
+
+    useEffect(()=>{
+        // api.getWeather()
+        //     .then((response)=>{
+        //         setWeather(response.data.data.weather)
+        //     })
+        // axios.request(options).then(function (response) {
+        //     console.log(response.data);
+        //     setLocation(response.data.city)
+        // }).catch(function (error) {
+        //     console.error(error);
+        // });
+
+
+    })
+
+
     return(
         <div className="sideBar">
 
@@ -114,6 +152,16 @@ const SidebarMenu = ()=>{
 
 
             </div>
+
+            <div className={"weatherLocation"}>
+                <div className={"location"}>
+                    Current Location: {location}
+                </div>
+                <div className={"weather"}>
+                    Weather (Sydney): {weather}
+                </div>
+            </div>
+
             <div className="setting">
                 <Link to={"/user/myProfile"}>
                     <div className={"accountSettingBtn"}>

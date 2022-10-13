@@ -303,5 +303,10 @@ export default {
             }
         )
     },
+    getWeather:()=>{
+        return axios.get("http://localhost:8090/weather/",
+        {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
 
+    )
+    }
 }

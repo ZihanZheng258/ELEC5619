@@ -133,7 +133,8 @@ const MyDiscussions = () => {
                     <MenuItem
                     key={1}
                     onClick={() => {
-                        // View profile logic...
+                        //  Go to edit page
+                        navigate("/user/editDiscussion/"+row.original.id, {state:{id: row.original.id, title: row.original.title, content:row.original.content,category:row.original.jsonCategory.content}})
                         closeMenu();
                     }}
                     sx={{m: 0}}

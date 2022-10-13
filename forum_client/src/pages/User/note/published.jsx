@@ -132,7 +132,15 @@ const PublishedNote = () => {
                 </MenuItem>, <MenuItem
                     key={1}
                     onClick={() => {
-                        // View profile logic...
+                        // edit note info
+                        navigate("/user/editNote/"+row.original.id,
+                            {
+                                state: {
+                                    id: row.original.id,
+                                    title: row.original.title,
+                                    content:row.original.content,
+                                    category:row.original.jsonCategory.content
+                                }})
                         closeMenu();
                     }}
                     sx={{m: 0}}
