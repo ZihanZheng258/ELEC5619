@@ -19,32 +19,11 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import Slide from '@mui/material/Slide';
-import {TransitionProps} from '@mui/material/transitions';
 
-const Transition = React.forwardRef(function Transition(props: TransitionProps & {
-    children: React.ReactElement<any, any>;
-}, ref: React.Ref<unknown>,) {
-    return <Slide direction="up" ref={ref} {...props} />;
-});
 
 const DiscussionLiked = () => {
     const navigate = useNavigate()
-    const [open, setOpen] = useState(false);
-    const [noteDelete, setNoteDelete] = useState(-1);
     const [data, setData] = useState([]);
-    const handleClickOpen = (noteID) => {
-        setNoteDelete(noteID)
-        setOpen(true);
-    };
-    const handleClose = () => {
-        setOpen(false);
-    };
-    const handleDelete = () => {
-        console.log("delete" + noteDelete)
-        setNoteDelete(-1)
-        setOpen(false);
-    };
 
     const columns = useMemo(() =>
         [
@@ -53,51 +32,61 @@ const DiscussionLiked = () => {
             },
 
             {
-                accessorKey: 'name', //id is still required when using accessorFn instead of accessorKey
+                accessorKey: 'title', //id is still required when using accessorFn instead of accessorKey
                 header: 'Title', enableClickToCopy: true, size: 300,
 
             }, {
-            accessorKey: 'description', //accessorKey used to define `data` column. `id` gets set to accessorKey automatically
+            accessorKey: 'content', //accessorKey used to define `data` column. `id` gets set to accessorKey automatically
             enableClickToCopy: true, header: 'Description', size: 300,
         },
 
             {
-
                 accessorKey: 'jsonCategory.content', enableClickToCopy: true, header: 'Category', size: 200,
 
             }, {
-            accessorKey: 'numOfBuy', //hey a simple column for once
-            header: '#Buys', size: 50,
+            accessorKey: 'viewNumber', //hey a simple column for once
+            header: '#Views', size: 50,
         }, {
-            accessorFn: (row) => new Date(row.createDate), //convert to Date for sorting and filtering
-            id: 'createDate',
-            header: 'Create Date',
-            filterFn: 'lessThanOrEqualTo',
-            sortingFn: 'datetime',
-            Cell: ({cell}) => cell.getValue()?.toLocaleDateString(), //render Date as a string
-            Header: ({column}) => <em>{column.columnDef.header}</em>, //custom header markup
-            //Custom Date Picker Filter from @mui/x-date-pickers
-            Filter: ({column}) => (<LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                    onChange={(newValue) => {
-                        column.setFilterValue(newValue);
-                    }}
-                    renderInput={(params) => (<TextField
-                        {...params}
-                        helperText={'Filter Mode: Lesss Than'}
-                        sx={{minWidth: '120px'}}
-                        variant="standard"
-                    />)}
-                    value={column.getFilterValue()}
-                />
-            </LocalizationProvider>),
-        }], [],);
-    useEffect(() => {
-        api.getNotesByPage(0)
-            .then((response) => {
-                setData(response.data.data.notes.content)
-            })
+            accessorKey: 'likeNumber', //hey a simple column for once
+            header: '#Likes', size: 50,
+        },{
+            accessorKey: 'commentNumber', //hey a simple column for once
+            header: '#Comments', size: 50,
+        },
 
+            {
+                accessorFn: (row) => new Date(row.createDate), //convert to Date for sorting and filtering
+                id: 'createDate',
+                header: 'Create Date',
+                filterFn: 'lessThanOrEqualTo',
+                sortingFn: 'datetime',
+                Cell: ({cell}) => cell.getValue()?.toLocaleDateString(), //render Date as a string
+                Header: ({column}) => <em>{column.columnDef.header}</em>, //custom header markup
+                //Custom Date Picker Filter from @mui/x-date-pickers
+                Filter: ({column}) => (<LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker
+                        onChange={(newValue) => {
+                            column.setFilterValue(newValue);
+                        }}
+                        renderInput={(params) => (<TextField
+                            {...params}
+                            helperText={'Filter Mode: Lesss Than'}
+                            sx={{minWidth: '120px'}}
+                            variant="standard"
+                        />)}
+                        value={column.getFilterValue()}
+                    />
+                </LocalizationProvider>),
+            }], [],);
+
+    useEffect(() => {
+        api.getSelf()
+            .then((response)=>{
+                api.getDiscussionLikedbyUser(response.data.data.user.nickName)
+                    .then((res) => {
+                        setData(res.data.data.discussions)
+                    })
+            })
 
     }, []);
 
@@ -121,7 +110,7 @@ const DiscussionLiked = () => {
                     key={0}
                     onClick={() => {
                         // View profile logic...
-                        navigate("/note/" + row.original.id)
+                        navigate("/discussion/" + row.original.id)
                     }}
                     sx={{m: 0}}
                 >
@@ -136,24 +125,7 @@ const DiscussionLiked = () => {
                 }
 
             />
-            <Dialog
-                open={open}
-                TransitionComponent={Transition}
-                keepMounted
-                onClose={handleClose}
-                aria-describedby="alert-dialog-slide-description"
-            >
-                <DialogTitle>{"Delete Note?"}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-slide-description">
-                        Are you sure you want to delete this note?
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleDelete}>Yes</Button>
-                </DialogActions>
-            </Dialog>
+
         </div>
 
     );

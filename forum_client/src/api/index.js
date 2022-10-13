@@ -155,7 +155,7 @@ export default {
     },
 
 	// verify bought note
-	getBoughtList: (userID) => {
+	getBoughtListbyUserID: (userID) => {
 		return axios.get('http://localhost:8090/note/buyer/' + userID, {
 			headers: { Authorization: `Bearer ` + localStorage.getItem('token') },
 		})
@@ -240,5 +240,50 @@ export default {
             'http://localhost:8090/discussion/user/'+userID ,
             {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
         );
-    }
+    },
+    getDiscussionLikedbyUser: (userNickName)=>{
+        return axios.get(
+            'http://localhost:8090/discussion/user/liked/'+userNickName ,
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+        );
+    },
+    createCategory: (category) =>{
+        return axios.post(
+            'http://localhost:8090/category/', {content:category},
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+        );
+    },
+    createDiscussion: (title, content, categoryID) =>{
+        return axios.post(
+            'http://localhost:8090/discussion/', {
+                title: title,
+                content: content,
+                categoryID : categoryID
+            },
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+        );
+    },
+    uploadFile: (formData)=>{
+        return axios.postForm(
+            "http://localhost:8090/note/uploadNote/",
+            formData,
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token"), 'content-type': 'multipart/form-data'}}
+        )
+    },
+    uploadFileToDatabase: (path,price,description,categoryID,name)=>{
+        return axios.post(
+            "http://localhost:8090/note/",
+            {
+                path :path,
+                price : price,
+                description: description,
+                categoryId : categoryID,
+                content: "",
+                name : name
+            },
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}
+            }
+        )
+    },
+
 }

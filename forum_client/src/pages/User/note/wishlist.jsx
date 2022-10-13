@@ -30,7 +30,6 @@ const Transition = React.forwardRef(function Transition(props: TransitionProps &
 
 const WishlistNote = () => {
     const navigate = useNavigate()
-    const [open, setOpen] = useState(false);
     const [data, setData] = useState([]);
 
 

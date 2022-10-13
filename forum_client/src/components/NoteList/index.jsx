@@ -19,9 +19,10 @@ const NoteList = () =>{
     const [totalPage, setTotalPage] = useState(1);
 
     useEffect(()=>{
-        api.getNotesByPage(0)
+        api.getNotesByPage(page-1)
             .then((response)=>{
                 setNotesList(response.data.data.notes.content)
+                setTotalPage(response.data.data.notes.totalPages)
             });
         api.getSelf()
             .then((response)=>{

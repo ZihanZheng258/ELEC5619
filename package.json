@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/ZihanZheng258/ELEC5619#readme",
   "dependencies": {
+    "@material-ui/core": "^4.12.4",
     "antd": "^4.23.0",
     "babel-plugin-import": "^1.13.5",
     "customize-cra": "^1.0.0",

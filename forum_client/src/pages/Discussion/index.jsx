@@ -25,7 +25,6 @@ const Discussion = () =>{
                         </div>
                         <div className="layout-col">
                             <div className="layout-content">
-                                <Announcement/>
                             </div>
                             <DiscussionList category={params}/>
 

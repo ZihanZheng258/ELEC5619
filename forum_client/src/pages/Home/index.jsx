@@ -36,7 +36,7 @@ const Home = () =>{
                         </div>
                         <div className="layout-col">
                             <div className="layout-content">
-                                <Announcement/>
+                                {/*<Announcement/>*/}
                             </div>
                             <DiscussionList />
 

@@ -30,6 +30,11 @@ const SidebarMenu = ()=>{
 
                     {/*Life*/}
                     <li>
+                        <Link to={"/"}>
+                            All
+                        </Link>
+                    </li>
+                    <li>
                         <Link to={"/discussion/category/life"}>
                             Life
                         </Link>

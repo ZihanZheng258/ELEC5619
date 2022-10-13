@@ -28,13 +28,15 @@ const Transition = React.forwardRef(function Transition(props: TransitionProps &
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
-const DiscussionPost = () => {
+const MyDiscussions = () => {
     const navigate = useNavigate()
     const [data, setData] = useState([]);
 
 
 
-    const columns = useMemo(() => [{
+    const columns = useMemo(() =>
+        [
+        {
         id: 'id', hide: true
     },
 
@@ -85,10 +87,12 @@ const DiscussionPost = () => {
                 />
             </LocalizationProvider>),
         }], [],);
+
+
     useEffect(() => {
         api.getSelf()
             .then((response)=>{
-                api.getDiscussionByUser(8)
+                api.getDiscussionByUser(response.data.data.user.id)
                     .then((res) => {
                         setData(res.data.data.discussions)
                     })
@@ -117,7 +121,7 @@ const DiscussionPost = () => {
                     key={0}
                     onClick={() => {
                         // View profile logic...
-                        navigate("/note/" + row.original.id)
+                        navigate("/discussion/" + row.original.id)
                     }}
                     sx={{m: 0}}
                 >
@@ -165,7 +169,7 @@ const DiscussionPost = () => {
                     return (<div style={{display: 'flex', gap: '0.5rem'}}>
                         <Button
                             color="info"
-                            onClick={() => navigate("/")}
+                            onClick={() => navigate("/user/postDiscussion")}
                             variant="contained"
                         >
                             Create new discussion
@@ -179,4 +183,4 @@ const DiscussionPost = () => {
 
     );
 };
-export default DiscussionPost
+export default MyDiscussions

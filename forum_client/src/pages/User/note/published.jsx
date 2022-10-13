@@ -12,13 +12,9 @@ import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs';
 import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
 import {DatePicker} from '@mui/x-date-pickers/DatePicker';
 //Icons Imports
-import {DeleteForeverOutlined, VisibilityOutlined} from '@mui/icons-material';
+import { VisibilityOutlined} from '@mui/icons-material';
 import api from "../../../api"
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+
 import Slide from '@mui/material/Slide';
 import {TransitionProps} from '@mui/material/transitions';
 
@@ -30,21 +26,8 @@ const Transition = React.forwardRef(function Transition(props: TransitionProps &
 
 const PublishedNote = () => {
     const navigate = useNavigate()
-    const [open, setOpen] = useState(false);
-    const [noteDelete, setNoteDelete] = useState(-1);
     const [data, setData] = useState([]);
-    const handleClickOpen = (noteID) => {
-        setNoteDelete(noteID)
-        setOpen(true);
-    };
-    const handleClose = () => {
-        setOpen(false);
-    };
-    const handleDelete = () => {
-        console.log("delete" + noteDelete)
-        setNoteDelete(-1)
-        setOpen(false);
-    };
+
 
     const columns = useMemo(() => [{
         id: 'id', hide: true
@@ -185,7 +168,7 @@ const PublishedNote = () => {
                     return (<div style={{display: 'flex', gap: '0.5rem'}}>
                         <Button
                             color="info"
-                            onClick={() => navigate("/")}
+                            onClick={() => navigate("/user/postNote")}
                             variant="contained"
                         >
                             Create new note
@@ -194,24 +177,7 @@ const PublishedNote = () => {
                     </div>);
                 }}
             />
-            <Dialog
-                open={open}
-                TransitionComponent={Transition}
-                keepMounted
-                onClose={handleClose}
-                aria-describedby="alert-dialog-slide-description"
-            >
-                <DialogTitle>{"Delete Note?"}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText id="alert-dialog-slide-description">
-                        Are you sure you want to delete this note?
-                    </DialogContentText>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={handleClose}>Cancel</Button>
-                    <Button onClick={handleDelete}>Yes</Button>
-                </DialogActions>
-            </Dialog>
+
         </div>
 
     );

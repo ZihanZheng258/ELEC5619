@@ -28,9 +28,14 @@ import Setting from '../pages/User/settings/index'
 import OwnedNote from '../pages/User/note/owned'
 import WishlistNote from '../pages/User/note/wishlist'
 import PublishedNote from '../pages/User/note/published'
+import NoteEdit from "../pages/User/note/noteEdit";
+import NotePost from "../pages/User/note/notePost";
+
 //User Discussions
-import DiscussionPost from "../pages/User/discussion/post";
+import MyDiscussions from "../pages/User/discussion/post";
 import DiscussionLiked from "../pages/User/discussion/like";
+import DiscussionPost from "../pages/User/discussion/discussionPost";
+import DiscussionEdit from "../pages/User/discussion/discussionEdit";
 
 
 
@@ -76,10 +81,15 @@ const AppRouter = () => {
                     <Route path={"publishedNotes"} element={<PublishedNote/>}/>
                     <Route path={"myNotes"} element={<OwnedNote/>}/>
                     <Route path={"notesWishlist"} element={<WishlistNote/>}/>
+                    <Route path={"editNote/:id"} element={<NoteEdit/>}/>
+                    <Route path={"postNote"} element={<NotePost/>}/>
+
 
                     {/*Discussion*/}
-                    <Route path={"discussionPost"} element={<DiscussionPost/>}/>
+                    <Route path={"myDiscussions"} element={<MyDiscussions/>}/>
                     <Route path={"discussionLiked"} element={<DiscussionLiked/>}/>
+                    <Route path={"editDiscussion/:id"} element={<DiscussionEdit/>}/>
+                    <Route path={"postDiscussion"} element={<DiscussionPost/>}/>
 
 
 

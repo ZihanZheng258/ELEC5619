@@ -71,7 +71,7 @@ const User = () => {
                     {
                         key: "5",
                         label: <span className="dropdown-item">discussions post</span>,
-                        onClick: () => navigate("/user/discussionPost"),
+                        onClick: () => navigate("/user/myDiscussions"),
                         icon: <PublishOutlinedIcon />,
                     },
                     {

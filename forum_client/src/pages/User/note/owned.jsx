@@ -97,12 +97,10 @@ const OwnedNote = () => {
             .then((response)=>{
                 api.getPublishedNotes(response.data.data.user.id)
                     .then((resp) => {
-                        console.log(resp)
                         setData(resp.data.data.notes)
                     })
                 api.getBoughtNotes(response.data.data.user.id)
                     .then((resb)=>{
-                        console.log(resb)
                         setData(prevState => [...prevState,...resb.data.data.notes])
                     })
 
