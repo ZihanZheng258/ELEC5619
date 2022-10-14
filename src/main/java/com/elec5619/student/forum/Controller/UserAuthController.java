@@ -66,6 +66,7 @@ public class UserAuthController {
         User user = new User();
         user.setNickName(signUpRequest.getNickName());
         user.setPassword(signUpRequest.getPassword());
+        System.out.println("\n\n\n\n\n\n\n + " +signUpRequest.getPassword());
         user.setEmail(signUpRequest.getEmail());
         user.setPhoneNumber(signUpRequest.getPhoneNumber());
 
