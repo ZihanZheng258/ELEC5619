@@ -46,7 +46,7 @@ const NoteDetail = () =>{
                                             })
 
                     })
-        console.log("Just enter: " + boughtList.indexOf(parseInt(params)))
+        //console.log("Just enter: " + boughtList.indexOf(parseInt(params)))
 
 
     },[]);
@@ -89,7 +89,7 @@ const NoteDetail = () =>{
             let index = parseInt(params);
 
             if(boughtList.indexOf(index) > -1){
-                message.error("You already brought this note!")
+                message.success("Your note download will start soon.")
                 download(noteID)
             }
             else{
