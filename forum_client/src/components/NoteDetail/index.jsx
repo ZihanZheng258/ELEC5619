@@ -8,20 +8,22 @@ import {useState, useEffect} from "react";
 import {Link, useParams} from "react-router-dom";
 import {message} from "antd";
 import avatar from "../Comment/assets/avatar.jpeg";
+import moment from "moment/moment";
 
 
 const NoteDetail = () =>{
 
-    const params = useParams().id;
+    const params = parseInt(useParams().id);
+
 
     const [detail, setDetail] = useState([]);
     const [self, setSelf] = useState([]);
     const [detailUser, setDetailUser] = useState([])
     const [detailCategory, setDetailCategory] = useState([])
     const [boughtList, setBoughtList] = useState([]);
-    const [object, setObject] = useState([]);
     const [comment, setComment] = useState("")
-    let counter = 0;
+    const [counter, setCounter] = useState(0)
+
 
     useEffect(()=>{
         api.getNoteDetail(params)
@@ -35,12 +37,16 @@ const NoteDetail = () =>{
                     .then((response)=>{
                         console.log(response)
                         setSelf(response.data.data.user)
-                        api.getBoughtList(response.data.data.user.id)
-                                            .then((response) => {
-                                            setObject(response.data.data.notes)
-                                        })
+                        api.getBoughtNotes(response.data.data.user.id)
+                                            .then((response)=>{
+                                                const arr = [response.data.data.notes]
+                                                arr[0].forEach((element)=>{
+                                                    setBoughtList(prevState => [...prevState, element.id])
+                                                })
+                                            })
 
                     })
+        console.log("Just enter: " + boughtList.indexOf(parseInt(params)))
 
 
     },[]);
@@ -58,32 +64,11 @@ const NoteDetail = () =>{
         console.log('form submitted ✅');
     };
 
-    let count = 0;
-    function foo(userID){
-        console.log('self.id:'  + self.id);
-
-        for(let x of object){
-            if(x.id == params){
-                count++;
-            }
-        }
-
-        return count;
-    }
-
 
     const download = (noteID)=>{
-            api.downloadNote(noteID)
-                .then(response => {
-                    console.log(response.headers.get('Content-Disposition'))
-                    const filename =  response.headers.get('Content-Disposition').split('filename=')[1];
-                    response.blob().then(blob => {
-                        let url = window.URL.createObjectURL(blob);
-                        let a = document.createElement('a');
-                        a.href = url;
-                        a.download = filename;
-                        a.click();
-                    });})}
+            api.downloadNote(noteID).then((response)=>{
+            })
+    }
 
 
     const saveNote = (noteID)=>{
@@ -97,18 +82,17 @@ const NoteDetail = () =>{
 
                 })
         }
-        counter = (foo(self.id))
+
 
         const buyNote = (noteID,userID)=>{
-            //console.log(counter)
-            console.log(boughtList)
 
+            let index = parseInt(params);
 
-            if(counter >= 1){
+            if(boughtList.indexOf(index) > -1){
                 message.error("You already brought this note!")
                 download(noteID)
             }
-            else if(counter == 0){
+            else{
                 api.buyNote(noteID)
                     .then((response)=>{
                         if (!response.data.flag){
@@ -148,7 +132,7 @@ const NoteDetail = () =>{
 
                        <div className="noteCardContent">
                                     <div className="noteTitle">
-                                        {params}| Category: {detailCategory.content} | {counter}
+                                        {detail.name}| Category: {detailCategory.content}
                                     </div>
                                     <div className="noteTitle">
                                         Price is: ${detail.price}, This note is currently purchased: {detail.numOfBuy} time(s)
@@ -157,22 +141,28 @@ const NoteDetail = () =>{
                                         {detail.description}
 
                                     </div>
-                                    <div className="noteOther">
-                                            Other things that are inside the specific API.
-                                            {detail.jsonBuyers}
-
-                                    </div>
                                     <div className="noteTag">
-                                        {detailUser.nickName}| {self.id} | Note posted at: {detail.createDate}
+                                       Note posted by: {detailUser.nickName} | Note posted at: {moment(detail.createDate).format('DD MMM YYYY')}
                                     </div>
                        </div>
                        <div className="noteCardActionBar">
                                 <Button variant="outline-info"
                                 onClick={()=>saveNote(params)
                                 }>Save</Button>{' '}
-                                <Button variant="outline-info"
-                                onClick={()=>buyNote(params,self.id)
-                                }>Buy</Button>{' '}
+                                {
+                                       !(boughtList.indexOf(params)>-1) &&
+                                       <Button variant="outline-info"
+                                        onClick={()=>buyNote(params,self.id)
+                                        }>Buy
+                                        </Button>
+                                }
+                                {
+                                        boughtList.indexOf(params)>-1 &&
+                                        <Button variant="outline-info"
+                                        onClick={()=>buyNote(params,self.id)
+                                        }>Download
+                                        </Button>
+                                }
                        </div>
             </div>
             <div className="comment-box">
