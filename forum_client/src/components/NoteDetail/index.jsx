@@ -125,10 +125,9 @@ const NoteDetail = () =>{
                                 <div className="noteCardImage">
                                     <img src="" alt=""/>
                                     <div className="card-unit">
-                                        ELEC5619
+                                        {detailCategory.content}
                                     </div>
                        </div>
-
 
                        <div className="noteCardContent">
                                     <div className="noteTitle">

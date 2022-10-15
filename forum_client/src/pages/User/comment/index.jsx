@@ -1,38 +1,108 @@
 import React, { useState, useEffect } from 'react'
-import { Avatar, Comment } from 'antd'
+import { Avatar, Comment,Form,Tooltip } from 'antd'
+import api from "../../../api"
+import moment  from 'moment'
 
-const ExampleComment = ({ children }) => (
+
+import svg from '../assets/like-red.svg'
+const ExampleComment = ({ item }) => (
+
+
+
     <Comment
-        actions={[<span key='comment-nested-reply-to'>Reply to</span>]}
-        author={<a>Han Solo</a>}
-        avatar={<Avatar src='https://joeschmoe.io/api/v1/random' alt='Han Solo' />}
+        actions={[
+        
+        
+        <Tooltip key="comment-basic-like" title="Like">
+        <span >
+        <img
+                                src= {svg}
+                                alt=""
+                                width={25}
+height={25}                     
+                            />
+          <span className="comment-action">{item.likeNumber}</span>
+        </span>
+      </Tooltip>,
+
+
+  
+
+     
+      <span key="comment-basic-reply-to">{  moment(item.createDate).format('YYYY-MM-DD HH:mm:ss')  }</span>]}
         content={
             <p>
-                We supply a series of design principles, practical patterns and high quality design resources (Sketch
-                and Axure).
+                {item.content}
+              
             </p>
+
+
         }
     >
-        {children}
+   
     </Comment>
 )
 
-const CommentModal = () => {
-    useEffect(() => { }, [])
 
-    return (
-        <div className='comments_container' style={{ padding: '20px' }}>
-            <ExampleComment>
-                <ExampleComment>
-                    <ExampleComment />
-                    <ExampleComment />
-                    <ExampleComment />
-                    <ExampleComment />
-                    <ExampleComment />
-                    <ExampleComment />
-                </ExampleComment>
-            </ExampleComment>
-        </div>
-    )
+
+
+class CommentModal  extends React.Component {
+
+            state={comments:[]}
+
+            
+
+
+        async    componentWillMount(){
+        const   res= await    api.getSelf()
+
+        
+        const   u_id=res.data.data.user.id
+                    
+        const {data:{data:{comments}}} = await  api.getUserComments(u_id)
+        const {data:{data:{comments:NoteComment}}} = await  api.getNoteComment(u_id)
+
+    
+            this.setState({
+
+                comments:[...comments,...NoteComment]
+            })
+
+
+     
+        }
+
+            render(){
+    
+                const op=this.state.comments.map(item=>{
+
+
+                    return  <ExampleComment item={item} key={item.id}> </ExampleComment>
+                })
+                return (
+
+        
+                    <div className='comments_container' style={{ padding: '20px' }}>
+                        {/* <ExampleComment>
+                            <ExampleComment>
+                                <ExampleComment  />
+                                <ExampleComment />
+                                <ExampleComment />
+                                <ExampleComment />
+                                <ExampleComment />
+                                <ExampleComment />
+                            </ExampleComment>
+                        </ExampleComment> */}
+            
+                  
+                    
+                      {op}
+            
+            
+                    </div>
+                )
+
+            }
+    
 }
 export default CommentModal
