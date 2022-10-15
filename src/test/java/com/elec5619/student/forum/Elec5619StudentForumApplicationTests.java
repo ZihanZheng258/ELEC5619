@@ -169,7 +169,7 @@ class Elec5619StudentForumApplicationTests {
 	}
 
     @Test
-	void DiscussionTest(){
+	void DiscussionTest_add(){
 
 		 Discussion discussion = new Discussion();
 		 discussion.setTitle("testDiscussion2");
@@ -183,6 +183,24 @@ class Elec5619StudentForumApplicationTests {
 		 System.out.println(discussionService.findByCategory(3));
 		 System.out.println(discussionService.findByUser(2));*/
 	}
+
+	@Test
+	void DiscussionTest_alike(){
+		Discussion discussion = discussionService.findById(5);
+		discussionService.beenLiked(discussion,1);
+	}
+
+	@Test
+	void DiscussionTest_Viewed(){
+		Discussion discussion = discussionService.findById(5);
+		discussionService.beenViewed(discussion);
+	}
+	@Test
+	void DiscussionTest_search(){
+		System.out.println(discussionService.findByCategory(3));
+		System.out.println(discussionService.findByUser(2));
+	}
+
 
 	@Test
 	void CommentTesting(){

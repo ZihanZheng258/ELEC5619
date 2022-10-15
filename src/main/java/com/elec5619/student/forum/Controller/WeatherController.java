@@ -34,6 +34,7 @@ public class WeatherController {
         HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
         JsonReturnType jsonReturnType = JsonReturnType.successReturn();
         String weather = response.body();
+        System.out.println(response.body());
         int i = weather.indexOf("weather");
         weather = weather.substring(i);
         weather = weather.substring(0,weather.indexOf(","));
