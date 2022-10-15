@@ -101,12 +101,7 @@ export default {
         );
     },
 
-    getComments: (discussionID)=>{
-        return axios.get(
-            'http://localhost:8090/comment/discussion/'+discussionID ,
-            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
-        );
-    },
+
     getUserComments: (id)=>{
         return axios.get(
             'http://localhost:8090/comment/user/'+id ,
