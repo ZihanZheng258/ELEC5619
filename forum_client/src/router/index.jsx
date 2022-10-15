@@ -46,7 +46,7 @@ const AppRouter = () => {
         api.getSelf().then((response) => {
             setAuthOK(response.data.flag)
         })
-
+   
         const token = localStorage.getItem("token");
         if (token) {
             setAuthToken(token);

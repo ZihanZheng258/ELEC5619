@@ -58,6 +58,11 @@ const Login = () => {
 
     return (
         <div className="login-container">
+            <div className="title_logo">
+         
+                    <span>Notepile</span>
+        
+            </div>
             <div className="login-box">
                 <div className="login-left">
                     <img src={loginLeft} alt="login" />
@@ -97,6 +102,13 @@ const Login = () => {
                             </Button>
                         </Form.Item>
                     </Form>
+
+                    <p className='login-callout'>
+                    If you don't have an account ?
+                        <span href="" style={{ color: '#40a9ff', cursor: 'pointer' }} onClick={() => navigate('/register')}>
+                            {' Sign up → '}
+                        </span>
+                    </p>
 
                 </div>
             </div>

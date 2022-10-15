@@ -30,6 +30,7 @@ const SearchList = () =>{
     useEffect(()=>{
         api.getSelf()
             .then((response)=>{
+                setUser(response.data.data.user.id)
                 api.getBoughtNotes(response.data.data.user.id)
                     .then((response)=>{
                         const arr = [response.data.data.notes]
@@ -138,6 +139,39 @@ const SearchList = () =>{
             })
     }
 
+    const likerRendder = (index)=> {
+        console.log(index)
+        if (index.jsonLiker.length === 0) {
+            return <>
+                <img
+                    src={nlikes}
+                    alt=""
+                    onClick={() => likeDiscussion(index.id)}
+                />
+            </>
+        } else if (index.jsonLiker.length > 0) {
+            for (const i of index.jsonLiker) {
+                if (i.id === user) {
+                    return <div key={"likeBtn" + index.id}>
+                        <img
+                            src={likes}
+                            alt=""
+                            onClick={() => disLikeDiscussion(index.id)}
+                        />
+                    </div>
+
+                }
+            }
+            return <div key={"likeBtn" + index.id}>
+                <img
+                    src={nlikes}
+                    alt=""
+                    onClick={() => likeDiscussion(index.id)}
+                />
+            </div>
+        }
+    }
+
     return(
         <div className="searchList">
             <div className="searchResults">
@@ -146,26 +180,7 @@ const SearchList = () =>{
                             <div className="discussion-card" key={"discussion-card"+index.id.toString()}>
                                 <div className="likes-column" key={"likes-column"+index.id.toString()}>
 
-                                    { index.jsonLiker.map((liker)=>{
-                                        return <div key={"likeBtn"+index.id}>
-                                            {
-                                                <img
-                                                    src= {likes}
-                                                    alt=""
-                                                    onClick={()=>disLikeDiscussion(index.id)}
-                                                />
-                                            }
-                                        </div>
-
-                                    })}
-                                    {
-                                        index.jsonLiker.length === 0 &&
-                                        <img
-                                            src= {nlikes}
-                                            alt=""
-                                            onClick={()=>likeDiscussion(index.id)}
-                                        />
-                                    }
+                                    { likerRendder(index)}
                                     <div className="likeNumber">
                                         {index.likeNumber}
                                     </div>

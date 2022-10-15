@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from 'react'
 import { Descriptions, Switch } from 'antd'
 import "./index.less"
-import Interface from "../../../api/index";
+import api from "../../../api/index";
 
 const UserInfoModal = (props) => {
 
-    console.log(props, 'propsprops???');
+
 
     const [userInfo, setUserInfo] = useState({})
 
     const getUserInfo = () => {
-        Interface.getUserSelf().then(res => {
-            if (res && res.flag) {
-                const info = res.data && res.data.user || {}
+        api.getSelf().then(res => {
+
+        
+            if (res) {
+
+                
+                const info = res.data && res.data.data.user|| {}
+                console.log(info);
                 setUserInfo(info);
             }
         }).catch(err => {

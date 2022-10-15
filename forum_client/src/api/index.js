@@ -20,10 +20,23 @@ export default {
 
 	// sign up
 	signUp: (params = {}) => {
+        console.log(params);
 		return axios.post(
 			'http://localhost:8090/auth/signup',
-			{ params },
-			{ headers: { Authorization: `Bearer ` + localStorage.getItem('token') } }
+			{ 
+
+                "email": params.email,
+                "nickName": params.nickName,
+                "password": params.password,
+                "phoneNumber": params.phoneNumber
+
+            },
+            {
+                headers: { Authorization:  '' },
+
+            }
+          
+			
 		)
 	},
 
@@ -33,7 +46,13 @@ export default {
 			headers: { Authorization: `Bearer ` + localStorage.getItem('token') },
 		})
 	},
+    sethaveRead:(id)=>{
 
+        return axios.get('http://localhost:8090/notice/read/'+id, {
+			headers: { Authorization: `Bearer ` + localStorage.getItem('token') },
+		})
+
+    },
 	// get all discussion list  by page - /discussion/page/:pageNum
 	getDiscussionByPage: (page) => {
 		return axios.get('http://localhost:8090/discussion/page/' + page, {
@@ -78,6 +97,21 @@ export default {
     getComments: (discussionID)=>{
         return axios.get(
             'http://localhost:8090/comment/discussion/'+discussionID ,
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+        );
+    },
+
+
+    getUserComments: (id)=>{
+        return axios.get(
+            'http://localhost:8090/comment/user/'+id ,
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+        );
+    },
+
+    getNoteComment: (id)=>{
+        return axios.get(
+            'http://localhost:8090/noteComment/user/'+id ,
             {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
         );
     },
@@ -154,6 +188,15 @@ export default {
         );
     },
 
+     // send notice to others
+     getReceiverNotice: ( receiverID)=>{
+        return axios.get(
+            'http://localhost:8090/notice/receiver/'+receiverID,
+          
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+        );
+    },
+
 	// verify bought note
 	getBoughtListbyUserID: (userID) => {
 		return axios.get('http://localhost:8090/note/buyer/' + userID, {
@@ -171,6 +214,19 @@ export default {
 	// getUserSelf
 	getUserSelf: () => {
 		return axios.get('http://localhost:8090/user/self', {
+			headers: { Authorization: `Bearer ` + localStorage.getItem('token') },
+		})
+	},
+
+    	// getUserSelf
+	getUserInfo: (id) => {
+		return axios.get('http://localhost:8090/user/'+id, {
+			headers: { Authorization: `Bearer ` + localStorage.getItem('token') },
+		})
+	},
+    // getUserSelf
+	getUserComment: (id) => {
+		return axios.get(`http://localhost:8090/comment/user/${id}`, {
 			headers: { Authorization: `Bearer ` + localStorage.getItem('token') },
 		})
 	},
