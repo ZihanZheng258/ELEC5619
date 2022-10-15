@@ -78,25 +78,25 @@ const AppRouter = () => {
                     }
                 >
                     {/*Note*/}
-                    <Route path={"publishedNotes"} element={<PublishedNote/>}/>
-                    <Route path={"myNotes"} element={<OwnedNote/>}/>
-                    <Route path={"notesWishlist"} element={<WishlistNote/>}/>
-                    <Route path={"editNote/:id"} element={<NoteEdit/>}/>
-                    <Route path={"postNote"} element={<NotePost/>}/>
+                    <Route path={"publishedNotes"} element={<RouteGuard><PublishedNote/></RouteGuard>}/>
+                    <Route path={"myNotes"} element={<RouteGuard><OwnedNote/></RouteGuard>}/>
+                    <Route path={"notesWishlist"} element={<RouteGuard><WishlistNote/></RouteGuard>}/>
+                    <Route path={"editNote/:id"} element={<RouteGuard><NoteEdit/></RouteGuard>}/>
+                    <Route path={"postNote"} element={<RouteGuard><NotePost/></RouteGuard>}/>
 
 
                     {/*Discussion*/}
-                    <Route path={"myDiscussions"} element={<MyDiscussions/>}/>
-                    <Route path={"discussionLiked"} element={<DiscussionLiked/>}/>
-                    <Route path={"editDiscussion/:id"} element={<DiscussionEdit/>}/>
-                    <Route path={"postDiscussion"} element={<DiscussionPost/>}/>
+                    <Route path={"myDiscussions"} element={<RouteGuard><MyDiscussions/></RouteGuard>}/>
+                    <Route path={"discussionLiked"} element={<RouteGuard><DiscussionLiked/></RouteGuard>}/>
+                    <Route path={"editDiscussion/:id"} element={<RouteGuard><DiscussionEdit/></RouteGuard>}/>
+                    <Route path={"postDiscussion"} element={<RouteGuard><DiscussionPost/></RouteGuard>}/>
 
 
 
-                    <Route path='myProfile' element={<UserInfo />} />
-                    <Route path='comment' element={<Comment />} />
-                    <Route path='notice' element={<Notice />} />
-                    <Route path='setting' element={<Setting />} />
+                    <Route path='myProfile' element={<RouteGuard><UserInfo /></RouteGuard>} />
+                    <Route path='comment' element={<RouteGuard><Comment /></RouteGuard>} />
+                    <Route path='notice' element={<RouteGuard><Notice /></RouteGuard>} />
+                    <Route path='setting' element={<RouteGuard><Setting /></RouteGuard>} />
                 </Route>
 
                 <Route
@@ -137,9 +137,7 @@ const AppRouter = () => {
                     <Login />
                 }></Route>
                 <Route path="/register" element={
-                    <RouteGuard>
                         <Register />
-                    </RouteGuard>
                 }></Route>
 
                 {/*<Route path="/discussion:id" element={<DiscussionDetail />}></Route>*/}
