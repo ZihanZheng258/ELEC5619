@@ -129,7 +129,6 @@ const NoteDetail = () =>{
                                     </div>
                        </div>
 
-
                        <div className="noteCardContent">
                                     <div className="noteTitle">
                                         {detail.name}| Category: {detailCategory.content}
