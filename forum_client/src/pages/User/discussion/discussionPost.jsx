@@ -25,19 +25,14 @@ const DiscussionPost = ()=>{
     const navigate = useNavigate();
     const onFinish = (values) => {
         console.log(values)
-        api.createCategory(values.category)
-            .then((response)=>{
-                console.log(response.data.data.Category.id)
 
-                api.createDiscussion(values.title,values.content,response.data.data.Category.id)
-                    .then((res)=>{
-                        message.success("New discussion posted");
-                        navigate("/user/myDiscussions")
-                    }).catch((err)=>{
-                    message.error("Something wrong, please try again");
-                })
-            })
-
+        api.createDiscussion(values.title,values.content,values.category)
+            .then((res)=>{
+                message.success("New discussion posted");
+                navigate("/user/myDiscussions")
+            }).catch((err)=>{
+            message.error("Something wrong, please try again");
+        })
     };
     return(
         <div className={"newForm"}>

@@ -102,12 +102,12 @@ const User = () => {
                 icon:<UserOutlined />,
 
             },
-            {
-                key: "10",
-                label: <span className="dropdown-item">Settings</span>,
-                onClick: () => navigate("/user/setting"),
-                icon: <SettingOutlined />,
-            },
+            // {
+            //     key: "10",
+            //     label: <span className="dropdown-item">Settings</span>,
+            //     onClick: () => navigate("/user/setting"),
+            //     icon: <SettingOutlined />,
+            // },
         ]
 
 

@@ -13,19 +13,33 @@ import Pagination from "@mui/material/Pagination";
 import { useNavigate } from "react-router-dom";
 
 
-const NoteList = () =>{
+const NoteList = (props) =>{
     const [notesList, setNotesList] = useState([]);
     const [boughtList, setBoughtList] = useState([]);
     const [page, setPage] = useState(1);
     const [totalPage, setTotalPage] = useState(1);
     const navigate = useNavigate();
+    const params = props.category;
 
     useEffect(()=>{
-        api.getNotesByPage(page-1)
-            .then((response)=>{
-                setNotesList(response.data.data.notes.content)
-                setTotalPage(response.data.data.notes.totalPages)
-            });
+        try {
+            if (!(params.category.length === 0)){
+                api.getNoteByCategory(params.category,page-1)
+                    .then((response)=>{
+                        setNotesList(response.data.data.notes.content);
+                        setTotalPage(response.data.data.notes.totalPages)
+
+                    })
+            }
+        } catch (err){
+            api.getNotesByPage(page-1)
+                .then((response)=>{
+                    setNotesList(response.data.data.notes.content)
+                    setTotalPage(response.data.data.notes.totalPages)
+                });
+        }
+
+
         api.getSelf()
             .then((response)=>{
                 api.getBoughtNotes(response.data.data.user.id)
@@ -39,7 +53,7 @@ const NoteList = () =>{
 
         // verify note bought
 
-    },[]);
+    },[params]);
 
     const saveNote = (noteID)=>{
         api.saveNote(noteID)

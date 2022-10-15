@@ -52,7 +52,6 @@ const DiscussionList = (props)=>{
     },[params])
 
     const likerRendder = (index)=> {
-        console.log('ress',index)
         if (index.jsonLiker.length === 0) {
             return <>
                 <img

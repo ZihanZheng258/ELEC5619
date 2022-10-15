@@ -15,13 +15,13 @@ const ExampleComment = ({ item }) => (
         
         <Tooltip key="comment-basic-like" title="Like">
         <span >
-        <img
-                                src= {svg}
-                                alt=""
-                                width={25}
-height={25}                     
-                            />
-          <span className="comment-action">{item.likeNumber}</span>
+{/*        <img*/}
+{/*                                src= {svg}*/}
+{/*                                alt=""*/}
+{/*                                width={25}*/}
+{/*height={25}                     */}
+{/*                            />*/}
+{/*          <span className="comment-action">{item.likeNumber}</span>*/}
         </span>
       </Tooltip>,
 
