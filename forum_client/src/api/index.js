@@ -377,5 +377,11 @@ export default {
         {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
 
     )
+    },
+    getNoteByCategory: (noteCategory,page)=>{
+        return axios.get("http://localhost:8090/note/category/"+noteCategory+"/"+page,
+            {headers:{"Authorization":`Bearer `+localStorage.getItem("token")}}
+
+        )
     }
 }

@@ -34,16 +34,16 @@ const SidebarMenu = ()=>{
 
 
     useEffect(()=>{
-        // api.getWeather()
-        //     .then((response)=>{
-        //         setWeather(response.data.data.weather)
-        //     })
-        // axios.request(options).then(function (response) {
-        //     console.log(response.data);
-        //     setLocation(response.data.city)
-        // }).catch(function (error) {
-        //     console.error(error);
-        // });
+        api.getWeather()
+            .then((response)=>{
+                setWeather(response.data.data.weather)
+            })
+        axios.request(options).then(function (response) {
+            console.log(response.data);
+            setLocation(response.data.city)
+        }).catch(function (error) {
+            console.error(error);
+        });
 
 
     })
@@ -96,42 +96,42 @@ const SidebarMenu = ()=>{
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/notes">
+                                    <Link to={{pathname:"/notes/category/Art and social sciences",state:{category: "Art and social sciences"}}}>
                                         Art and social sciences
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/notes">
+                                    <Link to={{pathname:"/notes/category/Engineering",state:{category: "Engineering"}}}>
                                         Engineering
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/notes">
+                                    <Link to={{pathname:"/notes/category/Medicine and health",state:{category: "Medicine and health"}}}>
                                         Medicine and health
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/notes">
+                                    <Link to={{pathname:"/notes/category/Science",state:{category: "Science"}}}>
                                         Science
                                     </Link>
                                 </li>
+                                {/*<li>*/}
+                                {/*    <Link to={{pathname:"/notes/category/Architecture, design and planning",state:{category: "Architecture, design and planning"}}}>*/}
+                                {/*        Architecture, design and planning*/}
+                                {/*    </Link>*/}
+                                {/*</li>*/}
                                 <li>
-                                    <Link to="/notes">
-                                        Architecture, design and planning
-                                    </Link>
-                                </li>
-                                <li>
-                                    <Link to="/notes">
+                                    <Link to={{pathname:"/notes/category/Business",state:{category: "Business"}}}>
                                         Business
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/notes">
+                                    <Link to={{pathname:"/notes/category/Law",state:{category: "Law"}}}>
                                         Law
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link to="/notes">
+                                    <Link to={{pathname:"/notes/category/Music",state:{category: "Music"}}}>
                                         Music
                                     </Link>
                                 </li>

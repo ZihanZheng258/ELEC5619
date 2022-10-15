@@ -151,6 +151,21 @@ public class NoteController {
         return jsonReturnType;
     }
 
+    @GetMapping("/category/{name}/{page}")
+    @ResponseBody
+    public JsonReturnType getNoteForCategoryByName(@PathVariable String name,@PathVariable int page){
+        JsonReturnType jsonReturnType = new JsonReturnType();
+        Category_Note category_note = noteCategoryService.getByContent(name);
+        Pageable pageable = PageRequest.of(page,15);
+        Page<Note> page1 = noteService.findByCategoryPaged(category_note.getId(),pageable);
+        noteService.loadOwnerUserDataForPage(page1);
+        noteService.loadCategoryDataForPage(page1);
+        jsonReturnType.getData().put("notes",page1);
+        jsonReturnType.setFlag(true);
+        jsonReturnType.setMessage("");
+        return jsonReturnType;
+    }
+
     @GetMapping("/owner/{id}")
     @ResponseBody
     public JsonReturnType getNoteForOwner(@PathVariable int id){

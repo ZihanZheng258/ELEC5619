@@ -132,7 +132,11 @@ const AppRouter = () => {
                         <Discussion />
                     </RouteGuard>
                 }></Route>
-
+                <Route path="/notes/category/:category" element={
+                    <RouteGuard>
+                        <Note />
+                    </RouteGuard>
+                }></Route>
                 <Route path="/login" element={
                     <Login />
                 }></Route>

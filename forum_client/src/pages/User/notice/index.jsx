@@ -63,7 +63,7 @@ const Notice =  () => {
                             <Avatar shape="square" size="large" src={item.avatar} />
                         </Badge>
                         <List.Item.Meta style={{ marginLeft: '20px' }}
-                            title={<a href="https://ant.design">{item.jsonReceiver.nickName}</a>}
+                            title={item.jsonReceiver.nickName}
                             description={item.content}
                         />
                     </List.Item>

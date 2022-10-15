@@ -29,10 +29,10 @@ public class UserController {
 
     @PutMapping("/password")
     @ResponseBody
-    public JsonReturnType modifyPassword(@RequestBody String password,Principal user){
+    public JsonReturnType modifyPassword(@RequestBody User password,Principal user){
         User user1 = userService.getUserByNickName(user.getName());
-        user1.setPassword(password);
-        userService.encryptPassword(user1);
+        user1.setPassword(password.getPassword());
+        System.out.println("/n/n/n/n/n/n/n/n/n/n/n +" +password.getPassword());
         userService.insert(user1);
         JsonReturnType jsonReturnType = JsonReturnType.successReturn();
         jsonReturnType.getData().put("user",user1);
