@@ -90,59 +90,7 @@ const Settings = () => {
                 }
             />
             {/* changeNickName */}
-            <Result
-                status='warning'
-                extra={
-                    <>
-                        <Form
-                            name='basic'
-                            labelCol={{
-                                span: 10,
-                            }}
-                            wrapperCol={{
-                                span: 14,
-                            }}
-                            initialValues={{
-                                remember: false,
-                            }}
-                            autoComplete='off'
-                            onFinish={onFinish}
-                        >
-                            <Form.Item label='Current Nickname' name='oldnickname'>
-                                <Input disabled defaultValue='test001' />
-                            </Form.Item>
-
-                            <Form.Item
-                                label='New Nickname'
-                                name='newnickname'
-                                rules={[
-                                    {
-                                        required: true,
-                                        message: 'Please input your new nickname!',
-                                    },
-                                ]}
-                            >
-                                <Input />
-                            </Form.Item>
-                        </Form>
-                        <Button
-                            type='primary'
-                            htmlType='submit'
-                            onClick={() => {
-                                updataUserInfo(
-                                    {
-                                        oldNikeName: 'oldxxxx',
-                                        newNikeName: 'newxxxx',
-                                    },
-                                    'changeNickName'
-                                )
-                            }}
-                        >
-                            Update NikeName
-                        </Button>
-                    </>
-                }
-            />
+            
         </div>
     )
 }

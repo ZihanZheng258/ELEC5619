@@ -2,6 +2,7 @@ import { Navigate, useLocation } from "react-router";
 import moment from "moment";
 
 const RouteGuard: React.FC<{ children: JSX.Element }> = ({ children }) => {
+
     function hasJWT() {
         let flag = false;
         moment.suppressDeprecationWarnings = true;
@@ -16,7 +17,12 @@ const RouteGuard: React.FC<{ children: JSX.Element }> = ({ children }) => {
         return flag
     }
     let location = useLocation();
-    if (!hasJWT()) {
+    if(location.pathname=='/register'){
+
+        return children;
+    }
+
+    else if (!hasJWT()) {
         return <Navigate to="/login" state={{ from: location }} />;
     }
     return children;
