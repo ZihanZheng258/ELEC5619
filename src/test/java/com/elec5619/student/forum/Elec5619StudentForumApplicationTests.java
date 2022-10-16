@@ -20,6 +20,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Rollback;
@@ -83,26 +84,78 @@ class Elec5619StudentForumApplicationTests {
 		category.setContent("test");
 		categoryDao.save(category);
 	}
+
+	@Test
+	void getCategory(){
+		System.out.println(categoryService.findAllCategory());
+		System.out.println(categoryService.getByContent("test"));
+		System.out.println(categoryService.getByID(3));
+	}
+
+	@Test
+	void testNewComment(){
+		Comment comment = new Comment();
+		comment.setSender(userService.getUserByID(2));
+		comment.setDiscussion(discussionService.findById(3));
+		comment.setContent("testContent");
+		commentService.insertOrUpdate(comment);
+
+	}
+
+	@Test
+	void CommentSearch(){
+		System.out.println(commentService.findCommentByDiscussionMain(2));
+		System.out.println(commentService.findCommentByDiscussion(2));
+		System.out.println(commentService.findCommentByUserId(3));
+		System.out.println(commentService.findByID(5));
+		System.out.println(commentService.findChildComments(5));
+	}
+
+	@Test
+	void CommentAddLikeTest(){
+		Comment comment = commentService.findByID(5);
+		commentService.addLike(comment);
+	}
+
     @Test
 	void addDiscussion(){
 		Discussion discussion = new Discussion();
 		discussion.setTitle("testTitile");
+		discussion.setContent("testContent");
+		discussion.setUser(userService.getUserByNickName("tester"));
+		discussion.setCategory(categoryService.getByContent("test"));
 		discussionDao.save(discussion);
 	}
 
 	@Test
-	void getCategoryWithDiscussion() throws InterruptedException {
-        try {
-			categoryDao.deleteById(new Integer(3));
-		}catch (Exception e){
+	void discussionSearch() throws InterruptedException {
+		Pageable pageable = PageRequest.of(0,15);
+		System.out.println(discussionService.findByContain("test",pageable));
+		System.out.println(discussionService.findByCategoryPaged(2,pageable));
+		System.out.println(discussionService.findByUser(3));
+		System.out.println(discussionService.findByUser("test"));
+		System.out.println(discussionService.findByCategory(3));
+		System.out.println(discussionService.findById(7));
+		System.out.println(discussionService.findByCategoryPaged("life",pageable));
 
-		}
-
-
-		Thread.sleep(10000);
-
-		categoryDao.deleteById(new Integer(3));
 	}
+
+	@Test
+	void discussionLikeTest(){
+		discussionService.beenLiked(discussionService.findById(7),5);
+	}
+
+	@Test
+	void discussionCancelLikeTest(){
+		discussionService.cancelLiked(discussionService.findById(7),5);
+	}
+
+	@Test
+	void discussionViewedTest(){
+		discussionService.beenViewed(discussionService.findById(7));
+	}
+
+
 
 	@Test
 	void AddCategoryNote()throws InterruptedException{
@@ -128,7 +181,9 @@ class Elec5619StudentForumApplicationTests {
 	void CategoryNoteSearchTest(){
 		System.out.println(noteCategoryDao.findAll());
 		System.out.println(noteCategoryDao.findByContent("Engineering"));
+		System.out.println(noteCategoryDao.findById(5));
 	}
+
 
 	@Test
 	void addUserTest(){
@@ -136,8 +191,15 @@ class Elec5619StudentForumApplicationTests {
 		user.setPassword("hjkk445998");
 		user.setEmail("test");
 		user.setPhoneNumber("3423523543");
-		user.setNickName("zzh");
+		user.setNickName("zzh2342344");
+		user.setSignature("test");
 		userService.insert(user);
+	}
+
+	@Test
+	void userSearchTest(){
+		System.out.println(userService.getUserByNickName("test"));
+		System.out.println(userService.getUserByID(5));
 	}
 
 	@Test
